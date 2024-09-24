@@ -28,6 +28,10 @@ info:
 tags: 
   - name: Authentication
     description: 'Operaciones relacionadas con la autenticación de usuarios y manejo de sesiones.'
+  - name: Customers
+    description: 'Operaciones relacionadas con los clientes contratantes y colaboradores.'
+  - name: Accounts
+    description: 'Operaciones relacionadas con las cuentas y sus movimientos.'
   - name: Transfers
     description: 'Operaciones relacionadas con el envío y recepción de dinero entre cuentas.'
   - name: Cards
@@ -37,9 +41,9 @@ tags:
   - name: Payments
     description: 'Operaciones relacionadas con la realización de pagos de servicios y otras transacciones monetarias.'
 paths:
-  /api/v1/auth/login:
+  /login:
     post:
-      summary: Autenticación / Login
+      summary: Autenticación
       deprecated: false
       description: |
         Permite a los usuarios autenticarse en la plataforma Kubit. 
@@ -53,7 +57,7 @@ paths:
           in: header
           description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
           required: false
-          example: KU_YOUR_KEY
+          example: KU_{YOUR_KEY}
           schema:
             type: string
       requestBody:
@@ -123,6 +127,966 @@ paths:
                     description: 'Mensaje de error indicando un fallo interno en el servidor.'
                     example: 'Internal Server Error'
       security: []
+  
+  /api/v1/partners:
+    post:
+      summary: Crear un cliente contratante
+      deprecated: false
+      description: |
+        Permite crear un cliente contratante en la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: partners
+      tags: 
+        - Customers
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rfc:
+                  type: string
+                  description: 'RFC de la empresa'
+                  example: 'XXX000000X00'
+                company_name:
+                  type: string
+                  format: string
+                  description: 'Razón social de la empresa'
+                  example: 'MI EMPRESA S.A. DE C.V.'
+                taxpayer_type_id:
+                  type: integer
+                  format: integer
+                  description: 'Tipo de persona fiscal'
+                  example: '1 persona fisica, 2 persona moral'
+                company_address:
+                  type: object
+                  description: 'Dirección fiscal de la empresa'
+                  properties:
+                    street:
+                      type: string
+                      format: string
+                      description: 'Calle'
+                    num_ext:
+                      type: string
+                      format: string
+                      description: 'Número exterior'
+                    num_int:
+                      type: string
+                      format: string
+                      description: 'Número interior'
+                    reference:
+                      type: string
+                      format: string
+                      description: 'Datos de referencia para llegar a la ubicación'
+                      example: 'A una cuadra del parque...'
+                    neighborhood:
+                      type: string
+                      format: string
+                      description: 'Colonia'
+                    district:
+                      type: string
+                      format: string
+                      description: 'Delegación / Municipio'
+                    estate:
+                      type: string
+                      format: string
+                      description: 'Estado / Entidad federativa'
+                      example: ''
+                    cp:
+                      type: string
+                      format: string
+                      description: 'Código Postal'
+                      example: '12345'
+                  required:
+                    - cp
+                contact_name:
+                  type: string
+                  format: string
+                  description: 'Nombre completo del contacto'
+                  example: ''
+                contact_email:
+                  type: string
+                  format: string
+                  description: 'Correo electrónico del contacto'
+                  example: 'micuenta@servidor.com'
+                contact_tel:
+                  type: string
+                  format: string
+                  description: 'Número de telefono del contacto'
+                  example: '1234567890'
+                company_tel:
+                  type: string
+                  format: string
+                  description: 'Número de telefono de la empresa'
+                  example: '1234567890'
+              required:
+                - rfc
+                - taxpayer_type_id
+                - company_address
+                - contact_name
+                - contact_email
+      responses:
+        '201':
+          description: 'El cliente fue creado de manera exitosa'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 201 indica éxito.'
+                    example: 201
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/partners/paged:
+    get:
+      summary: Obtener clientes contratantes
+      deprecated: false
+      description: |
+        Permite obtener todos los clientes contratantes de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: partners_paged
+      tags: 
+        - Customers
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: 'Establece la primera posición que se retornará a partir de los resultados de la consulta. El valor predeterminado es 0, que inicia la página en el primer resultado.'
+          required: true
+          example: paged?offset=1
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: 'Indica el número de registros a devolver en cada página.'
+          required: true
+          example: paged?limit=20
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: 'Texto que se usara como filtro de búsqueda.'
+          required: true
+          example: Texto a buscar...
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la autenticación fue exitosa.'
+                    example: "ok"
+                  Total:
+                    type: integer
+                    description: 'Total de registros encontrados.'
+                    example: 2
+                  Data:
+                    type: array
+                    description: 'Objeto que contiene los datos resultantes.'
+                    items:
+                      type: object
+                      properties:
+                        rfc:
+                          type: string
+                          format: string
+                          description: 'RFC de la empresa.'
+                        company_name:
+                          type: string
+                          format: string
+                          description: 'Razón social de la empresa.'
+                        taxpayer_type_id:
+                          type: integer
+                          format: integer
+                          description: 'Tipo de persona fiscal.'
+                        company_address:
+                          description: 'Dirección fiscal de la empresa.'
+                          type: object
+                          properties:
+                            street:
+                              type: string
+                              format: string
+                              description: 'Calle.'
+                            num_ext:
+                              type: string
+                              format: string
+                              description: 'Número exterior.'
+                            num_int:
+                              type: string
+                              format: string
+                              description: 'Número interior.'
+                            reference:
+                              type: string
+                              format: string
+                              description: 'Datos de referencia para llegar a la ubicación.'
+                            neighborhood:
+                              type: string
+                              format: string
+                              description: 'Colonia.'
+                            district:
+                              type: string
+                              format: string
+                              description: 'Delegación / Municipio.'
+                            estate:
+                              type: string
+                              format: string
+                              description: 'Estado / Entidad federativa.'
+                            cp:
+                              type: string
+                              format: string
+                              description: 'Código Postal.'
+                        contact_name:
+                          type: string
+                          format: string
+                          description: 'Nombre completo del contacto.'
+                        contact_email:
+                          type: string
+                          format: string
+                          description: 'Correo electrónico del contacto.'
+                        contact_tel:
+                          type: string
+                          format: string
+                          description: 'Número de telefono del contacto.'
+                        company_tel:
+                          type: string
+                          format: string
+                          description: 'Número de telefono de la empresa.'
+                  
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/partners/{partnerId}:
+    get:
+      summary: Obtener un cliente contratante por id
+      deprecated: false
+      description: |
+        Permite obtener un cliente contratante por id de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: partners_id
+      tags: 
+        - Customers
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+        - name: partnerId
+          in: path
+          description: 'Identificador único del cliente contratante.'
+          required: true
+          example: /partners/12345
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Registro obtenido de manera exitosa.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
+                  Data:
+                    type: object
+                    description: 'Objeto que contiene los datos resultantes.'
+                    properties:
+                      rfc:
+                        type: string
+                        format: string
+                        description: 'RFC de la empresa.'
+                      company_name:
+                        type: string
+                        format: string
+                        description: 'Razón social de la empresa.'
+                      taxpayer_type_id:
+                        type: integer
+                        format: integer
+                        description: 'Tipo de persona fiscal.'
+                      company_address:
+                        type: object
+                        properties:
+                          street:
+                            type: string
+                            format: string
+                            description: 'Calle.'
+                          num_ext:
+                            type: string
+                            format: string
+                            description: 'Número exterior.'
+                          num_int:
+                            type: string
+                            format: string
+                            description: 'Número interior.'
+                          reference:
+                            type: string
+                            format: string
+                            description: 'Datos de referencia para llegar a la ubicación.'
+                          neighborhood:
+                            type: string
+                            format: string
+                            description: 'Colonia.'
+                          district:
+                            type: string
+                            format: string
+                            description: 'Delegación / Municipio.'
+                          estate:
+                            type: string
+                            format: string
+                            description: 'Estado / Entidad federativa.'
+                          cp:
+                            type: string
+                            format: string
+                            description: 'Código Postal.'
+                      contact_name:
+                        type: string
+                        format: string
+                        description: 'Nombre completo del contacto.'
+                      contact_email:
+                        type: string
+                        format: string
+                        description: 'Correo electrónico del contacto.'
+                      contact_tel:
+                        type: string
+                        format: string
+                        description: 'Número de telefono del contacto.'
+                      company_tel:
+                        type: string
+                        format: string
+                        description: 'Número de telefono de la empresa.'
+                  
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/customers:
+    post:
+      summary: Crear un cliente colaborador
+      deprecated: false
+      description: |
+        Permite crear un cliente colaborador en la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: customers
+      tags: 
+        - Customers
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rfc:
+                  type: string
+                  description: 'RFC de la empresa si es persona Moral o del cliente si es persona Fisica.'
+                  example: 'XXX000000X00'
+                company_name:
+                  type: string
+                  format: string
+                  description: 'Razón social de la empresa si es persona Moral.'
+                  example: 'MI EMPRESA S.A. DE C.V.'
+                name:
+                  type: string
+                  format: string
+                  description: 'Nombre del cliente si es persona Fisica.'
+                  example: 'Ernesto Miguel'
+                ap_paterno:
+                  type: string
+                  format: string
+                  description: 'Apellido paterno del cliente si es persona Fisica.'
+                  example: 'Aguirre'
+                ap_materno:
+                  type: string
+                  format: string
+                  description: 'Apellido materno del cliente si es persona Fisica.'
+                  example: 'Lopez'
+                taxpayer_type_id:
+                  type: integer
+                  format: integer
+                  description: 'Tipo de persona fiscal'
+                  example: '1 persona fisica, 2 persona moral'
+                address:
+                  description: 'Dirección fiscal de la empresa si es persona Moral o del cliente si es persona Fisica'
+                  type: object
+                  properties:
+                    street:
+                      type: string
+                      format: string
+                      description: 'Calle.'
+                    num_ext:
+                      type: string
+                      format: string
+                      description: 'Número exterior.'
+                    num_int:
+                      type: string
+                      format: string
+                      description: 'Número interior.'
+                    reference:
+                      type: string
+                      format: string
+                      description: 'Datos de referencia para llegar a la ubicación.'
+                      example: 'A una cuadra del parque...'
+                    neighborhood:
+                      type: string
+                      format: string
+                      description: 'Colonia.'
+                    district:
+                      type: string
+                      format: string
+                      description: 'Delegación / Municipio'
+                    estate:
+                      type: string
+                      format: string
+                      description: 'Estado / Entidad federativa.'
+                    cp:
+                      type: string
+                      format: string
+                      description: 'Código Postal.'
+                      example: '12345'
+                  required:
+                    - cp
+                contact_name:
+                  type: string
+                  format: string
+                  description: 'Nombre completo del contacto.'
+                  example: 'Ernesto Aguirre Colorado Lopez'
+                contact_email:
+                  type: string
+                  format: string
+                  description: 'Correo electrónico del contacto.'
+                  example: 'micuenta@servidor.com'
+                contact_tel:
+                  type: string
+                  format: string
+                  description: 'Número de telefono del contacto.'
+                  example: '1234567890'
+              required:
+                - rfc
+                - taxpayer_type_id
+                - address
+                - contact_email
+                - contact_tel
+      responses:
+        '201':
+          description: 'Cliente creado de manera exitosa.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 201 indica éxito.'
+                    example: 201
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/customers/paged:
+    get:
+      summary: Obtener clientes colaboradores
+      deprecated: false
+      description: |
+        Permite obtener todos los clientes colaboradores de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: customers_paged
+      tags: 
+        - Customers
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+        - name: partnerCustomerId
+          in: query
+          description: 'Identificador del cliente contratante'
+          required: true
+          example: paged?partnerCustomerId=12345
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: 'Establece la primera posición que se retornará a partir de los resultados de la consulta. El valor predeterminado es 0, que inicia la página en el primer resultado.'
+          required: true
+          example: paged?offset=1
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: 'Indica el número de registros a devolver en cada página.'
+          required: true
+          example: paged?limit=20
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: 'Texto que se usara como filtro de búsqueda'
+          required: true
+          example: Texto a buscar...
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Registros obtenidos de manera exitosa.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Total:
+                    type: integer
+                    description: 'Total de registros encontrados.'
+                    example: 2
+                  Data:
+                    type: array
+                    description: 'Objeto que contiene los datos resultantes.'
+                    items:
+                      type: object
+                      properties:
+                        rfc:
+                          type: string
+                          format: string
+                          description: 'RFC de la empresa si es persona Moral o del cliente si es persona Fisica.'
+                        parent_id:
+                          type: string
+                          format: string
+                          description: 'Identificador del registro padre.'
+                        account_customer_id:
+                          type: string
+                          format: string
+                          description: 'Identificador del cliente contratante al que pertenece.'
+                        level:
+                          type: integer
+                          format: integer
+                          description: 'Nivel que ocupa el cliente en la jerarquia, esto quiere decir si pertenece a otro cliente colaborador'
+                        company_name:
+                          type: string
+                          format: string
+                          description: 'Razón social de la empresa.'
+                        name:
+                          type: string
+                          format: string
+                          description: 'Nombre del cliente si es persona Fisica.'
+                        ap_paterno:
+                          type: string
+                          format: string
+                          description: 'Apellido paterno del cliente si es persona Fisica..'
+                        ap_materno:
+                          type: string
+                          format: string
+                          description: 'Apellido materno del cliente si es persona Fisica..'
+                        taxpayer_type_id:
+                          type: integer
+                          format: integer
+                          description: 'Tipo de persona fiscal'
+                          example: '1 persona fisica, 2 persona moral'
+                        address:
+                          description: 'Dirección fiscal de la empresa si es persona Moral o del cliente si es persona Fisica'
+                          type: object
+                          properties:
+                            street:
+                              type: string
+                              format: string
+                              description: 'Calle.'
+                            num_ext:
+                              type: string
+                              format: string
+                              description: 'Número exterior.'
+                            num_int:
+                              type: string
+                              format: string
+                              description: 'Número interior.'
+                            reference:
+                              type: string
+                              format: string
+                              description: 'Datos de referencia para llegar a la ubicación.'
+                            neighborhood:
+                              type: string
+                              format: string
+                              description: 'Colonia.'
+                            district:
+                              type: string
+                              format: string
+                              description: 'Delegación / Municipio.'
+                            estate:
+                              type: string
+                              format: string
+                              description: 'Estado / Entidad federativa.'
+                            cp:
+                              type: string
+                              format: string
+                              description: 'Código Postal.'
+                        contact_name:
+                          type: string
+                          format: string
+                          description: 'Nombre completo del contacto.'
+                        contact_email:
+                          type: string
+                          format: string
+                          description: 'Correo electrónico del contacto.'
+                        contact_tel:
+                          type: string
+                          format: string
+                          description: 'Número de telefono del contacto.'
+                        creation_date:
+                          type: string
+                          format: string
+                          description: 'Fecha en la que se creo el registro.'
+                  
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/customers/{customerId}:
+    get:
+      summary: Obtener un cliente colaborador por id
+      deprecated: false
+      description: |
+        Permite obtener un cliente colaborador por id de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: customers_id
+      tags: 
+        - Customers
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+        - name: customerId
+          in: path
+          description: 'Identificador del cliente colaborador'
+          required: true
+          example: customers/12345
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Registro obtenido de manera exitosa.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
+                  Data:
+                    type: object
+                    description: 'Objeto que contiene los datos resultantes.'
+                    properties:
+                        rfc:
+                          type: string
+                          format: string
+                          description: 'RFC de la empresa si es persona Moral o del cliente si es persona Fisica.'
+                        parent_id:
+                          type: string
+                          format: string
+                          description: 'Identificador del registro padre.'
+                        account_customer_id:
+                          type: string
+                          format: string
+                          description: 'Identificador del cliente contratante al que pertenece.'
+                        level:
+                          type: integer
+                          format: integer
+                          description: 'Nivel que ocupa el cliente en la jerarquia, esto quiere decir si pertenece a otro cliente colaborador'
+                        company_name:
+                          type: string
+                          format: string
+                          description: 'Razón social de la empresa.'
+                        name:
+                          type: string
+                          format: string
+                          description: 'Nombre del cliente si es persona Fisica.'
+                        ap_paterno:
+                          type: string
+                          format: string
+                          description: 'Apellido paterno del cliente si es persona Fisica..'
+                        ap_materno:
+                          type: string
+                          format: string
+                          description: 'Apellido materno del cliente si es persona Fisica..'
+                        taxpayer_type_id:
+                          type: integer
+                          format: integer
+                          description: 'Tipo de persona fiscal'
+                          example: '1 persona fisica, 2 persona moral'
+                        address:
+                          description: 'Dirección fiscal de la empresa si es persona Moral o del cliente si es persona Fisica'
+                          type: object
+                          properties:
+                            street:
+                              type: string
+                              format: string
+                              description: 'Calle.'
+                            num_ext:
+                              type: string
+                              format: string
+                              description: 'Número exterior.'
+                            num_int:
+                              type: string
+                              format: string
+                              description: 'Número interior.'
+                            reference:
+                              type: string
+                              format: string
+                              description: 'Datos de referencia para llegar a la ubicación.'
+                            neighborhood:
+                              type: string
+                              format: string
+                              description: 'Colonia.'
+                            district:
+                              type: string
+                              format: string
+                              description: 'Delegación / Municipio.'
+                            estate:
+                              type: string
+                              format: string
+                              description: 'Estado / Entidad federativa.'
+                            cp:
+                              type: string
+                              format: string
+                              description: 'Código Postal.'
+                        contact_name:
+                          type: string
+                          format: string
+                          description: 'Nombre completo del contacto.'
+                        contact_email:
+                          type: string
+                          format: string
+                          description: 'Correo electrónico del contacto.'
+                        contact_tel:
+                          type: string
+                          format: string
+                          description: 'Número de telefono del contacto.'
+                        creation_date:
+                          type: string
+                          format: string
+                          description: 'Fecha en la que se creo el registro.'
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
 components:
   schemas: {}
   securitySchemes: {}
