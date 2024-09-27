@@ -128,6 +128,142 @@ paths:
                     example: 'Internal Server Error'
       security: []
   
+  /api/v1/2fa/enroll:
+    post:
+      summary: Enrollar OTP
+      deprecated: false
+      description: |
+        Permite realizar el proceso de enrolamiento de un token OTP para pagos en la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: auth_otp_enroll
+      tags: 
+        - Authentication
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
+                  Data:
+                    type: string
+                    description: 'Código QR en base 64'
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/2fa/validate:
+    post:
+      summary: Validar OTP
+      deprecated: false
+      description: |
+        Permite realizar el proceso de validación de un token OTP para pagos en la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: auth_otp_validate
+      tags: 
+        - Authentication
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+        - name: Kubit-OTP
+          in: header
+          description: 'Token OTP. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: OTP 123456
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
   /api/v1/partners:
     post:
       summary: Crear un cliente contratante
@@ -1978,6 +2114,393 @@ paths:
                             type: string
                             format: string
                             description: 'Clave de rastreo del movimiento. (Spei)'
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/spei/send:
+    post:
+      summary: Enviar un pago
+      deprecated: false
+      description: |
+        Permite enviar un pago (spei out) a otro banco en la plataforma Kubit. Se requiere un apikey, un token y un OTP válidos para realizar la petición.
+      operationId: speiout
+      tags: 
+        - Payments
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+        - name: Kubit-OTP
+          in: header
+          description: 'Token OTP para asegurar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: OTP 123456
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                concept:
+                  type: string
+                  description: 'Motivo del pago'
+                beneficiaryAccount:
+                  type: string
+                  format: string
+                  description: 'Número de cuenta CLABE del beneficiario'
+                beneficiaryBank:
+                  type: string
+                  format: string
+                  description: 'Código de banco del beneficiario (Ver catálogo en /spei/banks)'
+                beneficiaryName:
+                  type: string
+                  format: string
+                  description: 'Nombre del beneficiario (Sin caracteres especiales ni acentos)'
+                beneficiaryUid:
+                  type: string
+                  format: string
+                  description: 'CURP o RFC del beneficiario'
+                beneficiaryAccountType:
+                  type: integer
+                  format: integer
+                  description: 'Tipo de cuenta del beneficiario'
+                payerAccount:
+                  type: string
+                  format: string
+                  description: 'Número de cuenta CLABE del ordenante'
+                payerBank:
+                  type: string
+                  format: string
+                  description: 'Código de banco del ordenante (Ver catálogo en /spei/banks)'
+                payerName:
+                  type: string
+                  format: string
+                  description: 'Nombre del ordenante (Sin caracteres especiales ni acentos)'
+                payerAccountType:
+                  type: integer
+                  format: integer
+                  description: 'Tipo de cuenta del ordenante'
+                amount:
+                  type: money
+                  format: money
+                  description: 'Monto de la transferencia. El monto máximo por orden de transferencia de la orden de pago que se manejará en SPEI será de: 999,999,999,999.99'
+                numericalReference:
+                  type: integer
+                  format: integer
+                  description: 'Referencia numérica asociada al pago'
+                paymentType:
+                  type: string
+                  format: string
+                  description: 'Tipo de pago asociado a la orden. (Ver catálogo en /spei/payment-types)'
+              required:
+                - concept
+                - beneficiaryAccount
+                - beneficiaryBank
+                - beneficiaryName
+                - beneficiaryUid
+                - beneficiaryAccountType
+                - payerAccount
+                - payerBank
+                - payerName
+                - payerAccountType
+                - amount
+                - numericalReference
+                - paymentType
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/spei/banks:
+    get:
+      summary: Obtener bancos
+      deprecated: false
+      description: |
+        Permite obtener todos los bancos para realizar un pago de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: spei_banks
+      tags: 
+        - Payments
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
+                  Data:
+                    type: array
+                    description: 'Objeto que contiene los datos resultantes.'
+                    items:
+                      properties:
+                          code:
+                            type: string
+                            format: string
+                            description: 'Código para identificar el banco cuando se crea una orden de pago.'
+                          legalKey:
+                            type: string
+                            format: string
+                            description: 'Clave legal bancaria sin prefijo Banxico.'
+                          name:
+                            type: string
+                            format: string
+                            description: 'Nombre del banco.'
+                          active:
+                            type: boolean
+                            format: boolean
+                            description: 'Si el banco se encuentra activo.'
+
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/spei/account-types:
+    get:
+      summary: Obtener tipos de cuenta
+      deprecated: false
+      description: |
+        Permite obtener todos los tipos de cuenta que se manejan o por los que se puede enviar una operación de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: spei_account_types
+      tags: 
+        - Payments
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
+                  Data:
+                    type: array
+                    description: 'Objeto que contiene los datos resultantes.'
+                    items:
+                      properties:
+                          key:
+                            type: string
+                            format: string
+                            description: 'Identificador unico para el registro de ordenes.'
+                          description:
+                            type: string
+                            format: string
+                            description: 'Descripción del tipo de cuenta.'
+                          active:
+                            type: boolean
+                            format: boolean
+                            description: 'Si el tipo de cuenta se encuentra activo. Si es falso, el tipo de cuenta no se puede utilizar para crear pedidos.'
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/spei/payment-types:
+    get:
+      summary: Obtener tipos de pago
+      deprecated: false
+      description: |
+        Permite obtener todos los tipos de pago que se manejan o por los que se puede enviar una operación de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: spei_payment_types
+      tags: 
+        - Payments
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
+                  Data:
+                    type: array
+                    description: 'Objeto que contiene los datos resultantes.'
+                    items:
+                      properties:
+                          key:
+                            type: string
+                            format: string
+                            description: 'Identificador unico para el registro de ordenes.'
+                          description:
+                            type: string
+                            format: string
+                            description: 'Descripción del tipo de cuenta.'
+                          active:
+                            type: boolean
+                            format: boolean
+                            description: 'Si el tipo de cuenta se encuentra activo. Si es falso, el tipo de cuenta no se puede utilizar para crear pedidos.'
         '401':
           description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
           content:
