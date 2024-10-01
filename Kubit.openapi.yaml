@@ -41,7 +41,7 @@ tags:
   - name: Payments
     description: 'Operaciones relacionadas con la realización de pagos de servicios y otras transacciones monetarias.'
 paths:
-  /login:
+  /api/v1/auth/login:
     post:
       summary: Autenticación
       deprecated: false
@@ -127,8 +127,168 @@ paths:
                     description: 'Mensaje de error indicando un fallo interno en el servidor.'
                     example: 'Internal Server Error'
       security: []
-  
-  /api/v1/2fa/enroll:
+
+  /api/v1/auth/roles:
+    post:
+      summary: Obtener roles
+      deprecated: false
+      description: |
+        Permite obtener los roles de usuario de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: auth_roles
+      tags: 
+        - Authentication
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
+                  Data:
+                    type: array
+                    description: 'Objeto que contiene los datos resultantes.'
+                    items:
+                      properties:
+                          id:
+                            type: string
+                            format: string
+                            description: 'Identificador unico del rol.'
+                          id_profile:
+                            type: string
+                            format: string
+                            description: 'Identificador unico del perfil asociado al rol.'
+                          name:
+                            type: string
+                            format: string
+                            description: 'Nombre del rol.'
+                          description:
+                            type: boolean
+                            format: boolean
+                            description: 'Descripción del rol.'
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/auth/profiles:
+    post:
+      summary: Obtener perfiles
+      deprecated: false
+      description: |
+        Permite obtener los perfiles asociados a los roles de usuario de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: auth_profiles
+      tags: 
+        - Authentication
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
+                  Data:
+                    type: array
+                    description: 'Objeto que contiene los datos resultantes.'
+                    items:
+                      properties:
+                          id:
+                            type: string
+                            format: string
+                            description: 'Identificador unico del perfil.'
+                          name:
+                            type: string
+                            format: string
+                            description: 'Nombre del perfil.'
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/auth/2fa/enroll:
     post:
       summary: Enrollar OTP
       deprecated: false
@@ -2179,54 +2339,67 @@ paths:
                 concept:
                   type: string
                   description: 'Motivo del pago'
+                  example: Payment
                 beneficiaryAccount:
                   type: string
                   format: string
                   description: 'Número de cuenta CLABE del beneficiario'
+                  example: '1234567890123456'
                 beneficiaryBank:
                   type: string
                   format: string
                   description: 'Código de banco del beneficiario (Ver catálogo en /spei/banks)'
+                  example: '1234'
                 beneficiaryName:
                   type: string
                   format: string
                   description: 'Nombre del beneficiario (Sin caracteres especiales ni acentos)'
+                  example: Juan Perez Hernandez
                 beneficiaryUid:
                   type: string
                   format: string
                   description: 'CURP o RFC del beneficiario'
+                  example: XAXX010101000
                 beneficiaryAccountType:
                   type: integer
                   format: integer
                   description: 'Tipo de cuenta del beneficiario'
+                  example: 1
                 payerAccount:
                   type: string
                   format: string
                   description: 'Número de cuenta CLABE del ordenante'
+                  example: '1234567890123456'
                 payerBank:
                   type: string
                   format: string
                   description: 'Código de banco del ordenante (Ver catálogo en /spei/banks)'
+                  example: '1234'
                 payerName:
                   type: string
                   format: string
                   description: 'Nombre del ordenante (Sin caracteres especiales ni acentos)'
+                  example: Ernesto Cruz Lopez
                 payerAccountType:
                   type: integer
                   format: integer
                   description: 'Tipo de cuenta del ordenante'
+                  example: 1
                 amount:
                   type: money
                   format: money
                   description: 'Monto de la transferencia. El monto máximo por orden de transferencia de la orden de pago que se manejará en SPEI será de: 999,999,999,999.99'
+                  example: 10.00
                 numericalReference:
                   type: integer
                   format: integer
                   description: 'Referencia numérica asociada al pago'
+                  example: 123
                 paymentType:
                   type: string
                   format: string
                   description: 'Tipo de pago asociado a la orden. (Ver catálogo en /spei/payment-types)'
+                  example: '1'
               required:
                 - concept
                 - beneficiaryAccount
