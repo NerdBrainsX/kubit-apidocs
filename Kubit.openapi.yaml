@@ -354,7 +354,7 @@ paths:
                     example: 'Internal Server Error'
       security: []
 
-  /api/v1/2fa/validate:
+  /api/v1/auth/2fa/validate:
     post:
       summary: Validar OTP
       deprecated: false
