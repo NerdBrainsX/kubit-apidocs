@@ -2340,80 +2340,78 @@ paths:
                   type: string
                   description: 'Motivo del pago'
                   example: Payment
-                beneficiaryAccount:
+                beneficiary_account:
                   type: string
                   format: string
                   description: 'Número de cuenta CLABE del beneficiario'
                   example: '1234567890123456'
-                beneficiaryBank:
+                beneficiary_bank:
                   type: string
                   format: string
                   description: 'Código de banco del beneficiario (Ver catálogo en /spei/banks)'
                   example: '1234'
-                beneficiaryName:
+                beneficiary_name:
                   type: string
                   format: string
                   description: 'Nombre del beneficiario (Sin caracteres especiales ni acentos)'
                   example: Juan Perez Hernandez
-                beneficiaryUid:
+                beneficiary_uid:
                   type: string
                   format: string
                   description: 'CURP o RFC del beneficiario'
                   example: XAXX010101000
-                beneficiaryAccountType:
+                beneficiary_account_type:
                   type: integer
                   format: integer
                   description: 'Tipo de cuenta del beneficiario'
                   example: 1
-                payerAccount:
+                beneficiary_email:
+                  type: string
+                  format: string
+                  description: 'Cuenta de correo del beneficiario'
+                  example: 'cuenta@servidor.com'
+                payer_account:
                   type: string
                   format: string
                   description: 'Número de cuenta CLABE del ordenante'
                   example: '1234567890123456'
-                payerBank:
-                  type: string
-                  format: string
-                  description: 'Código de banco del ordenante (Ver catálogo en /spei/banks)'
-                  example: '1234'
-                payerName:
-                  type: string
-                  format: string
-                  description: 'Nombre del ordenante (Sin caracteres especiales ni acentos)'
-                  example: Ernesto Cruz Lopez
-                payerAccountType:
-                  type: integer
-                  format: integer
-                  description: 'Tipo de cuenta del ordenante'
-                  example: 1
                 amount:
                   type: money
                   format: money
                   description: 'Monto de la transferencia. El monto máximo por orden de transferencia de la orden de pago que se manejará en SPEI será de: 999,999,999,999.99'
                   example: 10.00
-                numericalReference:
+                numerical_reference:
                   type: integer
                   format: integer
                   description: 'Referencia numérica asociada al pago'
                   example: 123
-                paymentType:
+                alias_beneficiary_account:
                   type: string
                   format: string
-                  description: 'Tipo de pago asociado a la orden. (Ver catálogo en /spei/payment-types)'
-                  example: '1'
+                  description: 'Nombre para guardar la cuenta del beneficiario'
+                  example: '1234567890123456'
+                save_beneficiary_account:
+                  type: boolean
+                  format: boolean
+                  description: 'Guardar la cuenta del beneficiario'
+                  example: true
               required:
                 - concept
-                - beneficiaryAccount
-                - beneficiaryBank
-                - beneficiaryName
-                - beneficiaryUid
-                - beneficiaryAccountType
-                - payerAccount
-                - payerBank
-                - payerName
-                - payerAccountType
+                - beneficiary_account
+                - beneficiary_bank
+                - beneficiary_name
+                - beneficiary_uid
+                - beneficiary_account_type
+                - beneficiary_email
+                - payer_account
+                #- payerBank
+                #- payerName
+                #- payerAccountType
                 - amount
-                - numericalReference
-                - paymentType
+                - numerical_reference
+                #- paymentType
+                - alias_beneficiary_account
+                - save_beneficiary_account
       responses:
         '200':
           content:
