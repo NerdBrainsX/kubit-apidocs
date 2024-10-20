@@ -2735,7 +2735,7 @@ paths:
                     example: 'Internal Server Error'
       security: []
 
-  /api/v1/transfer/send:
+  /api/v1/transfers/send:
     post:
       summary: Realizar un traspaso
       deprecated: false
