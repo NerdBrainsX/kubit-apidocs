@@ -27,19 +27,19 @@ info:
   version: 0.0.1
 tags: 
   - name: Authentication
-    description: 'Operaciones relacionadas con la autenticación de usuarios y manejo de sesiones.'
+    description: 'Operaciones relacionadas con la autenticación de usuarios, manejo de sesiones y OTPs.'
   - name: Customers
     description: 'Operaciones relacionadas con los clientes contratantes y colaboradores.'
   - name: Accounts
     description: 'Operaciones relacionadas con las cuentas y sus movimientos.'
+  - name: Payments
+    description: 'Operaciones relacionadas con el envío de dinero a otros bancos y pagos de servicios.'
   - name: Transfers
     description: 'Operaciones relacionadas con el envío y recepción de dinero entre cuentas.'
   - name: Cards
     description: 'Operaciones relacionadas con la gestión de tarjetas de crédito y débito.'
   - name: Reports
     description: 'Operaciones relacionadas con la generación de reportes de movimientos y saldos de cuentas.'
-  - name: Payments
-    description: 'Operaciones relacionadas con la realización de pagos de servicios y otras transacciones monetarias.'
 paths:
   /api/v1/auth/login:
     post:
@@ -2711,6 +2711,118 @@ paths:
                             type: boolean
                             format: boolean
                             description: 'Si el tipo de cuenta se encuentra activo. Si es falso, el tipo de cuenta no se puede utilizar para crear pedidos.'
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
+  /api/v1/transfer/send:
+    post:
+      summary: Realizar un traspaso
+      deprecated: false
+      description: |
+        Permite realizar traspasos entre cuentas de la plataforma Kubit. Se requiere un apikey, un token y un OTP válidos para realizar la petición.
+      operationId: transfer
+      tags: 
+        - Transfers
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+        - name: Kubit-OTP
+          in: header
+          description: 'Token OTP para asegurar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: OTP 123456
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                concept:
+                  type: string
+                  description: 'Motivo del traspaso'
+                  example: Pago
+                beneficiary_account:
+                  type: string
+                  format: string
+                  description: 'Número de cuenta del beneficiario'
+                  example: '123456789012'
+                issuer_account_id:
+                  type: string
+                  format: string
+                  description: 'Número de cuenta del ordenante'
+                  example: '123456789012'
+                amount:
+                  type: money
+                  format: money
+                  description: 'Monto del traspaso. El monto máximo del traspaso que se manejará será de: 999,999,999,999.99'
+                  example: 10.00
+                save_beneficiary_account:
+                  type: boolean
+                  format: boolean
+                  description: 'Guardar la cuenta del beneficiario'
+                  example: true
+                alias_beneficiary_account:
+                  type: string
+                  format: string
+                  description: 'Nombre para guardar la cuenta del beneficiario'
+                  example: 'Mi beneficiario'
+              required:
+                - concept
+                - beneficiary_account
+                - issuer_account_id
+                - amount
+                - save_beneficiary_account
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: string
+                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
         '401':
           description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
           content:
