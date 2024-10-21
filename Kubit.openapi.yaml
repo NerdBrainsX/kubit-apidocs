@@ -923,7 +923,7 @@ paths:
       deprecated: false
       description: |
         Permite actualizar el estatus un cliente contratante de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
-      operationId: partners_id
+      operationId: partner_status_update
       tags: 
         - Customers
       parameters:
