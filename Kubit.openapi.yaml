@@ -3021,6 +3021,80 @@ paths:
                     example: 'Internal Server Error'
       security: []
 
+  /api/v1/spei/orders/{orderId}/cep:
+    get:
+      summary: Obtener CEP
+      deprecated: false
+      description: |
+        Permite obtener la url de la transacción donde Banxico expone el comprobante electrónico de pago. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: spei_cep
+      tags: 
+        - Payments
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          description: 'Identificador unico de la orden de pago'
+          required: true
+          example: orders/12345
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Error:
+                    type: string
+                    description: 'Descripción del error.'
+                    example: "ok"
+                  Code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    example: 200
+                  Data:
+                    type: string
+                    description: 'Url de la transacción de Banxico'
+                    example: 'https://www.banxico.org.mx/cep/go?i=90684&s=20210220&d=i6dsXP742O6kt6TB...'
+        '401':
+          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando la naturaleza del problema.'
+                    example: 'Unauthorized'
+        '500':
+          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: 'Internal Server Error'
+      security: []
+
   /api/v1/transfers/send:
     post:
       summary: Realizar un traspaso
