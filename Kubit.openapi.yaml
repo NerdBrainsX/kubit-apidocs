@@ -1740,7 +1740,7 @@ paths:
             type: string
       responses:
         '201':
-          description: 'La cuenta fue creada de manera exitosa'
+          description: 'Created'
           content:
             application/json:
               schema:
@@ -1748,34 +1748,104 @@ paths:
                 properties:
                   Status:
                     type: string
-                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    description: 'Estado de la solicitud.'
                     example: "ok"
                   Code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta. 201 indica éxito.'
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
                     example: 201
-        '401':
-          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+        '400':
+          description: 'Bad Request'
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  status:
                     type: string
-                    description: 'Mensaje de error indicando la naturaleza del problema.'
-                    example: 'Unauthorized'
-        '500':
-          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '422':
+          description: Unprocessable Entity
+            <table>
+              <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+              </tr>
+              <tr>
+                <td>CODE-004</td>
+                <td>Cliente no aprobado</td>
+              </tr>
+            </table>
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 422
+                  message:
+                    type: string
+                    description: 'Código del error identificado.'
+                    example: CODE-001
+                    #examples: ['CODE-001', 'CODE-002']
+                    #examples:
+                    #  -
+                    #    - CODE-001 cuenta no encontrada
+                    #  -
+                    #    - CODE-002 La cuenta no pertenece al ordenante
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'error'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
                     type: string
                     description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: 'Internal Server Error'
+                    example: Internal Server Error
       security: []
 
   /api/v1/accounts/{accountId}:
@@ -2329,7 +2399,7 @@ paths:
             type: string
         - name: offset
           in: query
-          description: 'Establece la primera posición que se retornará a partir de los resultados de la consulta. El valor predeterminado es 0, que inicia la página en el primer resultado.'
+          description: 'Establece la primera posición que se retornará a partir de los resultados de la consulta. El valor indicado debe ser mayor que 0.'
           required: true
           example: paged?offset=1
           schema:
@@ -2343,124 +2413,159 @@ paths:
             type: string
       responses:
         '200':
-          description: 'Registros obtenidos de manera exitosa.'
+          description: 'OK'
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  Status:
+                  status:
                     type: string
-                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    description: 'Estado de la solicitud.'
                     example: "ok"
-                  Code:
+                  code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
                     example: 200
-                  Total:
+                  total:
                     type: integer
                     description: 'Total de registros encontrados.'
                     example: 2
-                  Data:
+                  data:
                     type: array
                     description: 'Objeto que contiene los datos resultantes.'
                     items:
                       properties:
-                          id:
-                            type: string
-                            format: string
-                            description: 'Identificador unico del movimiento.'
-                          account_id:
-                            type: string
-                            format: string
-                            description: 'Identificador unico de la cuenta (número de cuenta).'
-                          type:
-                            type: integer
-                            format: integer
-                            description: 'Tipo de movimiento.'
-                            example: '1 SpeiOut, 2 SpeiIn, 3 Traspaso'
-                          description:
-                            type: string
-                            format: string
-                            description: 'Descripción del movimiento.'
-                          amount:
-                            type: money
-                            format: money
-                            description: 'Monto del movimiento.'
-                          folio:
-                            type: string
-                            format: string
-                            description: 'Folio del movimiento.'
-                          status:
-                            type: string
-                            format: string
-                            description: 'Estatus del movimiento.'
-                          operation_date:
-                            type: string
-                            format: string
-                            description: 'Fecha en que se realizo el movimiento.'
-                          application_date:
-                            type: string
-                            format: string
-                            description: 'Fecha en que se aplico el movimiento. (Spei)'
-                          origin_bank_id:
-                            type: string
-                            format: string
-                            description: 'Clave del banco origen. (Spei)'
-                          payer_name:
-                            type: string
-                            format: string
-                            description: 'Nombre de la persona que realizo el movimiento. (Spei)'
-                          payer_account:
-                            type: string
-                            format: string
-                            description: 'Número de cuenta de la persona que realizo el movimiento. (Spei)'
-                          destination_bank_id:
-                            type: string
-                            format: string
-                            description: 'Clave del banco destino. (Spei)'
-                          beneficiary_name:
-                            type: string
-                            format: string
-                            description: 'Nombre del beneficiario del movimiento. (Spei)'
-                          beneficiary_account:
-                            type: string
-                            format: string
-                            description: 'Número de cuenta del beneficiario del movimiento. (Spei)'
-                          payment_purpose:
-                            type: string
-                            format: string
-                            description: 'Descripción del propósito del movimiento. (Spei)'
-                          reference:
-                            type: integer
-                            format: integer
-                            description: 'Número de referencia. (Spei)'
-                          tracking_key:
-                            type: string
-                            format: string
-                            description: 'Clave de rastreo del movimiento. (Spei)'
-        '401':
-          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+                        id:
+                          type: string
+                          format: string
+                          description: 'Identificador unico del movimiento.'
+                        account_id:
+                          type: string
+                          format: string
+                          description: 'Identificador unico de la cuenta (número de cuenta).'
+                        type:
+                          type: integer
+                          format: integer
+                          description: 'Tipo de movimiento.'
+                          example: '1 SpeiOut, 2 SpeiIn, 3 Traspaso'
+                        description:
+                          type: string
+                          format: string
+                          description: 'Descripción del movimiento.'
+                        amount:
+                          type: money
+                          format: money
+                          description: 'Monto del movimiento.'
+                        folio:
+                          type: string
+                          format: string
+                          description: 'Folio del movimiento.'
+                        status:
+                          type: string
+                          format: string
+                          description: 'Estatus del movimiento.'
+                        operation_date:
+                          type: string
+                          format: string
+                          description: 'Fecha en que se realizo el movimiento.'
+                        application_date:
+                          type: string
+                          format: string
+                          description: 'Fecha en que se aplico el movimiento. (Spei)'
+                        origin_bank_id:
+                          type: string
+                          format: string
+                          description: 'Clave del banco origen. (Spei)'
+                        payer_name:
+                          type: string
+                          format: string
+                          description: 'Nombre de la persona que realizo el movimiento. (Spei)'
+                        payer_account:
+                          type: string
+                          format: string
+                          description: 'Número de cuenta de la persona que realizo el movimiento. (Spei)'
+                        destination_bank_id:
+                          type: string
+                          format: string
+                          description: 'Clave del banco destino. (Spei)'
+                        beneficiary_name:
+                          type: string
+                          format: string
+                          description: 'Nombre del beneficiario del movimiento. (Spei)'
+                        beneficiary_account:
+                          type: string
+                          format: string
+                          description: 'Número de cuenta del beneficiario del movimiento. (Spei)'
+                        payment_purpose:
+                          type: string
+                          format: string
+                          description: 'Descripción del propósito del movimiento. (Spei)'
+                        reference:
+                          type: integer
+                          format: integer
+                          description: 'Número de referencia. (Spei)'
+                        tracking_key:
+                          type: string
+                          format: string
+                          description: 'Clave de rastreo del movimiento. (Spei)'
+        '400':
+          description: 'Bad Request'
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  status:
                     type: string
-                    description: 'Mensaje de error indicando la naturaleza del problema.'
-                    example: 'Unauthorized'
-        '500':
-          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'error'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
                     type: string
                     description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: 'Internal Server Error'
+                    example: Internal Server Error
       security: []
 
   /api/v1/accounts/{accountId}/movements/latest:
@@ -3359,86 +3464,6 @@ paths:
                     description: 'Mensaje de error indicando un fallo interno en el servidor.'
                     example: Internal Server Error
       security: []
-
-  #/api/v1/spei/payment-types:
-  #  get:
-  #    summary: Obtener tipos de pago
-  #    deprecated: false
-  #    description: |
-  #      Permite obtener todos los tipos de pago que se manejan o por los que se puede enviar una operación de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
-  #    operationId: spei_payment_types
-  #    tags: 
-  #      - Payments
-  #    parameters:
-  #      - name: Kubit-Api-Key
-  #        in: header
-  #        description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
-  #        required: true
-  #        example: KU_ZB2bXjQMh...
-  #        schema:
-  #          type: string
-  #      - name: Bearer Token
-  #        in: header
-  #        description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
-  #        required: true
-  #        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-  #        schema:
-  #          type: string
-  #    responses:
-  #      '200':
-  #        content:
-  #          application/json:
-  #            schema:
-  #              type: object
-  #              properties:
-  #                Status:
-  #                  type: string
-  #                  description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
-  #                  example: "ok"
-  #                Code:
-  #                  type: integer
-  #                  description: 'Código de estado HTTP correspondiente a la respuesta. 200 indica éxito.'
-  #                  example: 200
-  #                Data:
-  #                  type: array
-  #                  description: 'Objeto que contiene los datos resultantes.'
-  #                  items:
-  #                    properties:
-  #                        key:
-  #                          type: string
-  #                          format: string
-  #                          description: 'Identificador unico para el registro de ordenes.'
-  #                        description:
-  #                          type: string
-  #                          format: string
-  #                          description: 'Descripción del tipo de cuenta.'
-  #                        active:
-  #                          type: boolean
-  #                          format: boolean
-  #                          description: 'Si el tipo de cuenta se encuentra activo. Si es falso, el tipo de cuenta no se puede utilizar para crear pedidos.'
-  #      '401':
-  #        description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
-  #        content:
-  #          application/json:
-  #            schema:
-  #              type: object
-  #              properties:
-  #                error:
-  #                  type: string
-  #                  description: 'Mensaje de error indicando la naturaleza del problema.'
-  #                  example: 'Unauthorized'
-  #      '500':
-  #        description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
-  #        content:
-  #          application/json:
-  #            schema:
-  #              type: object
-  #              properties:
-  #                error:
-  #                  type: string
-  #                  description: 'Mensaje de error indicando un fallo interno en el servidor.'
-  #                  example: 'Internal Server Error'
-  #    security: []
 
 components:
   schemas: {}
