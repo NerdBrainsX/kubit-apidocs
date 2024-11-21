@@ -1111,7 +1111,7 @@ paths:
       security: []
 
   /api/v1/partners/{partnerId}/status/{statusId}:
-    get:
+    put:
       summary: Actualizar el estatus de un cliente contratante
       deprecated: false
       description: |
