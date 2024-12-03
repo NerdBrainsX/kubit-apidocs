@@ -3811,49 +3811,6 @@ paths:
                     type: string
                     description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
                     example: Unauthorized
-        '422':
-          description: Unprocessable Entity
-            <table>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>CODE-001</td>
-                <td>Cuenta no encontrada</td>
-              </tr>
-              <tr>
-                <td>CODE-002</td>
-                <td>La cuenta no pertenece al ordenante</td>
-              </tr>
-              <tr>
-                <td>CODE-003</td>
-                <td>Fondos insuficientes</td>
-              </tr>
-            </table>
-          content: 
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 422
-                  message:
-                    type: string
-                    description: 'Código del error identificado.'
-                    example: CODE-001
-                    #examples: ['CODE-001', 'CODE-002']
-                    #examples:
-                    #  -
-                    #    - CODE-001 cuenta no encontrada
-                    #  -
-                    #    - CODE-002 La cuenta no pertenece al ordenante
         '500':
           description: 'Internal Server Error'
           content:
