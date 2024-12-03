@@ -37,7 +37,7 @@ tags:
   - name: Transfers
     description: 'Operaciones relacionadas con el envío y recepción de dinero entre cuentas.'
   - name: Cards
-    description: 'Operaciones relacionadas con la gestión de tarjetas de crédito y débito.'
+    description: 'Operaciones relacionadas con la gestión de tarjetas físicas y virtuales.'
   - name: Reports
     description: 'Operaciones relacionadas con la generación de reportes de movimientos y saldos de cuentas.'
 paths:
@@ -619,6 +619,120 @@ paths:
                     type: string
                     description: 'Mensaje de error indicando un fallo interno en el servidor.'
                     example: 'Internal Server Error'
+      security: []
+
+  /api/v1/auth/keys/exchange:
+    post:
+      summary: Desencriptar datos
+      deprecated: false
+      description: |
+        Permite intercambiar una llave pública para desencriptar datos sensibles de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+      operationId: exchange_key
+      tags: 
+        - Authentication
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                public_key:
+                  type: string
+                  description: 'llave pública'
+              required:
+                - public_key
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    example: "ok"
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 200
+                  data:
+                    type: string
+                    description: 'llave AES 256'
+        '400':
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'error'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: Internal Server Error
       security: []
 
   /api/v1/partners:
@@ -3470,6 +3584,195 @@ paths:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
                     example: 200
+        '400':
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '422':
+          description: Unprocessable Entity
+            <table>
+              <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+              </tr>
+              <tr>
+                <td>CODE-001</td>
+                <td>Cuenta no encontrada</td>
+              </tr>
+              <tr>
+                <td>CODE-002</td>
+                <td>La cuenta no pertenece al ordenante</td>
+              </tr>
+              <tr>
+                <td>CODE-003</td>
+                <td>Fondos insuficientes</td>
+              </tr>
+            </table>
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 422
+                  message:
+                    type: string
+                    description: 'Código del error identificado.'
+                    example: CODE-001
+                    #examples: ['CODE-001', 'CODE-002']
+                    #examples:
+                    #  -
+                    #    - CODE-001 cuenta no encontrada
+                    #  -
+                    #    - CODE-002 La cuenta no pertenece al ordenante
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'error'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: Internal Server Error
+      security: []
+
+  /cards/accounts/{accountId}/cards:
+    post:
+      summary: Obtener tarjetas
+      deprecated: false
+      description: |
+        Permite obtener las tarjetas asociadas a una cuenta de la plataforma Kubit.
+        Se requiere un apikey, un token y un OTP válidos para realizar la petición.
+      operationId: get_cards_account
+      tags: 
+        - Cards
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
+          schema:
+            type: string
+        - name: Kubit-OTP
+          in: header
+          description: 'Token OTP para realizar la solicitud.'
+          required: true
+          example: OTP 123456
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          description: 'Identificador unico de la cuenta (número de cuenta)'
+          required: true
+          example: cards/accounts/12345/cards
+          schema:
+            type: string  
+      responses:
+        '200':
+          description: "Ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    example: "ok"
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 200
+                  data:
+                    type: object
+                    description: 'Objeto que contiene los datos resultantes.'
+                    properties:
+                        id:
+                          type: string
+                          format: string
+                          description: 'Identificador unico de la tarjeta.'
+                        type:
+                          type: string
+                          format: string
+                          description: 'Tipo de tarjeta.'
+                        active_function:
+                          type: string
+                          format: string
+                          description: 'Función de la tarjeta, CREDIT o DEBIT.'
+                        masked_pan:
+                          type: string
+                          format: string
+                          description: 'Número de la tarjeta.'
+                        cardholder_name:
+                          type: string
+                          format: string
+                          description: 'Nombre de la persona asociada a la tarjeta.'
+                        product_type:
+                          type: string
+                          format: string
+                          description: 'Tipo de producto.'
+                        account_id:
+                          type: string
+                          format: string
+                          description: 'Identificador único de la cuenta asociada a la tarjeta.'
         '400':
           description: 'Bad Request'
           content:
