@@ -2589,6 +2589,27 @@ paths:
           example: paged?limit=20
           schema:
             type: string
+        - name: status
+          in: query
+          description: 'Estado del movimiento.'
+          required: false
+          example: paged?status=scattered
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          description: 'Fecha de operación inicial.'
+          required: false
+          example: paged?startDate=11/12/2024
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          description: 'Fecha de operación final.'
+          required: false
+          example: paged?endDate=11/12/2024
+          schema:
+            type: string
       responses:
         '200':
           description: 'OK'
@@ -3688,7 +3709,7 @@ paths:
 
   /cards/accounts/{accountId}/cards:
     post:
-      summary: Obtener tarjetas
+      summary: Obtener tarjetas por cuenta
       deprecated: false
       description: |
         Permite obtener las tarjetas asociadas a una cuenta de la plataforma Kubit.
