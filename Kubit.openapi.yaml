@@ -2825,6 +2825,13 @@ paths:
           example: paged?limit=20
           schema:
             type: string
+        - name: type
+          in: query
+          description: 'Tipo de movimiento.'
+          required: false
+          example: paged?type=1
+          schema:
+            type: integer
         - name: status
           in: query
           description: 'Estado del movimiento.'
@@ -3233,6 +3240,246 @@ paths:
                             type: string
                             format: string
                             description: 'Correo del beneficiario.'
+        '400':
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'error'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: Internal Server Error
+      security: []
+
+  /api/v1/accounts/movements/status:
+    get:
+      summary: Obtener estados de movimientos
+      deprecated: false
+      description: |
+        Permite obtener todos los estados que puede tener un movimiento.
+      operationId: movements_status
+      tags: 
+        - Accounts
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    example: "ok"
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 200
+                  data:
+                    type: array
+                    description: 'Objeto que contiene los datos resultantes.'
+                    items:
+                      properties:
+                          id:
+                            type: string
+                            format: string
+                            description: 'Identificador único del estado del movimiento.'
+                          name:
+                            type: string
+                            format: string
+                            description: 'Nombre del estado del movimiento.'
+                          type:
+                            type: integer
+                            format: integer
+                            description: 'Tipo del estado del movimiento (1 pago, 2 tarjeta).'
+                      required:
+                        - id
+                        - name
+                        - type
+        '400':
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'error'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: Internal Server Error
+      security: []
+
+  /api/v1/accounts/movements/types:
+    get:
+      summary: Obtener tipos de movimientos
+      deprecated: false
+      description: |
+        Permite obtener todos los tipos que puede tener un movimiento.
+      operationId: movements_types
+      tags: 
+        - Accounts
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave API única para autenticar la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    example: "ok"
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 200
+                  data:
+                    type: array
+                    description: 'Objeto que contiene los datos resultantes.'
+                    items:
+                      properties:
+                          id:
+                            type: string
+                            format: string
+                            description: 'Identificador único del tipo de movimiento.'
+                          name:
+                            type: string
+                            format: string
+                            description: 'Nombre del tipo de movimiento.'
+                          type:
+                            type: integer
+                            format: integer
+                            description: 'Tipo del tipo de movimiento (1 pago, 2 tarjeta).'
+                      required:
+                        - id
+                        - name
+                        - type
         '400':
           description: 'Bad Request'
           content:
