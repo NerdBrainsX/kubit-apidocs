@@ -1066,6 +1066,11 @@ paths:
                       description: 'Código Postal'
                       example: '12345'
                   required:
+                    - street
+                    - num_ext
+                    - neighborhood
+                    - district
+                    - estate
                     - cp
                 contact_name:
                   type: string
@@ -1701,6 +1706,11 @@ paths:
                       description: 'Código Postal.'
                       example: '12345'
                   required:
+                    - street
+                    - num_ext
+                    - neighborhood
+                    - district
+                    - estate
                     - cp
                 contact_name:
                   type: string
