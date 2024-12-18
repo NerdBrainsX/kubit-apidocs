@@ -1735,42 +1735,87 @@ paths:
                 - contact_tel
       responses:
         '201':
-          description: 'Cliente creado de manera exitosa.'
+          description: "Created"
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  Status:
+                  status:
                     type: string
-                    description: 'Estado de la solicitud. En este caso, "ok" indica que la petición fue exitosa.'
+                    description: 'Estado de la solicitud.'
                     example: "ok"
-                  Code:
+                  code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta. 201 indica éxito.'
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
                     example: 201
-        '401':
-          description: 'Autenticación fallida. Esto ocurre cuando las credenciales proporcionadas son incorrectas.'
+                  data:
+                    type: object
+                    description: 'Objeto que contiene los datos resultantes.'
+                    properties:
+                      customer_id:
+                        type: string
+                        format: string
+                        description: 'Identificador único del cliente.'
+                required:
+                  - customer_id
+        '400':
+          description: 'Bad Request'
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  status:
                     type: string
-                    description: 'Mensaje de error indicando la naturaleza del problema.'
-                    example: 'Unauthorized'
-        '500':
-          description: 'Error interno del servidor. Ocurre cuando hay un problema en el servidor durante el procesamiento de la solicitud.'
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: 'error'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
                     type: string
                     description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: 'Internal Server Error'
+                    example: Internal Server Error
       security: []
 
   /api/v1/customers/paged:
