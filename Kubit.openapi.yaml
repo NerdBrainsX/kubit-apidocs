@@ -760,7 +760,7 @@ paths:
 
   /api/v1/auth/2fa/enroll:
     post:
-      summary: Enrollar OTP
+      summary: Enrolar OTP
       deprecated: false
       description: |
         Este endpoint permite realizar el proceso de enrolamiento de un token OTP para realizar pagos.
@@ -3348,21 +3348,21 @@ paths:
       summary: Obtener movimientos paginados
       deprecated: false
       description: |
-        Permite obtener todos los movimientos de una cuenta paginados de la plataforma Kubit. Se requiere un apikey y un token válidos para realizar la petición.
+        Este endpoint permite obtener todos los movimientos de una cuenta.
       operationId: accounts_movements_paged
       tags: 
         - Accounts
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave API única para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          description: 'Clave única para autenticar la solicitud.'
           required: true
           example: KU_ZB2bXjQMh...
           schema:
             type: string
         - name: Bearer Token
           in: header
-          description: 'Token para autenticar la solicitud. Proporcione esta clave en el encabezado de la solicitud.'
+          description: 'Token para autenticar la solicitud.'
           required: true
           example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
           schema:
