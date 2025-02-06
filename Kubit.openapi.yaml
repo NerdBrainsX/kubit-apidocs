@@ -5135,26 +5135,19 @@ paths:
                     example: Internal Server Error
       security: []
 
-
-
-
-
-
-
   /api/v1/transfers:
     post:
       summary: Realizar un traspaso
       deprecated: false
       description: |
-        Permite realizar traspasos entre cuentas de la plataforma Kubit. 
-        Se requiere un apikey, un token y un OTP válidos para realizar la petición.
+        Este endpoint permite realizar traspasos entre cuentas locales.
       operationId: transfer
       tags: 
         - Transfers
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave API única para autenticar la solicitud.'
+          description: 'Clave única para autenticar la solicitud.'
           required: true
           example: KU_ZB2bXjQMh...
           schema:
@@ -5194,7 +5187,7 @@ paths:
                   type: money
                   format: money
                   description: 'Monto del traspaso. El monto máximo del traspaso que se manejará será de: 999,999,999,999.99'
-                  example: 10.00
+                  example: 10000.00
                 concept:
                     type: string
                     description: 'Motivo del traspaso'
@@ -5287,6 +5280,22 @@ paths:
               <tr>
                 <td>CODE-003</td>
                 <td>Fondos insuficientes</td>
+              </tr>
+              <tr>
+                <td>CODE-008</td>
+                <td>No es posible realizar traspasos entre diferentes centro de costo</td>
+              </tr>
+              <tr>
+                <td>CODE-016</td>
+                <td>Error en la configuración de comisión</td>
+              </tr>
+              <tr>
+                <td>CODE-017</td>
+                <td>Configuración de comisión no encontrada</td>
+              </tr>
+              <tr>
+                <td>CODE-018</td>
+                <td>Error en el cálculo de la comisión</td>
               </tr>
             </table>
           content: 
