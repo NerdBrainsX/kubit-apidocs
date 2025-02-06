@@ -4815,7 +4815,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'OK'
           content:
             application/json:
               schema:
@@ -4935,7 +4935,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'OK'
           content:
             application/json:
               schema:
@@ -5058,7 +5058,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'OK'
           content:
             application/json:
               schema:
@@ -5347,14 +5347,14 @@ paths:
       summary: Obtener tarjetas de una cuenta
       deprecated: false
       description: |
-        Permite obtener las tarjetas asociadas a una cuenta de la plataforma Kubit.
+        Este endpoint permite obtener las tarjetas asociadas a una cuenta.
       operationId: get_cards_account
       tags: 
         - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave API única para autenticar la solicitud.'
+          description: 'Clave única para autenticar la solicitud.'
           required: true
           example: KU_ZB2bXjQMh...
           schema:
@@ -5375,7 +5375,7 @@ paths:
             type: string  
       responses:
         '200':
-          description: "Ok"
+          description: 'OK'
           content:
             application/json:
               schema:
@@ -5493,14 +5493,14 @@ paths:
       summary: Obtener una tarjeta por id
       deprecated: false
       description: |
-        Permite obtener una tarjeta por su identificador único.
+        Este endpoint permite obtener una tarjeta por su identificador único.
       operationId: get_card_cardId
       tags: 
         - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave API única para autenticar la solicitud.'
+          description: 'Clave única para autenticar la solicitud.'
           required: true
           example: KU_ZB2bXjQMh...
           schema:
@@ -5521,7 +5521,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'OK'
           content:
             application/json:
               schema:
@@ -5659,14 +5659,14 @@ paths:
       summary: Obtener datos de una tarjeta
       deprecated: false
       description: |
-        Permite obtener los datos sensibles de una tarjeta.
+        Este endpoint permite obtener los datos sensibles de una tarjeta.
       operationId: get_card_cardData
       tags: 
         - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave API única para autenticar la solicitud.'
+          description: 'Clave única para autenticar la solicitud.'
           required: true
           example: KU_ZB2bXjQMh...
           schema:
@@ -5687,7 +5687,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'OK'
           content:
             application/json:
               schema:
@@ -5800,14 +5800,14 @@ paths:
       summary: Obtener PIN de una tarjeta
       deprecated: false
       description: |
-        Permite obtener el PIN de una tarjeta.
+        Este endpoint permite obtener el PIN de una tarjeta.
       operationId: get_card_PIN
       tags: 
         - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave API única para autenticar la solicitud.'
+          description: 'Clave única para autenticar la solicitud.'
           required: true
           example: KU_ZB2bXjQMh...
           schema:
@@ -5828,7 +5828,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'OK'
           content:
             application/json:
               schema:
@@ -5916,14 +5916,14 @@ paths:
       summary: Crear un cvv dinámico
       deprecated: false
       description: |
-        Permite crear un cvv dinámico para una tarjeta.
+        Este endpoint permite crear un cvv dinámico para una tarjeta.
       operationId: create_card_dynamic_cvv
       tags: 
         - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave API única para autenticar la solicitud.'
+          description: 'Clave única para autenticar la solicitud.'
           required: true
           example: KU_ZB2bXjQMh...
           schema:
@@ -5944,7 +5944,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'OK'
           content:
             application/json:
               schema:
@@ -6047,14 +6047,14 @@ paths:
       summary: Consultar un cvv dinámico
       deprecated: false
       description: |
-        Permite consultar un cvv dinámico que no haya expirado.
+        Este endpoint permite consultar un cvv dinámico que no haya expirado.
       operationId: get_card_dynamic_cvv
       tags: 
         - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave API única para autenticar la solicitud.'
+          description: 'Clave única para autenticar la solicitud.'
           required: true
           example: KU_ZB2bXjQMh...
           schema:
@@ -6075,7 +6075,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'OK'
           content:
             application/json:
               schema:
