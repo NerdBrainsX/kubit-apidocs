@@ -1268,7 +1268,7 @@ security: []
     </tr>
     <tr>
       <td>CODE-014</td>
-      <td>Cuenta de correo registrada</td>
+      <td>Registered email account</td>
     </tr>
    </table>
   content: 
@@ -1807,23 +1807,23 @@ security: []
   <table>
               <tr>
                 <th>Código</th>
-                <th>Descripción</th>
+                <th>Description</th>
               </tr>
               <tr>
                 <td>CODE-011</td>
-                <td>Cliente no encontrado</td>
+                <td>Client not found</td>
               </tr>
               <tr>
                 <td>CODE-012</td>
-                <td>Cambio de estado no válido. No es posible pasar de un estado A a C sin pasar por B.</td>
+                <td>Invalid status change. It is not possible to transition from state A to C without passing through B.</td>
               </tr>
               <tr>
                 <td>CODE-013</td>
-                <td>Cambio de estado procesado correctamente pero, no fue posible crear la cuenta de usuario del cliente.</td>
+                <td>Status change processed successfully, but it was not possible to create the client's user account.</td>
               </tr>
               <tr>
                 <td>CODE-015</td>
-                <td>Cambio de estado procesado correctamente pero, no fue posible crear el api key del cliente.</td>
+                <td>Status change processed successfully, but it was not possible to create the client's API key.</td>
               </tr>
             </table>
   content: 
@@ -1998,20 +1998,20 @@ responses:
           properties:
             status:
               type: string
-                    description: 'Estado de la solicitud.'
+                    description: 'Request status.'
                     example: "ok"
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: 'HTTP status code corresponding to the response.'
                     example: 201
                   data:
                     type: object
-                    description: 'Objeto que contiene los datos resultantes.'
+                    description: 'Object containing the resulting data.'
                     properties:
                       customer_id:
                         type: string
                         format: string
-                        description: 'Identificador único del cliente.'
+                        description: 'Unique identifier of the client.'
                     required:
                       - customer_id
         '400':
@@ -2023,15 +2023,15 @@ responses:
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: 'Request status.'
                     examples: 'fail'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: 'HTTP status code corresponding to the response.'
                     example: 400
                   message:
                     type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    description: Error message indicating that the request was made incorrectly.'
                     example: Bad Request
         '401':
           description: 'Unauthorized'
@@ -2042,30 +2042,30 @@ responses:
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: 'Request status.'
                     examples: 'fail'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: 'HTTP status code corresponding to the response.'
                     example: 401
                   message:
                     type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    description: Error message indicating that you are not authorized to perform the requested action.'
                     example: Unauthorized
         '422':
           description: Unprocessable Entity
             <table>
               <tr>
                 <th>Código</th>
-                <th>Descripción</th>
+                <th>Description</th>
               </tr>
               <tr>
                 <td>CODE-013</td>
-                <td>No fue posible crear la cuenta de usuario del cliente</td>
+                <td>It was not possible to create the client's user account</td>
               </tr>
               <tr>
                 <td>CODE-014</td>
-                <td>Cuenta de correo registrada</td>
+                <td>Registered email account</td>
               </tr>
             </table>
           content: 
@@ -2075,15 +2075,15 @@ responses:
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: 'Request status.'
                     examples: 'fail'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: 'HTTP status code corresponding to the response.'
                     example: 422
                   message:
                     type: string
-                    description: 'Código del error identificado.'
+                    description: 'Identified error code.'
                     example: CODE-001
         '500':
           description: 'Internal Server Error'
@@ -2094,11 +2094,11 @@ responses:
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: 'Request status.'
                     examples: 'error'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: 'HTTP status code corresponding to the response.'
                     example: 500
                   message:
                     type: string
