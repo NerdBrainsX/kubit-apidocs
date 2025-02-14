@@ -2,32 +2,32 @@ openapi: 3.1.0
 info:
   title: LivingRock API
   description: |
-    La **LivingRock API** es una solución completa para la integración con el sistema de banca en línea de Kubit. 
-    Esta API permite a los desarrolladores crear aplicaciones que interactúen con diversas funcionalidades bancarias, 
-    incluyendo la autenticación de usuarios, gestión de cuentas, transferencia de fondos, manejo de tarjetas de crédito y débito, 
-    así como la generación de reportes detallados de movimientos y saldos.
+   The **LivingRock API** is a complete solution for integrating with Kubit's online banking system.
+  This API allows developers to create applications that interact with various banking functionalities, 
+  including user authentication, account management, fund transfers, credit and debit card management,  
+  as well as generating detailed reports on transactions and balances.
 
-    ### Principales Funcionalidades:
+    ### main features: |
     
-    - **Autenticación y Sesiones:** Permite a los usuarios iniciar sesión de manera segura y gestionar sus sesiones. 
-    - **Transferencias:** Facilita la transferencia de dinero entre cuentas dentro del mismo banco y hacia otras instituciones financieras.
-    - **Gestión de Tarjetas:** Permite la gestión de tarjetas de crédito y débito, incluyendo la activación, desactivación, y consulta de detalles.
-    - **Consultas de Saldos y Movimientos:** Proporciona acceso a la información detallada de saldos y movimientos de cuentas, permitiendo generar reportes personalizados.
-    - **Pagos y Servicios:** Integra funcionalidades para la realización de pagos de servicios y otras transacciones monetarias.
+  - **Authentication and Sessions:** Allows users to securely log in and manage their sessions.
+  - **Transfers:** Facilitates money transfers between accounts within the same bank and to other financial institutions.
+  - **Card Management:** Allows managing credit and debit cards, including activation, deactivation, and detail inquiries.
+  - **Balance and Transaction Inquiries:** Provides access to detailed account balance and transaction information, allowing for the generation of customized reports.
+  - **Payments and Services:** Integrates functionalities for making service payments and other financial transactions.
 
-    ### Seguridad:
+    ### Security:
     
-    Todas las interacciones con la API requieren autenticación a través de tokens JWT. 
-    Además, se recomienda el uso de HTTPS para todas las comunicaciones con la API para garantizar la seguridad y privacidad de los datos.
+    All interactions with the API require authentication through JWT tokens.
+    Additionally, the use of HTTPS is recommended for all communications with the API to ensure data security and privacy.
 
-    ### Público Objetivo:
+    ### target audience:
     
-    Esta API está diseñada para desarrolladores que buscan integrar capacidades bancarias en sus aplicaciones, 
-    desde aplicaciones móviles hasta soluciones web para la gestión financiera.
+    This API is designed for developers looking to integrate banking capabilities into their applications, 
+    from mobile apps to web-based financial management solutions.
   version: 0.0.1
 tags: 
   - name: Authentication
-    description: 'Operaciones relacionadas con la autenticación de usuarios, manejo de sesiones y OTPs.'
+    description: 'Operations related to user authentication, session management, and OTPs'
   - name: Customers
     description: 'Operaciones relacionadas con los clientes contratantes y colaboradores.'
   - name: Accounts
