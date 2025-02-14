@@ -821,819 +821,809 @@ security: []
                   example: Bad Request
         '401':
           description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: string
+          description: 'Request status.'
+          examples: 'fail'
+        code:
+          type: integer
+          description: 'HTTP status code corresponding to the response.'
+          example: 401
+        message:
+          type: string
+          description: 'Error message indicating that you are not authorized to perform the requested action.'
+          example: Unauthorized
+'500':
+  description: 'Internal Server Error'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'error'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 500
+          message:
+            type: string
+            description: 'Error message indicating an internal server failure.'
+            example: Internal Server Error
+security: []
 
-  /api/v1/auth/2fa/validate:
-    post:
-      summary: Validar OTP
-      deprecated: false
-      description: |
-        Este endpoint permite realizar el proceso de validación de un token OTP para realizar pagos.
-      operationId: auth_otp_validate
-      tags: 
-        - Authentication
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: Kubit-OTP
-          in: header
-          description: 'Token OTP.'
-          required: true
-          example: OTP 123456
-          schema:
-            type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/auth/keys/exchange:
-    post:
-      summary: Desencriptar datos
-      deprecated: false
-      description: |
-        Este endpoint permite intercambiar una llave pública para desencriptar datos sensibles.
-      operationId: exchange_key
-      tags: 
-        - Authentication
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-      requestBody:
+/api/v1/auth/2fa/validate:
+  post:
+    summary: Validate OTP
+    deprecated: false
+    description: |
+      This endpoint allows performing the OTP token validation process for making payments.
+    operationId: auth_otp_validate
+    tags: 
+      - Authentication
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
         required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: Kubit-OTP
+        in: header
+        description: 'OTP Token.'
+        required: true
+        example: OTP 123456
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "Ok"
         content:
           application/json:
             schema:
               type: object
               properties:
-                public_key:
+                status:
                   type: string
-                  description: 'llave pública'
-              required:
-                - public_key
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: string
-                    description: 'llave AES 256'
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/partners:
-    post:
-      summary: Crear un cliente contratante
-      deprecated: false
-      description: |
-        Este endpoint permite crear un cliente contratante.
-      operationId: partners
-      tags: 
-        - Customers
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                rfc:
-                  type: string
-                  description: 'RFC. Debe tener 12 caracteres para una persona moral y 13 caracteres para una persona fisica.'
-                  example: 'XAXX010101000'
-                company_name:
-                  type: string
-                  format: string
-                  description: 'Razón social'
-                  example: 'MI EMPRESA S.A. DE C.V.'
-                economic_activity:
-                  type: string
-                  format: string
-                  description: 'Actividad económica'
-                  example: 'Sector financiero'
-                business_activity:
-                  type: string
-                  format: string
-                  description: 'Giro'
-                  example: 'Prestación de servicios financieros'
-                taxpayer_type_id:
+                  description: 'Request status.'
+                  example: "ok"
+                code:
                   type: integer
-                  format: integer
-                  description: 'Tipo de persona fiscal'
-                  example: '1 persona fisica, 2 persona moral'
-                company_address:
-                  type: object
-                  description: 'Dirección fiscal'
-                  properties:
-                    street:
-                      type: string
-                      format: string
-                      description: 'Calle'
-                    num_ext:
-                      type: string
-                      format: string
-                      description: 'Número exterior'
-                    num_int:
-                      type: string
-                      format: string
-                      description: 'Número interior'
-                    reference:
-                      type: string
-                      format: string
-                      description: 'Datos de referencia para llegar a la ubicación'
-                    neighborhood:
-                      type: string
-                      format: string
-                      description: 'Colonia'
-                    district:
-                      type: string
-                      format: string
-                      description: 'Delegación / Municipio'
-                    estate:
-                      type: string
-                      format: string
-                      description: 'Estado / Entidad federativa'
-                      example: ''
-                    cp:
-                      type: string
-                      format: string
-                      description: 'Código Postal'
-                  required:
-                    - street
-                    - num_ext
-                    - neighborhood
-                    - district
-                    - estate
-                    - cp
-                contact_name:
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 200
+      '400':
+        description: 'Bad Request'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
                   type: string
-                  format: string
-                  description: 'Nombre completo del contacto'
-                contact_email:
+                  description: 'Request status.'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 400
+                message:
                   type: string
-                  format: string
-                  description: 'Correo electrónico de contacto'
-                contact_tel:
+                  description: 'Error message indicating that the request was made incorrectly.'
+                  example: Bad Request
+      '401':
+        description: 'Unauthorized'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
                   type: string
-                  format: string
-                  description: 'Número de telefono de contacto'
-                company_tel:
+                  description: 'Request status.'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 401
+                message:
                   type: string
-                  format: string
-                  description: 'Número de telefono de la empresa'
-              required:
-                - rfc
-                - company_name
-                - economic_activity
-                - business_activity
-                - taxpayer_type_id
-                - company_address
-                - contact_name
-                - contact_email
-                - contact_tel
+                  description: 'Error message indicating that you are not authorized to perform the requested action.'
+                  example: Unauthorized
+      '500':
+        description: 'Internal Server Error'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Request status.'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 500
+                message:
+                  type: string
+                  description: 'Error message indicating an internal server failure.'
+                  example: Internal Server Error
+security: []
+
+/api/v1/auth/keys/exchange:
+  post:
+    summary: Decrypt Data
+    deprecated: false
+    description: |
+      This endpoint allows exchanging a public key to decrypt sensitive data.
+    operationId: exchange_key
+    tags: 
+      - Authentication
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              public_key:
+                type: string
+                description: 'Public key'
+            required:
+              - public_key
+      responses:
+        '200':
+  description: 'OK'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            example: "ok"
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 200
+          data:
+            type: string
+            description: 'AES 256 key'
+'400':
+  description: 'Bad Request'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 400
+          message:
+            type: string
+            description: 'Error message indicating that the request was made incorrectly.'
+            example: Bad Request
+'401':
+  description: 'Unauthorized'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 401
+          message:
+            type: string
+            description: 'Error message indicating that you are not authorized to perform the requested action.'
+            example: Unauthorized
+'500':
+  description: 'Internal Server Error'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'error'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 500
+          message:
+            type: string
+            description: 'Error message indicating an internal server failure.'
+            example: Internal Server Error
+security: []
+
+/api/v1/partners:
+  post:
+    summary: Create a contracting client
+    deprecated: false
+    description: |
+      This endpoint allows creating a contracting client.
+    operationId: partners
+    tags: 
+      - Customers
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              rfc:
+                type: string
+                description: 'RFC. Must be 12 characters for a legal entity and 13 characters for an individual.'
+                example: 'XAXX010101000'
+              company_name:
+                type: string
+                format: string
+                description: 'Company name'
+                example: 'MY COMPANY S.A. DE C.V.'
+              economic_activity:
+                type: string
+                format: string
+                description: 'Economic activity'
+                example: 'Financial sector'
+              business_activity:
+                type: string
+                format: string
+                description: 'Industry'
+                example: 'Provision of financial services'
+              taxpayer_type_id:
+                type: integer
+                format: integer
+                description: 'Taxpayer type'
+                example: '1 for individual, 2 for legal entity'
+              company_address:
+                type: object
+                description: 'Tax address'
+                properties:
+                  street:
+                    type: string
+                    format: string
+                    description: 'Street'
+                  num_ext:
+                    type: string
+                    format: string
+                    description: 'Exterior number'
+                  num_int:
+                    type: string
+                    format: string
+                    description: 'Interior number'
+                  reference:
+                    type: string
+                    format: string
+                    description: 'Reference data to locate the address'
+                  neighborhood:
+                    type: string
+                    format: string
+                    description: 'Neighborhood'
+                  district:
+                    type: string
+                    format: string
+                    description: 'District / Municipality'
+                  estate:
+                    type: string
+                    format: string
+                    description: 'State / Federal entity'
+                    example: ''
+                  cp:
+                    type: string
+                    format: string
+                    description: 'Postal Code'
+                required:
+                  - street
+                  - num_ext
+                  - neighborhood
+                  - district
+                  - estate
+                  - cp
+              contact_name:
+                type: string
+                format: string
+                description: 'Full name of the contact'
+              contact_email:
+                type: string
+                format: string
+                description: 'Contact email'
+              contact_tel:
+                type: string
+                format: string
+                description: 'Contact phone number'
+              company_tel:
+                type: string
+                format: string
+                description: 'Company phone number'
+            required:
+              - rfc
+              - company_name
+              - economic_activity
+              - business_activity
+              - taxpayer_type_id
+              - company_address
+              - contact_name
+              - contact_email
+              - contact_tel
       responses:
         '201':
-          description: 'Created'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 201
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '422':
-          description: Unprocessable Entity
-            <table>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>CODE-014</td>
-                <td>Cuenta de correo registrada</td>
-              </tr>
-            </table>
-          content: 
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 422
-                  message:
-                    type: string
-                    description: 'Código del error identificado.'
-                    example: CODE-001
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+  description: 'Created'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            example: "ok"
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 201
+'400':
+  description: 'Bad Request'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 400
+          message:
+            type: string
+            description: 'Error message indicating that the request was made incorrectly.'
+            example: Bad Request
+'401':
+  description: 'Unauthorized'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 401
+          message:
+            type: string
+            description: 'Error message indicating that you are not authorized to perform the requested action.'
+            example: Unauthorized
+'422':
+  description: 'Unprocessable Entity'
+  content: 
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 422
+          message:
+            type: string
+            description: 'Error code identified.'
+            example: CODE-001
+'500':
+  description: 'Internal Server Error'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'error'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 500
+          message:
+            type: string
+            description: 'Error message indicating an internal server failure.'
+            example: Internal Server Error
+security: []
 
   /api/v1/partners/paged:
     get:
-      summary: Obtener clientes contratantes
-      deprecated: false
-      description: |
-        Este endpoint permite obtener todos los clientes contratantes.
-      operationId: partners_paged
-      tags: 
-        - Customers
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: offset
-          in: query
-          description: 'Establece la primera posición que se retornará a partir de los resultados de la consulta. El valor predeterminado es 0, que inicia la página en el primer resultado.'
-          required: true
-          example: paged?offset=1
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: 'Indica el número de registros a devolver en cada página.'
-          required: true
-          example: paged?limit=20
-          schema:
-            type: string
-        - name: filter
-          in: query
-          description: 'Texto que se usara como filtro de búsqueda.'
-          required: true
-          schema:
-            type: string
-      responses:                  
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
+      summary: Get Contracting Clients
+deprecated: false
+description: |
+  This endpoint allows retrieving all contracting clients.
+operationId: partners_paged
+tags: 
+  - Customers
+parameters:
+  - name: Kubit-Api-Key
+    in: header
+    description: 'Unique key to authenticate the request.'
+    required: true
+    example: KU_ZB2bXjQMh...
+    schema:
+      type: string
+  - name: Bearer Token
+    in: header
+    description: 'Token to authenticate the request.'
+    required: true
+    example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+    schema:
+      type: string
+  - name: offset
+    in: query
+    description: 'Sets the first position to be returned from the query results. The default value is 0, which starts the page at the first result.'
+    required: true
+    example: paged?offset=1
+    schema:
+      type: string
+  - name: limit
+    in: query
+    description: 'Indicates the number of records to return per page.'
+    required: true
+    example: paged?limit=20
+    schema:
+      type: string
+  - name: filter
+    in: query
+    description: 'Text used as a search filter.'
+    required: true
+    schema:
+      type: string
+responses:                  
+  '200':
+    description: "Ok"
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              description: 'Request status.'
+              example: "ok"
+            code:
+              type: integer
+              description: 'HTTP status code corresponding to the response.'
+              example: 200
+            total:
+              type: integer
+              description: 'Total number of records found.'
+              example: 2
+            data:
+              type: array
+              description: 'Object containing the resulting data.'
+              items:
                 type: object
                 properties:
-                  status:
+                  id:
                     type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
+                    format: string
+                    description: 'Unique identifier.'
+                  rfc:
+                    type: string
+                    format: string
+                    description: 'RFC.'
+                  company_name:
+                    type: string
+                    format: string
+                    description: 'Company name.'
+                  economic_activity:
+                    type: string
+                    format: string
+                    description: 'Economic activity.'
+                  business_activity:
+                    type: string
+                    format: string
+                    description: 'Industry.'
+                  taxpayer_type_id:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  total:
-                      type: integer
-                      description: 'Total de registros encontrados.'
-                      example: 2
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador único.'
-                        rfc:
-                          type: string
-                          format: string
-                          description: 'RFC.'
-                        company_name:
-                          type: string
-                          format: string
-                          description: 'Razón social.'
-                        economic_activity:
-                          type: string
-                          format: string
-                          description: 'Actividad.'
-                        business_activity:
-                          type: string
-                          format: string
-                          description: 'Giro.'
-                        taxpayer_type_id:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de persona fiscal.'
-                        company_address:
-                          type: object
-                          description: 'Dirección fiscal.'
-                          properties:
-                            street:
-                              type: string
-                              format: string
-                              description: 'Calle.'
-                            num_ext:
-                              type: string
-                              format: string
-                              description: 'Número exterior.'
-                            num_int:
-                              type: string
-                              format: string
-                              description: 'Número interior.'
-                            reference:
-                              type: string
-                              format: string
-                              description: 'Datos de referencia para llegar a la ubicación.'
-                            neighborhood:
-                              type: string
-                              format: string
-                              description: 'Colonia.'
-                            district:
-                              type: string
-                              format: string
-                              description: 'Delegación / Municipio.'
-                            estate:
-                              type: string
-                              format: string
-                              description: 'Estado / Entidad federativa.'
-                            cp:
-                              type: string
-                              format: string
-                              description: 'Código Postal.'
-                        contact_name:
-                          type: string
-                          format: string
-                          description: 'Nombre completo del contacto.'
-                        contact_email:
-                          type: string
-                          format: string
-                          description: 'Correo electrónico de contacto.'
-                        contact_tel:
-                          type: string
-                          format: string
-                          description: 'Número de telefono de contacto.'
-                        company_tel:
-                          type: string
-                          format: string
-                          description: 'Número de telefono de la empresa.'
-                        status:
-                          type: integer
-                          format: integer
-                          description: 'Estado del registro del cliente.'
-                          example: "1 Creado, 2 En Revisión, 3 Aprobado, 4 Rechazado"
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
+                    format: integer
+                    description: 'Taxpayer type.'
+                  company_address:
+                    type: object
+                    description: 'Tax address.'
+                    properties:
+                      street:
+                        type: string
+                        format: string
+                        description: 'Street.'
+                      num_ext:
+                        type: string
+                        format: string
+                        description: 'Exterior number.'
+                      num_int:
+                        type: string
+                        format: string
+                        description: 'Interior number.'
+                      reference:
+                        type: string
+                        format: string
+                        description: 'Reference data to locate the address.'
+                      neighborhood:
+                        type: string
+                        format: string
+                        description: 'Neighborhood.'
+                      district:
+                        type: string
+                        format: string
+                        description: 'District / Municipality.'
+                      estate:
+                        type: string
+                        format: string
+                        description: 'State / Federal entity.'
+                      cp:
+                        type: string
+                        format: string
+                        description: 'Postal Code.'
+                  contact_name:
+                    type: string
+                    format: string
+                    description: 'Full name of the contact.'
+                  contact_email:
+                    type: string
+                    format: string
+                    description: 'Contact email.'
+                  contact_tel:
+                    type: string
+                    format: string
+                    description: 'Contact phone number.'
+                  company_tel:
+                    type: string
+                    format: string
+                    description: 'Company phone number.'
                   status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+                    format: integer
+                    description: 'Client registration status.'
+                    example: "1 Created, 2 Under Review, 3 Approved, 4 Rejected"
+  '400':
+    description: 'Bad Request'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              description: 'Request status.'
+              examples: 'fail'
+            code:
+              type: integer
+              description: 'HTTP status code corresponding to the response.'
+              example: 400
+            message:
+              type: string
+              description: 'Error message indicating that the request was made incorrectly.'
+              example: Bad Request
+  '401':
+    description: 'Unauthorized'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              description: 'Request status.'
+              examples: 'fail'
+            code:
+              type: integer
+              description: 'HTTP status code corresponding to the response.'
+              example: 401
+            message:
+              type: string
+              description: 'Error message indicating that you are not authorized to perform the requested action.'
+              example: Unauthorized
+  '500':
+    description: 'Internal Server Error'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              description: 'Request status.'
+              examples: 'error'
+            code:
+              type: integer
+              description: 'HTTP status code corresponding to the response.'
+              example: 500
+            message:
+              type: string
+              description: 'Error message indicating an internal server failure.'
+              example: Internal Server Error
+security: []
 
   /api/v1/partners/{partnerId}:
     get:
-      summary: Obtener un cliente contratante por id
-      deprecated: false
-      description: |
-        Este endpoint permite obtener un cliente contratante por su identificador.
-      operationId: partners_id
-      tags: 
-        - Customers
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
+  summary: Get a contracting client by ID
+  deprecated: false
+  description: |
+    This endpoint allows retrieving a contracting client by its identifier.
+  operationId: partners_id
+  tags: 
+    - Customers
+  parameters:
+    - name: Kubit-Api-Key
+      in: header
+      description: 'Unique key to authenticate the request.'
+      required: true
+      example: KU_ZB2bXjQMh...
+      schema:
+        type: string
+    - name: Bearer Token
+      in: header
+      description: 'Token to authenticate the request.'
+      required: true
+      example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+      schema:
+        type: string
+    - name: partnerId
+      in: path
+      description: 'Unique identifier of the contracting client.'
+      required: true
+      example: /partners/12345
+      schema:
+        type: string
+  responses:
+    '200':
+      description: "Ok"
+      content:
+        application/json:
           schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: partnerId
-          in: path
-          description: 'Identificador único del cliente contratante.'
-          required: true
-          example: /partners/12345
-          schema:
-            type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: 'Request status.'
+                example: "ok"
+              code:
+                type: integer
+                description: 'HTTP status code corresponding to the response.'
+                example: 200
+              data:
                 type: object
+                description: 'Object containing the resulting data.'
                 properties:
-                  status:
+                  id:
                     type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
+                    format: string
+                    description: 'Unique identifier.'
+                  rfc:
+                    type: string
+                    format: string
+                    description: 'RFC.'
+                  company_name:
+                    type: string
+                    format: string
+                    description: 'Company name.'
+                  economic_activity:
+                    type: string
+                    format: string
+                    description: 'Economic activity.'
+                  business_activity:
+                    type: string
+                    format: string
+                    description: 'Industry.'
+                  taxpayer_type_id:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
+                    format: integer
+                    description: 'Taxpayer type.'
+                  company_address:
                     type: object
-                    description: 'Objeto que contiene los datos resultantes.'
+                    description: 'Tax address.'
                     properties:
-                      id:
+                      street:
                         type: string
                         format: string
-                        description: 'Identificador único.'
-                      rfc:
+                        description: 'Street.'
+                      num_ext:
                         type: string
                         format: string
-                        description: 'RFC.'
-                      company_name:
+                        description: 'Exterior number.'
+                      num_int:
                         type: string
                         format: string
-                        description: 'Razón social.'
-                      economic_activity:
+                        description: 'Interior number.'
+                      reference:
                         type: string
                         format: string
-                        description: 'Actividad.'
-                      business_activity:
+                        description: 'Reference data to locate the address.'
+                      neighborhood:
                         type: string
                         format: string
-                        description: 'Giro.'
-                      taxpayer_type_id:
-                        type: integer
-                        format: integer
-                        description: 'Tipo de persona fiscal.'
-                      company_address:
-                        type: object
-                        description: 'Dirección fiscal.'
-                        properties:
-                          street:
-                            type: string
-                            format: string
-                            description: 'Calle.'
-                          num_ext:
-                            type: string
-                            format: string
-                            description: 'Número exterior.'
-                          num_int:
-                            type: string
-                            format: string
-                            description: 'Número interior.'
-                          reference:
-                            type: string
-                            format: string
-                            description: 'Datos de referencia para llegar a la ubicación.'
-                          neighborhood:
-                            type: string
-                            format: string
-                            description: 'Colonia.'
-                          district:
-                            type: string
-                            format: string
-                            description: 'Delegación / Municipio.'
-                          estate:
-                            type: string
-                            format: string
-                            description: 'Estado / Entidad federativa.'
-                          cp:
-                            type: string
-                            format: string
-                            description: 'Código Postal.'
-                      contact_name:
+                        description: 'Neighborhood.'
+                      district:
                         type: string
                         format: string
-                        description: 'Nombre completo del contacto.'
-                      contact_email:
+                        description: 'District / Municipality.'
+                      estate:
+                        type: string
+                        format: string
+                        description: 'State / Federal entity.'
+                      cp:
+                        type: string
+                        format: string
+                        description: 'Postal Code.'
+                  contact_name:
+                    type: string
+                    format: string
+                    description: 'Full name of the contact.'
+                    contact_email:
                         type: string
                         format: string
                         description: 'Correo electrónico de contacto.'
