@@ -2102,60 +2102,60 @@ responses:
                     example: 500
                   message:
                     type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    description: 'Error message indicating an internal server failure.'
                     example: Internal Server Error
       security: []
 
   /api/v1/customers/paged:
     get:
-      summary: Obtener clientes colaboradores
+      summary: Get collaborating clients.
       deprecated: false
       description: |
-        Este endpoint permite obtener todos los clientes colaboradores.
+        This endpoint allows retrieving all collaborating clients.
       operationId: customers_paged
       tags: 
         - Customers
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave única para autenticar la solicitud.'
+          description: 'Unique key to authenticate the request.'
           required: true
           example: KU_ZB2bXjQMh...
           schema:
             type: string
         - name: Bearer Token
           in: header
-          description: 'Token para autenticar la solicitud.'
+          description: 'Token to authenticate the request.
           required: true
           example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
           schema:
             type: string
         - name: partnerCustomerId
           in: query
-          description: 'Identificador del cliente contratante'
+          description: 'Identifier of the contracting client.'
           required: true
           example: paged?partnerCustomerId=12345
           schema:
             type: string
         - name: offset
           in: query
-          description: 'Establece la primera posición que se retornará a partir de los resultados de la consulta. El valor predeterminado es 0, que inicia la página en el primer resultado.'
+          description: 'Sets the first position to be returned from the query results. The default value is 0, which starts the page at the first result.'
           required: true
           example: paged?offset=1
           schema:
             type: string
         - name: limit
           in: query
-          description: 'Indica el número de registros a devolver en cada página.'
+          description: 'Indicates the number of records to return per page.'
           required: true
           example: paged?limit=20
           schema:
             type: string
         - name: filter
           in: query
-          description: 'Texto que se usara como filtro de búsqueda'
+          description: 'Text to be used as a search filter.'
           required: true
-          example: Texto a buscar...
+          example: Text to serch...
           schema:
             type: string
       responses:
@@ -2168,19 +2168,19 @@ responses:
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: 'Request status.'
                     example: "ok"
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: 'HTTP status code corresponding to the response.'
                     example: 200
                   total:
                     type: integer
-                    description: 'Total de registros encontrados.'
+                    description: 'Total records found.'
                     example: 2
                   data:
                     type: array
-                    description: 'Objeto que contiene los datos resultantes.'
+                    description: 'Object containing the resulting data.'
                     items:
                       type: object
                       properties:
@@ -2191,88 +2191,88 @@ responses:
                         parent_id:
                           type: string
                           format: string
-                          description: 'Identificador del registro padre.'
+                          description: 'Identifier of the parent record.'
                         account_customer_id:
                           type: string
                           format: string
-                          description: 'Identificador del cliente contratante al que pertenece.'
+                          description: 'Identifier of the contracting client to which it belongs.'
                         level:
                           type: integer
                           format: integer
-                          description: 'Nivel que ocupa el cliente en la jerarquia, esto quiere decir si pertenece a otro cliente colaborador'
+                          description: 'Level occupied by the client in the hierarchy, meaning whether it belongs to another collaborating client'
                         company_name:
                           type: string
                           format: string
-                          description: 'Razón social.'
-                        name:
-                          type: string
-                          format: string
-                          description: 'Nombre. Solo persona fisica.'
-                        ap_paterno:
-                          type: string
-                          format: string
-                          description: 'Apellido paterno. Solo persona fisica..'
-                        ap_materno:
-                          type: string
-                          format: string
-                          description: 'Apellido materno. Solo persona fisica..'
-                        taxpayer_type_id:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de persona fiscal'
-                          example: '1 persona fisica, 2 persona moral'
-                        address:
-                          description: 'Dirección fiscal.'
-                          type: object
-                          properties:
-                            street:
-                              type: string
-                              format: string
-                              description: 'Calle.'
-                            num_ext:
-                              type: string
-                              format: string
-                              description: 'Número exterior.'
-                            num_int:
-                              type: string
-                              format: string
-                              description: 'Número interior.'
-                            reference:
-                              type: string
-                              format: string
-                              description: 'Datos de referencia para llegar a la ubicación.'
-                            neighborhood:
-                              type: string
-                              format: string
-                              description: 'Colonia.'
-                            district:
-                              type: string
-                              format: string
-                              description: 'Delegación / Municipio.'
-                            estate:
-                              type: string
-                              format: string
-                              description: 'Estado / Entidad federativa.'
-                            cp:
-                              type: string
-                              format: string
-                              description: 'Código Postal.'
-                        contact_name:
-                          type: string
-                          format: string
-                          description: 'Nombre completo del contacto.'
-                        contact_email:
-                          type: string
-                          format: string
-                          description: 'Correo electrónico de contacto.'
-                        contact_tel:
-                          type: string
-                          format: string
-                          description: 'Número de telefono de contacto.'
-                        creation_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en la que se creo el registro.'
+                          description: 'Business name.'
+name:
+  type: string
+  format: string
+  description: 'Name. Only for individuals.'
+ap_paterno:
+  type: string
+  format: string
+  description: 'Paternal surname. Only for individuals.'
+ap_materno:
+  type: string
+  format: string
+  description: 'Maternal surname. Only for individuals.'
+taxpayer_type_id:
+  type: integer
+  format: integer
+  description: 'Type of taxpayer.'
+  example: '1 for individuals, 2 for legal entities'
+address:
+  description: 'Fiscal address.'
+  type: object
+  properties:
+    street:
+      type: string
+      format: string
+      description: 'Street.'
+    num_ext:
+      type: string
+      format: string
+      description: 'Exterior number.'
+    num_int:
+      type: string
+      format: string
+      description: 'Interior number.'
+    reference:
+      type: string
+      format: string
+      description: 'Reference data to reach the location.'
+    neighborhood:
+      type: string
+      format: string
+      description: 'Neighborhood.'
+    district:
+      type: string
+      format: string
+      description: 'Delegation / Municipality.'
+    estate:
+      type: string
+      format: string
+      description: 'State / Federal entity.'
+    cp:
+      type: string
+      format: string
+      description: 'Postal code.'
+contact_name:
+  type: string
+  format: string
+  description: 'Full name of the contact person.'
+contact_email:
+  type: string
+  format: string
+  description: 'Contact email.'
+contact_tel:
+  type: string
+  format: string
+  description: 'Contact phone number.'
+creation_date:
+  type: string
+  format: string
+  description: 'Date when the record was created.'
         '400':
           description: 'Bad Request'
           content:
