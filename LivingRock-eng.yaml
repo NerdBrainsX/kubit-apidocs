@@ -270,6 +270,7 @@ responses:
             description: 'Error message indicating an internal server failure.'
             example: Internal Server Error
 security: []
+
   /api/v1/auth/logout:
     post:
   summary: Logout
@@ -1259,7 +1260,17 @@ security: []
             description: 'Error message indicating that you are not authorized to perform the requested action.'
             example: Unauthorized
 '422':
-  description: 'Unprocessable Entity'
+  description: Unprocessable Entity
+  <table>
+     <tr>
+       <th>Código</th>
+       <th>Descripción</th>
+    </tr>
+    <tr>
+      <td>CODE-014</td>
+      <td>Cuenta de correo registrada</td>
+    </tr>
+   </table>
   content: 
     application/json:
       schema:
