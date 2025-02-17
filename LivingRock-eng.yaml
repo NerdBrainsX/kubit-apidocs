@@ -2532,96 +2532,96 @@ creation_date:
 security: []
 
   /api/v1/accounts:
-    post:
-      summary: Crear una cuenta
-      deprecated: false
-      description: |
-        Este endpoint permite crear una cuenta.
-      operationId: accounts
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: accountType
-          in: query
-          description: 'Tipo de cuenta que se va a crear'
-          required: true
-          example: '1 Cuenta, 2 Subcuenta'
-          schema:
-            type: string
-        - name: customerId
-          in: query
-          description: 'Identificador unico del cliente.'
-          required: true
-          schema:
-            type: string
-      responses:
-        '201':
-          description: 'Created'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 201
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
+  post:
+    summary: Create an Account
+    deprecated: false
+    description: |
+      This endpoint allows creating an account.
+    operationId: accounts
+    tags: 
+      - Accounts
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: accountType
+        in: query
+        description: 'Type of account to be created.'
+        required: true
+        example: '1 Account, 2 Subaccount'
+        schema:
+          type: string
+      - name: customerId
+        in: query
+        description: 'Unique identifier of the customer.'
+        required: true
+        schema:
+          type: string
+    responses:
+      '201':
+        description: 'Created'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Request status.'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 201
+      '400':
+        description: 'Bad Request'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Request status.'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 400
+                message:
+                  type: string
+                  description: 'Error message indicating that the request was made incorrectly.'
+                  example: Bad Request
+      '401':
+        description: 'Unauthorized'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Request status.'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 401
+                message:
+                  type: string
+                  description: 'Error message indicating that you are not authorized to perform the requested action.'
+                  example: Unauthorized
         '422':
           description: Unprocessable Entity
             <table>
@@ -2631,161 +2631,161 @@ security: []
               </tr>
               <tr>
                 <td>CODE-004</td>
-                <td>Cliente con estado no aprobado</td>
+                <td>Customerwith unapproved status </td>
               </tr>
               <tr>
                 <td>CODE-005</td>
-                <td>Propietario no encontrado</td>
+                <td>Owner not found</td>
               </tr>
               <tr>
                 <td>CODE-006</td>
-                <td>Centro de costo no asigando o no disponible</td>
+                <td>Cost center not assigned or unavailable</td>
               </tr>
               <tr>
                 <td>CODE-007</td>
-                <td>No se encontro un proveedor de pago</td>
+                <td> No payment provider found</td>
               </tr>
               <tr>
                 <td>CODE-009</td>
-                <td>Nivel de cuenta inválido</td>
+                <td>Invalid account level</td>
               </tr>
             </table>
           content: 
             application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 422
-                  message:
-                    type: string
-                    description: 'Código del error identificado.'
-                    example: CODE-001
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Request status.'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 422
+                message:
+                  type: string
+                  description: 'Identified error code.'
+                  example: CODE-001
         '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+  description: 'Internal Server Error'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Status of the request.'
+            examples: 'error'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 500
+          message:
+            type: string
+            description: 'Error message indicating an internal server failure.'
+            example: Internal Server Error
+security: []
 
-  /api/v1/accounts/{accountId}:
-    get:
-      summary: Obtener una cuenta por id
-      deprecated: false
-      description: |
-        Este endpoint permite obtener los datos de una cuenta por su id.
-      operationId: accounts_id
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: accountId
-          in: path
-          description: 'Identificador unico de la cuenta (número de cuenta)'
-          required: true
-          example: accounts/12345
-          schema:
-            type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la cuenta (número de cuenta).'
-                        type:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de cuenta.'
-                          example: '1 Cuenta, 2 Subcuenta'
-                        amount:
-                          type: money
-                          format: money
-                          description: 'Saldo disponible.'
-                        currency:
-                          type: string
-                          format: string
-                          description: 'Moneda.'
-                        linked_cellphone:
-                          type: string
-                          format: string
-                          description: 'Número de telefono vinculado.'
-                        creation_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en la que se creo el registro.'
-                        clabes:
-                          type: array
-                          items:
-                            type: object
-                            description: 'Cuentas clabe asociadas a la cuenta principal. Puede haber una cuenta clabe por cada proveedor de pago integrado en la plataforma.'
-                            properties:
-                              id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta clabe.'
-                              payment_provider_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico del proveedor de pago.'
-                              account_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta asociada.'
-                              clabe: 
-                                type: string
-                                format: string
-                                description: 'Número de cuenta clabe.'
+/api/v1/accounts/{accountId}:
+  get:
+    summary: Get an account by ID
+    deprecated: false
+    description: |
+      This endpoint allows retrieving account data by its ID.
+    operationId: accounts_id
+    tags:
+      - Accounts
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: accountId
+        in: path
+        description: 'Unique identifier of the account (account number).'
+        required: true
+        example: accounts/12345
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "Ok"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 200
+                data:
+                  type: object
+                  description: 'Object containing the resulting data.'
+                  properties:
+                    id:
+                      type: string
+                      format: string
+                      description: 'Unique identifier of the account (account number).'
+                    type:
+                      type: integer
+                      format: integer
+                      description: 'Account type.'
+                      example: '1 Account, 2 Subaccount'
+                    amount:
+                      type: money
+                      format: money
+                      description: 'Available balance.'
+                    currency:
+                      type: string
+                      format: string
+                      description: 'Currency.'
+                    linked_cellphone:
+                      type: string
+                      format: string
+                      description: 'Linked phone number.'
+                    creation_date:
+                      type: string
+                      format: string
+                      description: 'Date when the record was created.'
+                    clabes:
+                      type: array
+                      items:
+                        type: object
+                        description: 'Clabe accounts associated with the main account. There can be one clabe account for each payment provider integrated into the platform.'
+                        properties:
+                          id:
+                            type: string
+                            format: string
+                            description: 'Unique identifier of the clabe account.'
+                          payment_provider_id:
+                            type: string
+                            format: string
+                            description: 'Unique identifier of the payment provider.'
+                          account_id:
+                            type: string
+                            format: string
+                            description: 'Unique identifier of the associated account.'
+                          clabe:
+                            type: string
+                            format: string
+                            description: 'Clabe account number.'
         '400':
           description: 'Bad Request'
           content:
