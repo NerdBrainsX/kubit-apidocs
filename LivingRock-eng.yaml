@@ -1637,19 +1637,19 @@ security: []
                     contact_email:
                         type: string
                         format: string
-                        description: 'Correo electrónico de contacto.'
+                        description: 'Contact email.'
                       contact_tel:
                         type: string
                         format: string
-                        description: 'Número de telefono de contacto.'
+                        description: 'Contact phone number'
                       company_tel:
                         type: string
                         format: string
-                        description: 'Número de telefono de la empresa.'
+                        description: 'Company phone number.'
                       status:
                         type: integer
                         format: integer
-                        description: 'Estado del registro del cliente.'
+                        description: 'Customer record status.'
                         example: "1 Creado, 2 En Revisión, 3 Aprobado, 4 Rechazado"
         '400':
           description: 'Bad Request'
@@ -2787,771 +2787,771 @@ security: []
                             format: string
                             description: 'Clabe account number.'
         '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+  description: 'Bad Request'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 400
+          message:
+            type: string
+            description: 'Error message indicating that the request was made incorrectly.'
+            example: Bad Request
+'401':
+  description: 'Unauthorized'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 401
+          message:
+            type: string
+            description: 'Error message indicating that you are not authorized to perform the requested action.'
+            example: Unauthorized
+'500':
+  description: 'Internal Server Error'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'error'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 500
+          message:
+            type: string
+            description: 'Error message indicating an internal server failure.'
+            example: Internal Server Error
+security: []
 
-  /api/v1/accounts/clabes/{clabe}:
-    get:
-      summary: Obtener una cuenta por clabe
-      deprecated: false
-      description: |
-        Este endpoint permite obtener una los datos de una cuenta por su número de cuenta clabe.
-      operationId: accounts_clabe
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
+/api/v1/accounts/clabes/{clabe}:
+  get:
+    summary: Get an Account by CLABE
+    deprecated: false
+    description: |
+      This endpoint allows retrieving account details using the CLABE account number.
+    operationId: accounts_clabe
+    tags: 
+      - Accounts
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: clabe
+        in: path
+        description: 'CLABE account number.'
+        required: true
+        example: clabes/1234567890123456
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "Ok"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Request status.'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 200
+                data:
+                  type: object
+                  description: 'Object containing the resulting data.'
+                  properties:
+                      id:
+                        type: string
+                        format: string
+                        description: 'Unique identifier of the account (account number).'
+                      type:
+                        type: integer
+                        format: integer
+                        description: 'Type of account.'
+                        example: '1 Account, 2 Subaccount'
+                      amount:
+                        type: money
+                        format: money
+                        description: 'Available balance.'
+                      currency:
+                        type: string
+                        format: string
+                        description: 'Currency.'
+                      linked_cellphone:
+                        type: string
+                        format: string
+                        description: 'Linked phone number.'
+                      creation_date:
+                        type: string
+                        format: string
+                        description: 'Date when the record was created.'
+                      clabes:
+                        type: array
+                        items:
+                          type: object
+                          description: 'CLABE accounts associated with the main account. There can be one CLABE account per payment provider integrated into the platform.'
+                          properties:
+                            id: 
+                              type: string
+                              format: string
+                              description: 'Unique identifier of the CLABE account.'
+                            payment_provider_id: 
+                              type: string
+                              format: string
+                              description: 'Unique identifier of the payment provider.'
+                            account_id: 
+                              type: string
+                              format: string
+                              description: 'Unique identifier of the associated account.'
+                            clabe: 
+                              type: string
+                              format: string
+                              description: 'CLABE account number.'
+       '400':
+  description: 'Bad Request'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
             type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
+            description: 'Request status.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 400
+          message:
             type: string
-        - name: clabe
-          in: path
-          description: 'Número de cuenta clabe'
-          required: true
-          example: clabes/1234567890123456
-          schema:
+            description: 'Error message indicating that the request was made incorrectly.'
+            example: Bad Request
+'401':
+  description: 'Unauthorized'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
             type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la cuenta (número de cuenta).'
-                        type:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de cuenta.'
-                          example: '1 Cuenta, 2 Subcuenta'
-                        amount:
-                          type: money
-                          format: money
-                          description: 'Saldo disponible.'
-                        currency:
-                          type: string
-                          format: string
-                          description: 'Moneda.'
-                        linked_cellphone:
-                          type: string
-                          format: string
-                          description: 'Número de telefono vinculado.'
-                        creation_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en la que se creo el registro.'
-                        clabes:
-                          type: array
-                          items:
-                            type: object
-                            description: 'Cuentas clabe asociadas a la cuenta principal. Puede haber una cuenta clabe por cada proveedor de pago integrado en la plataforma.'
-                            properties:
-                              id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta clabe.'
-                              payment_provider_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico del proveedor de pagos.'
-                              account_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta asociada.'
-                              clabe: 
-                                type: string
-                                format: string
-                                description: 'Número de cuenta clabe.'
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+            description: 'Request status.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 401
+          message:
+            type: string
+            description: 'Error message indicating that you are not authorized to perform the requested action.'
+            example: Unauthorized
+'500':
+  description: 'Internal Server Error'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'error'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 500
+          message:
+            type: string
+            description: 'Error message indicating an internal server failure.'
+            example: Internal Server Error
+security: []
 
-  /api/v1/accounts/customers/{customerId}:
-    get:
-      summary: Obtener cuentas por cliente
-      deprecated: false
-      description: |
-        Este endpoint permite obtener las cuentas de un cliente por su id.
-      operationId: accounts_customerId
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: customerId
-          in: path
-          description: 'Identificador unico del cliente'
-          required: true
-          example: customers/12345
-          schema:
-            type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la cuenta (número de cuenta).'
-                        type:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de cuenta.'
-                          example: '1 Cuenta, 2 Subcuenta'
-                        amount:
-                          type: money
-                          format: money
-                          description: 'Saldo disponible.'
-                        currency:
-                          type: string
-                          format: string
-                          description: 'Moneda.'
-                        linked_cellphone:
-                          type: string
-                          format: string
-                          description: 'Número de telefono vinculado.'
-                        creation_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en la que se creo el registro.'
-                        clabes:
-                          type: array
-                          items:
-                            type: object
-                            description: 'Cuentas clabe asociadas a la cuenta principal. Puede haber una cuenta clabe por cada proveedor de pago integrado en la plataforma.'
-                            properties:
-                              id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta clabe.'
-                              payment_provider_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico del proveedor de pagos.'
-                              account_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta asociada.'
-                              clabe: 
-                                type: string
-                                format: string
-                                description: 'Número de cuenta clabe.'
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/accounts/movements/{movementId}:
-    get:
-      summary: Obtener movimiento por id
-      deprecated: false
-      description: |
-        Este endpoint permite obtener un movimiento de una cuenta por su identificador único.
-      operationId: accounts_movements_movementId
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: movementId
-          in: path
-          description: 'Identificador unico del movimiento'
-          required: true
-          example: movements/12345
-          schema:
-            type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
+/api/v1/accounts/customers/{customerId}:
+  get:
+    summary: Get Accounts by Customer
+    deprecated: false
+    description: |
+      This endpoint allows retrieving customer accounts by their ID.
+    operationId: accounts_customerId
+    tags: 
+      - Accounts
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: customerId
+        in: path
+        description: 'Unique identifier of the customer.'
+        required: true
+        example: customers/12345
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "Ok"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Request status.'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 200
+                data:
+                  type: array
+                  description: 'Object containing the resulting data.'
+                  items:
                     properties:
                       id:
                         type: string
                         format: string
-                        description: 'Identificador unico del movimiento.'
-                      account_id:
-                        type: string
-                        format: string
-                        description: 'Identificador unico de la cuenta (número de cuenta).'
+                        description: 'Unique identifier of the account (account number).'
                       type:
                         type: integer
                         format: integer
-                        description: 'Tipo de movimiento.'
-                        example: '1 SpeiOut, 2 SpeiIn, 3 Traspaso'
-                      description:
-                        type: string
-                        format: string
-                        description: 'Descripción.'
+                        description: 'Type of account.'
+                        example: '1 Account, 2 Subaccount'
                       amount:
                         type: money
                         format: money
-                        description: 'Monto.'
-                      folio:
+                        description: 'Available balance.'
+                      currency:
                         type: string
                         format: string
-                        description: 'Folio.'
-                      status:
+                        description: 'Currency.'
+                      linked_cellphone:
                         type: string
                         format: string
-                        description: 'Estatus.'
-                      operation_date:
+                        description: 'Linked phone number.'
+                      creation_date:
                         type: string
                         format: string
-                        description: 'Fecha en que se realizo la operación.'
-                      application_date:
-                        type: string
-                        format: string
-                        description: 'Fecha en que se aplicó la operación. (Spei)'
-                      origin_bank_id:
-                        type: string
-                        format: string
-                        description: 'Clave del banco origen. (Spei)'
-                      payer_name:
-                        type: string
-                        format: string
-                        description: 'Nombre del ordenante. (Spei)'
-                      payer_account:
-                        type: string
-                        format: string
-                        description: 'Número de cuenta del ordenante. (Spei)'
-                      destination_bank_id:
-                        type: string
-                        format: string
-                        description: 'Clave del banco destino. (Spei)'
-                      beneficiary_name:
-                        type: string
-                        format: string
-                        description: 'Nombre del beneficiario. (Spei)'
-                      beneficiary_account:
-                        type: string
-                        format: string
-                        description: 'Número de cuenta del beneficiario. (Spei)'
-                      payment_purpose:
-                        type: string
-                        format: string
-                        description: 'Propósito del pago. (Spei)'
-                      reference:
-                        type: integer
-                        format: integer
-                        description: 'Número de referencia. (Spei)'
-                      tracking_key:
-                        type: string
-                        format: string
-                        description: 'Clave de rastreo. (Spei)'
+                        description: 'Date when the record was created.'
+                      clabes:
+                        type: array
+                        items:
+                          type: object
+                          description: 'CLABE accounts associated with the main account. There can be one CLABE account per payment provider integrated into the platform.'
+                          properties:
+                            id: 
+                              type: string
+                              format: string
+                              description: 'Unique identifier of the CLABE account.'
+                            payment_provider_id: 
+                              type: string
+                              format: string
+                              description: 'Unique identifier of the payment provider.'
+                            account_id: 
+                              type: string
+                              format: string
+                              description: 'Unique identifier of the associated account.'
+                            clabe: 
+                              type: string
+                              format: string
+                              description: 'CLABE account number.'
         '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/accounts/{accountId}/movements/paged:
-    get:
-      summary: Obtener movimientos paginados
-      deprecated: false
-      description: |
-        Este endpoint permite obtener todos los movimientos de una cuenta.
-      operationId: accounts_movements_paged
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
+  description: 'Bad Request'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
             type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: accountId
-          in: path
-          description: 'Identificador unico de la cuenta (número de cuenta)'
-          required: true
-          example: accounts/12345/movements
-          schema:
-            type: string
-        - name: offset
-          in: query
-          description: 'Establece la primera posición que se retornará a partir de los resultados de la consulta. El valor indicado debe ser mayor que 0.'
-          required: true
-          example: paged?offset=1
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: 'Indica el número de registros a devolver en cada página.'
-          required: true
-          example: paged?limit=20
-          schema:
-            type: string
-        - name: type
-          in: query
-          description: 'Tipo de movimiento.'
-          required: false
-          example: paged?type=1
-          schema:
+            description: 'Status of the request.'
+            examples: 'fail'
+          code:
             type: integer
-        - name: status
-          in: query
-          description: 'Estado del movimiento.'
-          required: false
-          example: paged?status=scattered
-          schema:
+            description: 'HTTP status code corresponding to the response.'
+            example: 400
+          message:
             type: string
-        - name: startDate
-          in: query
-          description: 'Fecha de operación inicial.'
-          required: false
-          example: paged?startDate=11/12/2024
-          schema:
+            description: 'Error message indicating that the request was made incorrectly.'
+            example: Bad Request
+'401':
+  description: 'Unauthorized'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
             type: string
-        - name: endDate
-          in: query
-          description: 'Fecha de operación final.'
-          required: false
-          example: paged?endDate=11/12/2024
-          schema:
+            description: 'Status of the request.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 401
+          message:
             type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  total:
-                    type: integer
-                    description: 'Total de registros encontrados.'
-                    example: 2
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico del movimiento.'
-                        account_id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la cuenta (número de cuenta).'
-                        type:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de movimiento.'
-                          example: '1 SpeiOut, 2 SpeiIn, 3 Traspaso'
-                        description:
-                          type: string
-                          format: string
-                          description: 'Descripción del movimiento.'
-                        amount:
-                          type: money
-                          format: money
-                          description: 'Monto del movimiento.'
-                        folio:
-                          type: string
-                          format: string
-                          description: 'Folio del movimiento.'
-                        status:
-                          type: string
-                          format: string
-                          description: 'Estatus del movimiento.'
-                        operation_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en que se realizo el movimiento.'
-                        application_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en que se aplico el movimiento. (Spei)'
-                        origin_bank_id:
-                          type: string
-                          format: string
-                          description: 'Clave del banco origen. (Spei)'
-                        payer_name:
-                          type: string
-                          format: string
-                          description: 'Nombre de la persona que realizo el movimiento. (Spei)'
-                        payer_account:
-                          type: string
-                          format: string
-                          description: 'Número de cuenta de la persona que realizo el movimiento. (Spei)'
-                        destination_bank_id:
-                          type: string
-                          format: string
-                          description: 'Clave del banco destino. (Spei)'
-                        beneficiary_name:
-                          type: string
-                          format: string
-                          description: 'Nombre del beneficiario del movimiento. (Spei)'
-                        beneficiary_account:
-                          type: string
-                          format: string
-                          description: 'Número de cuenta del beneficiario del movimiento. (Spei)'
-                        payment_purpose:
-                          type: string
-                          format: string
-                          description: 'Descripción del propósito del movimiento. (Spei)'
-                        reference:
-                          type: integer
-                          format: integer
-                          description: 'Número de referencia. (Spei)'
-                        tracking_key:
-                          type: string
-                          format: string
-                          description: 'Clave de rastreo del movimiento. (Spei)'
+            description: 'Error message indicating that the user is not authorized to perform the requested action.'
+            example: Unauthorized
+'500':
+  description: 'Internal Server Error'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Status of the request.'
+            examples: 'error'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 500
+          message:
+            type: string
+            description: 'Error message indicating an internal server failure.'
+            example: Internal Server Error
+security: []
+
+/api/v1/accounts/movements/{movementId}:
+  get:
+    summary: Get movement by ID
+    deprecated: false
+    description: |
+      This endpoint allows retrieving an account movement by its unique identifier.
+    operationId: accounts_movements_movementId
+    tags:
+      - Accounts
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: movementId
+        in: path
+        description: 'Unique identifier of the movement.'
+        required: true
+        example: movements/12345
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "Ok"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 200
+                data:
+                  type: object
+                  description: 'Object containing the resulting data.'
+                  properties:
+                    id:
+                      type: string
+                      format: string
+                      description: 'Unique identifier of the movement.'
+                    account_id:
+                      type: string
+                      format: string
+                      description: 'Unique identifier of the account (account number).'
+                    type:
+                      type: integer
+                      format: integer
+                      description: 'Type of movement.'
+                      example: '1 SpeiOut, 2 SpeiIn, 3 Transfer'
+                    description:
+                      type: string
+                      format: string
+                      description: 'Description.'
+                    amount:
+                      type: money
+                      format: money
+                      description: 'Amount.'
+                    folio:
+                      type: string
+                      format: string
+                      description: 'Folio.'
+                    status:
+                      type: string
+                      format: string
+                      description: 'Status.'
+                    operation_date:
+                      type: string
+                      format: string
+                      description: 'Date when the operation was performed.'
+                    application_date:
+                      type: string
+                      format: string
+                      description: 'Date when the operation was applied. (Spei)'
+                    origin_bank_id:
+                      type: string
+                      format: string
+                      description: 'Origin bank code. (Spei)'
+                    payer_name:
+                      type: string
+                      format: string
+                      description: 'Payer name. (Spei)'
+                    payer_account:
+                      type: string
+                      format: string
+                      description: 'Payer account number. (Spei)'
+                    destination_bank_id:
+                      type: string
+                      format: string
+                      description: 'Destination bank code. (Spei)'
+                    beneficiary_name:
+                      type: string
+                      format: string
+                      description: 'Beneficiary name. (Spei)'
+                    beneficiary_account:
+                      type: string
+                      format: string
+                      description: 'Beneficiary account number. (Spei)'
+                    payment_purpose:
+                      type: string
+                      format: string
+                      description: 'Payment purpose. (Spei)'
+                    reference:
+                      type: integer
+                      format: integer
+                      description: 'Reference number. (Spei)'
+                    tracking_key:
+                      type: string
+                      format: string
+                      description: 'Tracking key. (Spei)'
         '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
+  description: 'Bad Request'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 400
+          message:
+            type: string
+            description: 'Error message indicating that the request was made incorrectly.'
+            example: Bad Request
+'401':
+  description: 'Unauthorized'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 401
+          message:
+            type: string
+            description: 'Error message indicating that you are not authorized to perform the requested action.'
+            example: Unauthorized
+'500':
+  description: 'Internal Server Error'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Request status.'
+            examples: 'error'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 500
+          message:
+            type: string
+            description: 'Error message indicating an internal server failure.'
+            example: Internal Server Error
+security: []
+
+/api/v1/accounts/{accountId}/movements/paged:
+  get:
+    summary: Get Paginated Movements
+    deprecated: false
+    description: |
+      This endpoint allows retrieving all movements of an account.
+    operationId: accounts_movements_paged
+    tags: 
+      - Accounts
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: accountId
+        in: path
+        description: 'Unique identifier of the account (account number).'
+        required: true
+        example: accounts/12345/movements
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: 'Sets the first position to be returned from the query results. The specified value must be greater than 0.'
+        required: true
+        example: paged?offset=1
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'Indicates the number of records to return per page.'
+        required: true
+        example: paged?limit=20
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: 'Movement type.'
+        required: false
+        example: paged?type=1
+        schema:
+          type: integer
+      - name: status
+        in: query
+        description: 'Movement status.'
+        required: false
+        example: paged?status=scattered
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        description: 'Initial operation date.'
+        required: false
+        example: paged?startDate=11/12/2024
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        description: 'Final operation date.'
+        required: false
+        example: paged?endDate=11/12/2024
+        schema:
+          type: string
+    responses:
+        '200':
+  description: 'OK'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Status of the request.'
+            example: "ok"
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 200
+          total:
+            type: integer
+            description: 'Total number of records found.'
+            example: 2
+          data:
+            type: array
+            description: 'Object containing the resulting data.'
+            items:
+              properties:
+                id:
+                  type: string
+                  format: string
+                  description: 'Unique identifier of the movement.'
+                account_id:
+                  type: string
+                  format: string
+                  description: 'Unique identifier of the account (account number).'
+                type:
+                  type: integer
+                  format: integer
+                  description: 'Type of movement.'
+                  example: '1 SpeiOut, 2 SpeiIn, 3 Transfer'
+                description:
+                  type: string
+                  format: string
+                  description: 'Description of the movement.'
+                amount:
+                  type: money
+                  format: money
+                  description: 'Amount of the movement.'
+                folio:
+                  type: string
+                  format: string
+                  description: 'Folio of the movement.'
+                status:
+                  type: string
+                  format: string
+                  description: 'Status of the movement.'
+                operation_date:
+                  type: string
+                  format: string
+                  description: 'Date when the movement was performed.'
+                application_date:
+                  type: string
+                  format: string
+                  description: 'Date when the movement was applied. (Spei)'
+                origin_bank_id:
+                  type: string
+                  format: string
+                  description: 'Origin bank code. (Spei)'
+                payer_name:
+                  type: string
+                  format: string
+                  description: 'Name of the person who performed the movement. (Spei)'
+                payer_account:
+                  type: string
+                  format: string
+                  description: 'Account number of the person who performed the movement. (Spei)'
+                destination_bank_id:
+                  type: string
+                  format: string
+                  description: 'Destination bank code. (Spei)'
+                beneficiary_name:
+                  type: string
+                  format: string
+                  description: 'Name of the beneficiary of the movement. (Spei)'
+                beneficiary_account:
+                  type: string
+                  format: string
+                  description: 'Account number of the beneficiary of the movement. (Spei)'
+                payment_purpose:
+                  type: string
+                  format: string
+                  description: 'Description of the purpose of the movement. (Spei)'
+                reference:
+                  type: integer
+                  format: integer
+                  description: 'Reference number. (Spei)'
+                tracking_key:
+                  type: string
+                  format: string
+                  description: 'Tracking key of the movement. (Spei)'
+'400':
+  description: 'Bad Request'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Status of the request.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 400
+          message:
+            type: string
+            description: 'Error message indicating that the request was made incorrectly.'
+            example: Bad Request
+'401':
+  description: 'Unauthorized'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Status of the request.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 401
+          message:
+            type: string
+            description: 'Error message indicating that the user is not authorized to perform the requested action.'
+            example: Unauthorized
         '500':
           description: 'Internal Server Error'
           content:
@@ -3574,693 +3574,693 @@ security: []
       security: []
 
   /api/v1/accounts/{accountId}/movements/latest:
-    get:
-      summary: Obtener últimos movimientos
-      deprecated: false
-      description: |
-        Este endpoint permite obtener los últimos 5 movimientos de una cuenta.
-      operationId: accounts_movements_latest
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: accountId
-          in: path
-          description: 'Identificador unico de la cuenta (número de cuenta)'
-          required: true
-          example: accounts/12345/movements
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  total:
-                    type: integer
-                    description: 'Total de registros encontrados.'
-                    example: 1
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico del movimiento.'
-                        account_id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la cuenta (número de cuenta).'
-                        type:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de movimiento.'
-                          example: '1 SpeiOut, 2 SpeiIn, 3 Traspaso'
-                        description:
-                          type: string
-                          format: string
-                          description: 'Descripción del movimiento.'
-                        amount:
-                          type: money
-                          format: money
-                          description: 'Monto del movimiento.'
-                        folio:
-                          type: string
-                          format: string
-                          description: 'Folio del movimiento.'
-                        status:
-                          type: string
-                          format: string
-                          description: 'Estatus del movimiento.'
-                        operation_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en que se realizo el movimiento.'
-                        application_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en que se aplico el movimiento. (Spei)'
-                        origin_bank_id:
-                          type: string
-                          format: string
-                          description: 'Clave del banco origen. (Spei)'
-                        payer_name:
-                          type: string
-                          format: string
-                          description: 'Nombre de la persona que realizo el movimiento. (Spei)'
-                        payer_account:
-                          type: string
-                          format: string
-                          description: 'Número de cuenta de la persona que realizo el movimiento. (Spei)'
-                        destination_bank_id:
-                          type: string
-                          format: string
-                          description: 'Clave del banco destino. (Spei)'
-                        beneficiary_name:
-                          type: string
-                          format: string
-                          description: 'Nombre del beneficiario del movimiento. (Spei)'
-                        beneficiary_account:
-                          type: string
-                          format: string
-                          description: 'Número de cuenta del beneficiario del movimiento. (Spei)'
-                        payment_purpose:
-                          type: string
-                          format: string
-                          description: 'Descripción del propósito del movimiento. (Spei)'
-                        reference:
-                          type: integer
-                          format: integer
-                          description: 'Número de referencia. (Spei)'
-                        tracking_key:
-                          type: string
-                          format: string
-                          description: 'Clave de rastreo del movimiento. (Spei)'
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/accounts/movements/status:
-    get:
-      summary: Obtener estados de movimientos
-      deprecated: false
-      description: |
-        Este endpoint permite obtener los estados que puede tener un movimiento.
-      operationId: movements_status
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      properties:
-                          id:
-                            type: string
-                            format: string
-                            description: 'Identificador único del estado del movimiento.'
-                          name:
-                            type: string
-                            format: string
-                            description: 'Nombre del estado del movimiento.'
-                          type:
-                            type: integer
-                            format: integer
-                            description: 'Tipo del estado del movimiento (1 pago, 2 tarjeta).'
-                      required:
-                        - id
-                        - name
-                        - type
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/accounts/movements/types:
-    get:
-      summary: Obtener tipos de movimientos
-      deprecated: false
-      description: |
-        Este endpoint permite obtener los tipos que puede tener un movimiento.
-      operationId: movements_types
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'Ok'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador único del tipo de movimiento.'
-                        name:
-                          type: string
-                          format: string
-                          description: 'Nombre del tipo de movimiento.'
-                        type:
-                          type: integer
-                          format: integer
-                          description: 'Tipo del tipo de movimiento (1 pago, 2 tarjeta).'
-                      required:
-                        - id
-                        - name
-                        - type
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/accounts/customers/{customerId}/favorites:
-    get:
-      summary: Obtener cuentas favoritas
-      deprecated: false
-      description: |
-        Este endpoint permite obtener las cuentas guardadas como favoritas de un cliente.
-      operationId: accounts_customerId_favorites
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: customerId
-          in: path
-          description: 'Identificador unico del cliente'
-          required: true
-          example: customers/12345
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      properties:
-                          customer_id:
-                            type: string
-                            format: string
-                            description: 'Identificador unico del cliente.'
-                          account_id:
-                            type: string
-                            format: string
-                            description: 'Número de cuenta.'
-                          account_type:
-                            type: integer
-                            format: integer
-                            description: 'Tipo de cuenta.'
-                            example: '1 Clabe, 2 Cuenta'
-                          account_alias:
-                            type: string
-                            format: string
-                            description: 'Alias de la cuenta.'
-                          beneficiary_name:
-                              type: string
-                              format: string
-                              description: 'Nombre del beneficiario.'
-                          beneficiary_email:
-                            type: string
-                            format: string
-                            description: 'Correo del beneficiario.'
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/spei:
-    post:
-      summary: Enviar un pago
-      deprecated: false
-      description: |
-        Este endpoint permite enviar un pago a otro banco.
-      operationId: speiout
-      tags: 
-        - Payments
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: Kubit-OTP
-          in: header
-          description: 'Token OTP para asegurar la solicitud.'
-          required: true
-          example: OTP 123456
-          schema:
-            type: string
-      requestBody:
+  get:
+    summary: Get Latest Movements
+    deprecated: false
+    description: |
+      This endpoint retrieves the last 5 movements of an account.
+    operationId: accounts_movements_latest
+    tags: 
+      - Accounts
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
         required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: accountId
+        in: path
+        description: 'Unique identifier of the account (account number).'
+        required: true
+        example: accounts/12345/movements
+        schema:
+          type: string
+    responses:
+      '200':
+        description: 'OK'
         content:
           application/json:
             schema:
               type: object
               properties:
-                concept:
+                status:
                   type: string
-                  description: 'Motivo del pago'
-                  example: Pago
-                beneficiary_account:
-                  type: string
-                  format: string
-                  description: 'Número de cuenta CLABE del beneficiario'
-                  example: '1234567890123456'
-                beneficiary_bank:
-                  type: string
-                  format: string
-                  description: 'Código de banco del beneficiario (Ver catálogo en /spei/banks)'
-                  example: '40002'
-                beneficiary_name:
-                  type: string
-                  format: string
-                  description: 'Nombre del beneficiario (Sin caracteres especiales ni acentos)'
-                  example: Juan Perez Hernandez
-                beneficiary_uid:
-                  type: string
-                  format: string
-                  description: 'CURP o RFC del beneficiario'
-                  example: XAXX010101000
-                beneficiary_account_type:
+                  description: 'Request status.'
+                  example: "ok"
+                code:
                   type: integer
-                  format: integer
-                  description: 'Tipo de cuenta del beneficiario'
-                  example: 40
-                beneficiary_email:
-                  type: string
-                  format: string
-                  description: 'Cuenta de correo del beneficiario'
-                  example: 'cuenta@servidor.com'
-                payer_account:
-                  type: string
-                  format: string
-                  description: 'Número de cuenta CLABE del ordenante'
-                  example: '1234567890123456'
-                amount:
-                  type: money
-                  format: money
-                  description: 'Monto de la transferencia. El monto máximo por orden de transferencia de la orden de pago que se manejará en SPEI será de: 999,999,999,999.99'
-                  example: 10.00
-                numerical_reference:
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 200
+                total:
                   type: integer
-                  format: integer
-                  description: 'Referencia numérica asociada al pago'
-                  example: 123
-                save_beneficiary_account:
-                  type: boolean
-                  format: boolean
-                  description: 'Guardar la cuenta del beneficiario'
-                  example: true
-                alias_beneficiary_account:
+                  description: 'Total records found.'
+                  example: 1
+                data:
+                  type: array
+                  description: 'Object containing the resulting data.'
+                  items:
+                    properties:
+                      id:
+                        type: string
+                        format: string
+                        description: 'Unique identifier of the movement.'
+                      account_id:
+                        type: string
+                        format: string
+                        description: 'Unique identifier of the account (account number).'
+                      type:
+                        type: integer
+                        format: integer
+                        description: 'Movement type.'
+                        example: '1 SpeiOut, 2 SpeiIn, 3 Transfer'
+                      description:
+                        type: string
+                        format: string
+                        description: 'Movement description.'
+                      amount:
+                        type: money
+                        format: money
+                        description: 'Movement amount.'
+                      folio:
+                        type: string
+                        format: string
+                        description: 'Movement folio.'
+                      status:
+                        type: string
+                        format: string
+                        description: 'Movement status.'
+                      operation_date:
+                        type: string
+                        format: string
+                        description: 'Date when the movement was made.'
+                      application_date:
+                        type: string
+                        format: string
+                        description: 'Date when the movement was applied. (Spei)'
+                      origin_bank_id:
+                        type: string
+                        format: string
+                        description: 'Origin bank key. (Spei)'
+                      payer_name:
+                        type: string
+                        format: string
+                        description: 'Name of the person who made the movement. (Spei)'
+                      payer_account:
+                        type: string
+                        format: string
+                        description: 'Account number of the person who made the movement. (Spei)'
+                      destination_bank_id:
+                        type: string
+                        format: string
+                        description: 'Destination bank key. (Spei)'
+                      beneficiary_name:
+                        type: string
+                        format: string
+                        description: 'Name of the beneficiary of the movement. (Spei)'
+                      beneficiary_account:
+                        type: string
+                        format: string
+                        description: 'Account number of the movement beneficiary. (Spei)'
+                      payment_purpose:
+                        type: string
+                        format: string
+                        description: 'Description of the movement purpose. (Spei)'
+                      reference:
+                        type: integer
+                        format: integer
+                        description: 'Reference number. (Spei)'
+                      tracking_key:
+                        type: string
+                        format: string
+                        description: 'Tracking key of the movement. (Spei)'
+      '400':
+        description: 'Bad Request'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
                   type: string
-                  format: string
-                  description: 'Nombre para guardar la cuenta del beneficiario'
-                  example: 'Mi beneficiario'
-              required:
-                - concept
-                - beneficiary_account
-                - beneficiary_bank
-                - beneficiary_name
-                - beneficiary_uid
-                - beneficiary_account_type
-                - payer_account
-                - amount
-                - numerical_reference
-                - save_beneficiary_account
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
+                  description: 'Request status.'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 400
+                message:
+                  type: string
+                  description: 'Error message indicating that the request was made incorrectly.'
+                  example: Bad Request
+      '401':
+        description: 'Unauthorized'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Request status.'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 401
+                message:
+                  type: string
+                  description: 'Error message indicating that you are not authorized to perform the requested action.'
+                  example: Unauthorized
+      '500':
+        description: 'Internal Server Error'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Request status.'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 500
+                message:
+                  type: string
+                  description: 'Error message indicating an internal server failure.'
+                  example: Internal Server Error
+    security: []
+
+  /api/v1/accounts/movements/status:
+  get:
+    summary: Get movement statuses
+    deprecated: false
+    description: |
+      This endpoint allows retrieving the possible statuses of a movement.
+    operationId: movements_status
+    tags:
+      - Accounts
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+    responses:
+      '200':
+        description: 'OK'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 200
+                data:
+                  type: array
+                  description: 'Object containing the resulting data.'
+                  items:
+                    properties:
+                      id:
+                        type: string
+                        format: string
+                        description: 'Unique identifier of the movement status.'
+                      name:
+                        type: string
+                        format: string
+                        description: 'Name of the movement status.'
+                      type:
+                        type: integer
+                        format: integer
+                        description: 'Type of the movement status (1 payment, 2 card).'
+                    required:
+                      - id
+                      - name
+                      - type
+      '400':
+        description: 'Bad Request'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 400
+                message:
+                  type: string
+                  description: 'Error message indicating that the request was made incorrectly.'
+                  example: Bad Request
+      '401':
+        description: 'Unauthorized'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 401
+                message:
+                  type: string
+                  description: 'Error message indicating that the user is not authorized to perform the requested action.'
+                  example: Unauthorized
+      '500':
+        description: 'Internal Server Error'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 500
+                message:
+                  type: string
+                  description: 'Error message indicating an internal server failure.'
+                  example: Internal Server Error
+    security: []
+
+/api/v1/accounts/movements/types:
+  get:
+    summary: Get movement types
+    deprecated: false
+    description: |
+      This endpoint allows retrieving the possible types of a movement.
+    operationId: movements_types
+    tags:
+      - Accounts
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+    responses:
+      '200':
+        description: 'Ok'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 200
+                data:
+                  type: array
+                  description: 'Object containing the resulting data.'
+                  items:
+                    properties:
+                      id:
+                        type: string
+                        format: string
+                        description: 'Unique identifier of the movement type.'
+                      name:
+                        type: string
+                        format: string
+                        description: 'Name of the movement type.'
+                      type:
+                        type: integer
+                        format: integer
+                        description: 'Type of the movement type (1 payment, 2 card).'
+                    required:
+                      - id
+                      - name
+                      - type
+      '400':
+        description: 'Bad Request'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 400
+                message:
+                  type: string
+                  description: 'Error message indicating that the request was made incorrectly.'
+                  example: Bad Request
+      '401':
+        description: 'Unauthorized'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 401
+                message:
+                  type: string
+                  description: 'Error message indicating that the user is not authorized to perform the requested action.'
+                  example: Unauthorized
+      '500':
+        description: 'Internal Server Error'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 500
+                message:
+                  type: string
+                  description: 'Error message indicating an internal server failure.'
+                  example: Internal Server Error
+    security: []
+
+/api/v1/accounts/customers/{customerId}/favorites:
+  get:
+    summary: Get favorite accounts
+    deprecated: false
+    description: |
+      This endpoint allows retrieving the accounts saved as favorites by a customer.
+    operationId: accounts_customerId_favorites
+    tags:
+      - Accounts
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: customerId
+        in: path
+        description: 'Unique identifier of the customer.'
+        required: true
+        example: customers/12345
+        schema:
+          type: string
+    responses:
+      '200':
+        description: 'OK'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 200
+                data:
+                  type: array
+                  description: 'Object containing the resulting data.'
+                  items:
+                    properties:
+                      customer_id:
+                        type: string
+                        format: string
+                        description: 'Unique identifier of the customer.'
+                      account_id:
+                        type: string
+                        format: string
+                        description: 'Account number.'
+                      account_type:
+                        type: integer
+                        format: integer
+                        description: 'Account type.'
+                        example: '1 Clabe, 2 Account'
+                      account_alias:
+                        type: string
+                        format: string
+                        description: 'Account alias.'
+                      beneficiary_name:
+                        type: string
+                        format: string
+                        description: 'Beneficiary name.'
+                      beneficiary_email:
+                        type: string
+                        format: string
+                        description: 'Beneficiary email.'
+        '400':
+  description: 'Bad Request'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Status of the request.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 400
+          message:
+            type: string
+            description: 'Error message indicating that the request was made incorrectly.'
+            example: Bad Request
+'401':
+  description: 'Unauthorized'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Status of the request.'
+            examples: 'fail'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 401
+          message:
+            type: string
+            description: 'Error message indicating that the user is not authorized to perform the requested action.'
+            example: Unauthorized
+'500':
+  description: 'Internal Server Error'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: 'Status of the request.'
+            examples: 'error'
+          code:
+            type: integer
+            description: 'HTTP status code corresponding to the response.'
+            example: 500
+          message:
+            type: string
+            description: 'Error message indicating an internal server failure.'
+            example: Internal Server Error
+security: []
+
+/api/v1/spei:
+  post:
+    summary: Send a payment
+    deprecated: false
+    description: |
+      This endpoint allows sending a payment to another bank.
+    operationId: speiout
+    tags:
+      - Payments
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: 'Unique key to authenticate the request.'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: 'Token to authenticate the request.'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: Kubit-OTP
+        in: header
+        description: 'OTP token to secure the request.'
+        required: true
+        example: OTP 123456
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              concept:
+                type: string
+                description: 'Reason for the payment.'
+                example: Payment
+              beneficiary_account:
+                type: string
+                format: string
+                description: 'CLABE account number of the beneficiary.'
+                example: '1234567890123456'
+              beneficiary_bank:
+                type: string
+                format: string
+                description: 'Bank code of the beneficiary (See catalog at /spei/banks).'
+                example: '40002'
+              beneficiary_name:
+                type: string
+                format: string
+                description: 'Name of the beneficiary (No special characters or accents).'
+                example: Juan Perez Hernandez
+              beneficiary_uid:
+                type: string
+                format: string
+                description: 'CURP or RFC of the beneficiary.'
+                example: XAXX010101000
+              beneficiary_account_type:
+                type: integer
+                format: integer
+                description: 'Account type of the beneficiary.'
+                example: 40
+              beneficiary_email:
+                type: string
+                format: string
+                description: 'Email account of the beneficiary.'
+                example: 'account@server.com'
+              payer_account:
+                type: string
+                format: string
+                description: 'CLABE account number of the payer.'
+                example: '1234567890123456'
+              amount:
+                type: money
+                format: money
+                description: 'Amount of the transfer. The maximum amount per SPEI payment order will be: 999,999,999,999.99.'
+                example: 10.00
+              numerical_reference:
+                type: integer
+                format: integer
+                description: 'Numeric reference associated with the payment.'
+                example: 123
+              save_beneficiary_account:
+                type: boolean
+                format: boolean
+                description: 'Save the beneficiary account.'
+                example: true
+              alias_beneficiary_account:
+                type: string
+                format: string
+                description: 'Name to save the beneficiary account.'
+                example: 'My beneficiary'
+            required:
+              - concept
+              - beneficiary_account
+              - beneficiary_bank
+              - beneficiary_name
+              - beneficiary_uid
+              - beneficiary_account_type
+              - payer_account
+              - amount
+              - numerical_reference
+              - save_beneficiary_account
+    responses:
+      '200':
+        description: 'OK'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Status of the request.'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: 'HTTP status code corresponding to the response.'
+                  example: 200
         '400':
           description: 'Bad Request'
           content:
