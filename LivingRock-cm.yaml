@@ -2491,182 +2491,182 @@ security: []
                   type: string
                   description: '错误信息，表示请求不正确。'
                   example: 请求错误 (Bad Request)
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+'401':
+  description: '未授权 (Unauthorized)'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 401
+          message:
+            type: string
+            description: '错误信息，表示用户未授权执行请求的操作。'
+            example: 未授权 (Unauthorized)
+'500':
+  description: '服务器内部错误 (Internal Server Error)'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 500
+          message:
+            type: string
+            description: '错误信息，表示服务器内部发生故障。'
+            example: 服务器内部错误 (Internal Server Error)
+security: []
 
-  /api/v1/accounts:
-    post:
-      summary: Crear una cuenta
-      deprecated: false
-      description: |
-        Este endpoint permite crear una cuenta.
-      operationId: accounts
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: accountType
-          in: query
-          description: 'Tipo de cuenta que se va a crear'
-          required: true
-          example: '1 Cuenta, 2 Subcuenta'
-          schema:
-            type: string
-        - name: customerId
-          in: query
-          description: 'Identificador unico del cliente.'
-          required: true
-          schema:
-            type: string
-      responses:
-        '201':
-          description: 'Created'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 201
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '422':
-          description: Unprocessable Entity
-            <table>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>CODE-004</td>
-                <td>Cliente con estado no aprobado</td>
-              </tr>
-              <tr>
-                <td>CODE-005</td>
-                <td>Propietario no encontrado</td>
-              </tr>
-              <tr>
-                <td>CODE-006</td>
-                <td>Centro de costo no asigando o no disponible</td>
-              </tr>
-              <tr>
-                <td>CODE-007</td>
-                <td>No se encontro un proveedor de pago</td>
-              </tr>
-              <tr>
-                <td>CODE-009</td>
-                <td>Nivel de cuenta inválido</td>
-              </tr>
-            </table>
-          content: 
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 422
-                  message:
-                    type: string
-                    description: 'Código del error identificado.'
-                    example: CODE-001
+/api/v1/accounts:
+  post:
+    summary: 创建账户 (Create an Account)
+    deprecated: false
+    description: |
+      此端点用于创建一个账户。
+    operationId: accounts
+    tags: 
+      - 账户 (Accounts)
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: accountType
+        in: query
+        description: '要创建的账户类型。'
+        required: true
+        example: '1 账户, 2 子账户'
+        schema:
+          type: string
+      - name: customerId
+        in: query
+        description: '客户的唯一标识符。'
+        required: true
+        schema:
+          type: string
+    responses:
+      '201':
+        description: '已创建 (Created)'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求的状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的HTTP状态码。'
+                  example: 201
+      '400':
+        description: '请求错误 (Bad Request)'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求的状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的HTTP状态码。'
+                  example: 400
+                message:
+                  type: string
+                  description: '错误信息，表示请求不正确。'
+                  example: 请求错误 (Bad Request)
+      '401':
+        description: '未授权 (Unauthorized)'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求的状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的HTTP状态码。'
+                  example: 401
+                message:
+                  type: string
+                  description: '错误信息，表示用户未授权执行请求的操作。'
+                  example: 未授权 (Unauthorized)
+      '422':
+        description: 无法处理的实体 (Unprocessable Entity)
+          <table>
+            <tr>
+              <th>代码</th>
+              <th>描述</th>
+            </tr>
+            <tr>
+              <td>CODE-004</td>
+              <td>客户状态未批准</td>
+            </tr>
+            <tr>
+              <td>CODE-005</td>
+              <td>未找到所有者</td>
+            </tr>
+            <tr>
+              <td>CODE-006</td>
+              <td>成本中心未分配或不可用</td>
+            </tr>
+            <tr>
+              <td>CODE-007</td>
+              <td>未找到支付提供商</td>
+            </tr>
+            <tr>
+              <td>CODE-009</td>
+              <td>账户级别无效</td>
+            </tr>
+          </table>
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求的状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的HTTP状态码。'
+                  example: 422
+                message:
+                  type: string
+                  description: '识别出的错误代码。'
+                  example: CODE-001
         '500':
           description: 'Internal Server Error'
           content:
