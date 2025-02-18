@@ -1,59 +1,59 @@
 openapi: 3.1.0
 info:
-  title: Kubit Banking API
+  title: Kubit 银行 API
   description: |
-    La **Kubit Banking API** es una solución completa para la integración con el sistema de banca en línea de Kubit. 
-    Esta API permite a los desarrolladores crear aplicaciones que interactúen con diversas funcionalidades bancarias, 
-    incluyendo la autenticación de usuarios, gestión de cuentas, transferencia de fondos, manejo de tarjetas de crédito y débito, 
-    así como la generación de reportes detallados de movimientos y saldos.
+    **Kubit 银行 API** 是一个完整的解决方案，用于与 Kubit 在线银行系统集成。
+    该 API 允许开发人员创建应用程序，以便与各种银行功能交互，
+    包括用户身份验证、账户管理、资金转账、信用卡和借记卡管理，
+    以及详细的交易记录和账户余额报表生成。
 
-    ### Principales Funcionalidades:
+    ### 主要功能：
     
-    - **Autenticación y Sesiones:** Permite a los usuarios iniciar sesión de manera segura y gestionar sus sesiones. 
-    - **Transferencias:** Facilita la transferencia de dinero entre cuentas dentro del mismo banco y hacia otras instituciones financieras.
-    - **Gestión de Tarjetas:** Permite la gestión de tarjetas de crédito y débito, incluyendo la activación, desactivación, y consulta de detalles.
-    - **Consultas de Saldos y Movimientos:** Proporciona acceso a la información detallada de saldos y movimientos de cuentas, permitiendo generar reportes personalizados.
-    - **Pagos y Servicios:** Integra funcionalidades para la realización de pagos de servicios y otras transacciones monetarias.
+    - **身份验证和会话管理：** 允许用户安全登录并管理会话。 
+    - **转账：** 促进同一银行内账户之间以及其他金融机构的资金转账。
+    - **银行卡管理：** 允许管理信用卡和借记卡，包括激活、停用和详情查询。
+    - **账户余额和交易查询：** 提供账户余额和交易的详细信息，并支持自定义报表生成。
+    - **支付和服务：** 集成支付服务和其他金融交易功能。
 
-    ### Seguridad:
+    ### 安全性：
     
-    Todas las interacciones con la API requieren autenticación a través de tokens JWT. 
-    Además, se recomienda el uso de HTTPS para todas las comunicaciones con la API para garantizar la seguridad y privacidad de los datos.
+    所有 API 交互都需要通过 JWT 令牌进行身份验证。
+    此外，建议使用 HTTPS 进行所有 API 通信，以确保数据的安全性和隐私性。
 
-    ### Público Objetivo:
+    ### 目标用户：
     
-    Esta API está diseñada para desarrolladores que buscan integrar capacidades bancarias en sus aplicaciones, 
-    desde aplicaciones móviles hasta soluciones web para la gestión financiera.
+    该 API 旨在为需要集成银行功能的开发人员提供支持，
+    适用于从移动应用程序到金融管理 Web 解决方案等各种场景。
   version: 0.0.1
 tags: 
   - name: Authentication
-    description: 'Operaciones relacionadas con la autenticación de usuarios, manejo de sesiones y OTPs.'
+    description: '与用户身份验证、会话管理和 OTP 相关的操作。'
   - name: Customers
-    description: 'Operaciones relacionadas con los clientes contratantes y colaboradores.'
+    description: '与客户和合作伙伴相关的操作。'
   - name: Accounts
-    description: 'Operaciones relacionadas con las cuentas y sus movimientos.'
+    description: '与账户及其交易相关的操作。'
   - name: Payments
-    description: 'Operaciones relacionadas con el envío de dinero a otros bancos.'
+    description: '与向其他银行转账相关的操作。'
   - name: Transfers
-    description: 'Operaciones relacionadas con el envío de dinero entre cuentas.'
+    description: '与账户间资金转移相关的操作。'
   - name: Cards
-    description: 'Operaciones relacionadas con la gestión de tarjetas físicas y virtuales.'
+    description: '与实体卡和虚拟卡管理相关的操作。'
   - name: Reports
-    description: 'Operaciones relacionadas con la generación de reportes.'
+    description: '与报表生成相关的操作。'
 paths:
   /api/v1/auth/login:
     post:
-      summary: Autenticación
+      summary: 用户身份验证
       deprecated: false
       description: |
-        Este endpoint permite a los usuarios autenticarse.
+        此端点允许用户进行身份验证。
       operationId: login
       tags: 
         - Authentication
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave única para autenticar la solicitud.'
+          description: '用于身份验证请求的唯一密钥。'
           required: true
           example: KU_{YOUR_KEY}
           schema:
@@ -67,19 +67,19 @@ paths:
               properties:
                 username:
                   type: string
-                  description: 'Nombre de usuario.'
-                  example: 'usuario'
+                  description: '用户名。'
+                  example: '用户'
                 password:
                   type: string
                   format: password
-                  description: 'Contraseña de usuario.'
+                  description: '用户密码。'
                   example: '1234567890'
               required:
                 - password
                 - username
       responses:
         '200':
-          description: "Ok"
+          description: "成功"
           content:
             application/json:
               schema:
@@ -87,24 +87,24 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: '请求状态。'
                     example: "ok"
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: '与响应对应的 HTTP 状态代码。'
                     example: 200
                   data:
                     type: object
-                    description: 'Objeto que contiene los datos resultantes.'
+                    description: '包含返回数据的对象。'
                     properties:
                       token:
                         type: string
-                        description: 'Token utilizado para autenticar las solicitudes.'
+                        description: '用于身份验证请求的令牌。'
                         example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
                     required:
                       - token
         '400':
-          description: 'Bad Request'
+          description: '错误请求'
           content:
             application/json:
               schema:
@@ -112,18 +112,18 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: '请求状态。'
                     examples: 'fail'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: '与响应对应的 HTTP 状态代码。'
                     example: 400
                   message:
                     type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    description: '错误消息，指示请求格式不正确。'
                     example: Bad Request
         '401':
-          description: 'Unauthorized'
+          description: '未经授权'
           content:
             application/json:
               schema:
@@ -131,574 +131,574 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: '请求状态。'
                     examples: 'fail'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: '与响应对应的 HTTP 状态代码。'
                     example: 401
                   message:
                     type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    description: '错误消息，指示用户无权执行所请求的操作。'
                     example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+'500':
+  description: '内部服务器错误'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态代码。'
+            example: 500
+          message:
+            type: string
+            description: '错误消息，指示服务器内部故障。'
+            example: Internal Server Error
+security: []
 
-  /api/v1/auth/password/recovery:
-    post:
-      summary: Recuperar contraseña
-      deprecated: false
-      description: |
-        Este endpoint permite generar una contraseña nueva y enviarla al usuario a la cuenta de correo que registró.
-      operationId: password_recovery
-      tags: 
-        - Authentication
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_{YOUR_KEY}
-          schema:
+/api/v1/auth/password/recovery:
+  post:
+    summary: 密码恢复
+    deprecated: false
+    description: |
+      此端点允许生成新密码并将其发送到用户注册的电子邮件账户。
+    operationId: password_recovery
+    tags: 
+      - Authentication
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于身份验证请求的唯一密钥。'
+        required: true
+        example: KU_{YOUR_KEY}
+        schema:
+          type: string
+      - name: email
+        in: query
+        description: '用户的电子邮件。'
+        required: true
+        example: user@example.com
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "成功"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 200
+                data:
+                  type: object
+                  description: '包含返回数据的对象。'
+                  properties:
+                    token:
+                      type: string
+                      description: '用于身份验证请求的令牌。'
+                      example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+                  required:
+                    - token
+      '400':
+        description: '错误请求'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 400
+                message:
+                  type: string
+                  description: '错误消息，指示请求格式不正确。'
+                  example: Bad Request
+      '401':
+        description: '未经授权'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 401
+                message:
+                  type: string
+                  description: '错误消息，指示用户无权执行所请求的操作。'
+                  example: Unauthorized
+      '500':
+        description: '内部服务器错误'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 500
+                message:
+                  type: string
+                  description: '错误消息，指示服务器内部故障。'
+                  example: Internal Server Error
+security: []
+
+/api/v1/auth/logout:
+  post:
+    summary: 退出登录
+    deprecated: false
+    description: |
+      此端点允许用户登出活动会话。
+    operationId: logout
+    tags: 
+      - Authentication
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于身份验证请求的唯一密钥。'
+        required: true
+        example: KU_{YOUR_KEY}
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于身份验证请求的令牌。'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "成功"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 200
+      '400':
+        description: '错误请求'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 400
+                message:
+                  type: string
+                  description: '错误消息，指示请求格式不正确。'
+                  example: Bad Request
+      '401':
+        description: '未经授权'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 401
+                message:
+                  type: string
+                  description: '错误消息，指示用户无权执行所请求的操作。'
+                  example: Unauthorized
+'500':
+  description: '内部服务器错误'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
             type: string
-        - name: email
-          in: query
-          description: 'Correo electrónico del usuario.'
-          required: true
-          example: user@example.com
-          schema:
+            description: '请求状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态代码。'
+            example: 500
+          message:
             type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
+            description: '错误消息，指示服务器内部故障。'
+            example: Internal Server Error
+security: []
+
+/api/v1/auth/users/authuser:
+  get:
+    summary: 获取已认证用户
+    deprecated: false
+    description: |
+      此端点允许获取已认证用户的数据。
+    operationId: auth_user
+    tags: 
+      - Authentication
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于身份验证请求的唯一密钥。'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于身份验证请求的令牌。'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "成功"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 200
+                data:
+                  type: array
+                  description: '包含返回数据的对象。'
+                  items:
                     properties:
-                      token:
+                      id:
                         type: string
-                        description: 'Token utilizado para autenticar las solicitudes.'
-                        example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+                        format: string
+                        description: '用户唯一标识符。'
+                      username:
+                        type: string
+                        format: string
+                        description: '用户名。'
+                      role_id:
+                        type: integer
+                        format: integer
+                        description: '用户角色标识符。'
+                      role:
+                        type: string
+                        format: string
+                        description: '用户角色名称。'
+                      profile_id:
+                        type: integer
+                        format: integer
+                        description: '用户个人资料标识符。'
+                      profile:
+                        type: string
+                        format: string
+                        description: '用户个人资料名称。'
+                      customer_id:
+                        type: string
+                        format: string
+                        description: '与用户关联的客户标识符。'
+                      customer_type:
+                        type: integer
+                        format: integer
+                        description: '与用户关联的客户类型。'
                     required:
-                      - token
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+                      - id
+                      - username
+                      - role_id
+                      - role
+                      - profile_id
+                      - profile
+      '400':
+        description: '错误请求'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 400
+                message:
+                  type: string
+                  description: '错误消息，指示请求格式不正确。'
+                  example: Bad Request
+      '401':
+        description: '未经授权'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 401
+                message:
+                  type: string
+                  description: '错误消息，指示用户无权执行所请求的操作。'
+                  example: Unauthorized
+      '500':
+        description: '内部服务器错误'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 500
+                message:
+                  type: string
+                  description: '错误消息，指示服务器内部故障。'
+                  example: Internal Server Error
+security: []
 
-  /api/v1/auth/logout:
-    post:
-      summary: Cerrar sesión
-      deprecated: false
-      description: |
-        Este endpoint permite cerrar una sesión activa
-      operationId: logout
-      tags: 
-        - Authentication
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_{YOUR_KEY}
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
-          schema:
-            type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+/api/v1/auth/roles:
+  get:
+    summary: 获取用户角色
+    deprecated: false
+    description: |
+      此端点允许获取用户角色信息。
+    operationId: auth_roles
+    tags: 
+      - Authentication
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于身份验证请求的唯一密钥。'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于身份验证请求的令牌。'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "成功"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 200
+                data:
+                  type: array
+                  description: '包含返回数据的对象。'
+                  items:
+                    properties:
+                      id:
+                        type: string
+                        format: string
+                        description: '角色唯一标识符。'
+                      id_profile:
+                        type: string
+                        format: string
+                        description: '与角色关联的配置文件唯一标识符。'
+                      name:
+                        type: string
+                        format: string
+                        description: '角色名称。'
+                      description:
+                        type: boolean
+                        format: boolean
+                        description: '角色描述。'
+                      level:
+                        type: integer
+                        format: integer
+                        description: '角色访问级别。'
+                    required:
+                      - id
+                      - id_profile
+                      - name
+                      - description
+                      - level
+      '400':
+        description: '错误请求'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 400
+                message:
+                  type: string
+                  description: '错误消息，指示请求格式不正确。'
+                  example: Bad Request
+      '401':
+        description: '未经授权'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 401
+                message:
+                  type: string
+                  description: '错误消息，指示用户无权执行所请求的操作。'
+                  example: Unauthorized
+      '500':
+        description: '内部服务器错误'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 500
+                message:
+                  type: string
+                  description: '错误消息，指示服务器内部故障。'
+                  example: Internal Server Error
+    security: []
 
-  /api/v1/auth/users/authuser:
-    get:
-      summary: Obtener usuario autenticado
-      deprecated: false
-      description: |
-        Este endpoint permite obtener los datos de un usuario autenticado.
-      operationId: auth_user
-      tags: 
-        - Authentication
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico del usuario.'
-                        username:
-                          type: string
-                          format: string
-                          description: 'Nombre de usuario.'
-                        role_id:
-                          type: integer
-                          format: integer
-                          description: 'Identificador del rol del usuario.'
-                        role:
-                          type: string
-                          format: string
-                          description: 'Nombre del rol del usuario.'
-                        profile_id:
-                          type: integer
-                          format: integer
-                          description: 'Identificador del perfil del usuario.'
-                        profile:
-                          type: string
-                          format: string
-                          description: 'Nombre del perfil del usuario.'
-                        customer_id:
-                          type: string
-                          format: string
-                          description: 'Identificador del cliente asociado al usuario.'
-                        customer_type:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de cliente asociado al usuario.'
-                      required:
-                        - id
-                        - username
-                        - role_id
-                        - role
-                        - profile_id
-                        - profile
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/auth/roles:
-    get:
-      summary: Obtener roles
-      deprecated: false
-      description: |
-        Este endpoint permite obtener los roles de usuario.
-      operationId: auth_roles
-      tags: 
-        - Authentication
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      properties:
-                          id:
-                            type: string
-                            format: string
-                            description: 'Identificador unico del rol.'
-                          id_profile:
-                            type: string
-                            format: string
-                            description: 'Identificador unico del perfil asociado al rol.'
-                          name:
-                            type: string
-                            format: string
-                            description: 'Nombre del rol.'
-                          description:
-                            type: boolean
-                            format: boolean
-                            description: 'Descripción del rol.'
-                          level:
-                            type: integer
-                            format: integer
-                            description: 'Nivel de acceso del rol.'
-                      required:
-                        - id
-                        - id_profile
-                        - name
-                        - description
-                        - level
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/auth/profiles:
-    get:
-      summary: Obtener perfiles
-      deprecated: false
-      description: |
-        Este endpoint permite obtener los perfiles asociados a un rol de usuario.
-      operationId: auth_profiles
-      tags: 
-        - Authentication
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      properties:
-                          id:
-                            type: string
-                            format: string
-                            description: 'Identificador unico del perfil.'
-                          name:
-                            type: string
-                            format: string
-                            description: 'Nombre del perfil.'
-                      required:
-                        - id
-                        - name
+/api/v1/auth/profiles:
+  get:
+    summary: 获取用户配置文件
+    deprecated: false
+    description: |
+      此端点允许获取与用户角色关联的配置文件信息。
+    operationId: auth_profiles
+    tags: 
+      - Authentication
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于身份验证请求的唯一密钥。'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于身份验证请求的令牌。'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "成功"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态代码。'
+                  example: 200
+                data:
+                  type: array
+                  description: '包含返回数据的对象。'
+                  items:
+                    properties:
+                      id:
+                        type: string
+                        format: string
+                        description: '配置文件唯一标识符。'
+                      name:
+                        type: string
+                        format: string
+                        description: '配置文件名称。'
+                    required:
+                      - id
+                      - name
         '400':
           description: 'Bad Request'
           content:
