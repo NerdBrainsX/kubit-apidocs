@@ -1479,238 +1479,237 @@ security: []
                   type: string
                   description: '错误信息，表示请求不正确。'
                   example: 请求错误 (Bad Request)
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+'401':
+  description: '未授权 (Unauthorized)'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 401
+          message:
+            type: string
+            description: '错误信息，表示用户未授权执行请求的操作。'
+            example: 未授权 (Unauthorized)
+'500':
+  description: '服务器内部错误 (Internal Server Error)'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 500
+          message:
+            type: string
+            description: '错误信息，表示服务器内部发生故障。'
+            example: 服务器内部错误 (Internal Server Error)
+security: []
 
-  /api/v1/partners/{partnerId}:
-    get:
-      summary: Obtener un cliente contratante por id
-      deprecated: false
-      description: |
-        Este endpoint permite obtener un cliente contratante por su identificador.
-      operationId: partners_id
-      tags: 
-        - Customers
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: partnerId
-          in: path
-          description: 'Identificador único del cliente contratante.'
-          required: true
-          example: /partners/12345
-          schema:
-            type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                      id:
-                        type: string
-                        format: string
-                        description: 'Identificador único.'
-                      rfc:
-                        type: string
-                        format: string
-                        description: 'RFC.'
-                      company_name:
-                        type: string
-                        format: string
-                        description: 'Razón social.'
-                      economic_activity:
-                        type: string
-                        format: string
-                        description: 'Actividad.'
-                      business_activity:
-                        type: string
-                        format: string
-                        description: 'Giro.'
-                      taxpayer_type_id:
-                        type: integer
-                        format: integer
-                        description: 'Tipo de persona fiscal.'
-                      company_address:
-                        type: object
-                        description: 'Dirección fiscal.'
-                        properties:
-                          street:
-                            type: string
-                            format: string
-                            description: 'Calle.'
-                          num_ext:
-                            type: string
-                            format: string
-                            description: 'Número exterior.'
-                          num_int:
-                            type: string
-                            format: string
-                            description: 'Número interior.'
-                          reference:
-                            type: string
-                            format: string
-                            description: 'Datos de referencia para llegar a la ubicación.'
-                          neighborhood:
-                            type: string
-                            format: string
-                            description: 'Colonia.'
-                          district:
-                            type: string
-                            format: string
-                            description: 'Delegación / Municipio.'
-                          estate:
-                            type: string
-                            format: string
-                            description: 'Estado / Entidad federativa.'
-                          cp:
-                            type: string
-                            format: string
-                            description: 'Código Postal.'
-                      contact_name:
-                        type: string
-                        format: string
-                        description: 'Nombre completo del contacto.'
-                      contact_email:
-                        type: string
-                        format: string
-                        description: 'Correo electrónico de contacto.'
-                      contact_tel:
-                        type: string
-                        format: string
-                        description: 'Número de telefono de contacto.'
-                      company_tel:
-                        type: string
-                        format: string
-                        description: 'Número de telefono de la empresa.'
-                      status:
-                        type: integer
-                        format: integer
-                        description: 'Estado del registro del cliente.'
-                        example: "1 Creado, 2 En Revisión, 3 Aprobado, 4 Rechazado"
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-        
-      security: []
-
+/api/v1/partners/{partnerId}:
+  get:
+    summary: 通过ID获取客户 (Get Client by ID)
+    deprecated: false
+    description: |
+      此端点用于通过唯一标识符获取客户。
+    operationId: partners_id
+    tags: 
+      - 客户 (Customers)
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: partnerId
+        in: path
+        description: '客户的唯一标识符。'
+        required: true
+        example: /partners/12345
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "成功 (Ok)"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求的状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的HTTP状态码。'
+                  example: 200
+                data:
+                  type: object
+                  description: '包含结果数据的对象。'
+                  properties:
+                    id:
+                      type: string
+                      format: string
+                      description: '唯一标识符。'
+                    rfc:
+                      type: string
+                      format: string
+                      description: 'RFC。'
+                    company_name:
+                      type: string
+                      format: string
+                      description: '公司名称。'
+                    economic_activity:
+                      type: string
+                      format: string
+                      description: '经济活动。'
+                    business_activity:
+                      type: string
+                      format: string
+                      description: '业务类型。'
+                    taxpayer_type_id:
+                      type: integer
+                      format: integer
+                      description: '纳税人类型。'
+                    company_address:
+                      type: object
+                      description: '公司地址。'
+                      properties:
+                        street:
+                          type: string
+                          format: string
+                          description: '街道。'
+                        num_ext:
+                          type: string
+                          format: string
+                          description: '外部号码。'
+                        num_int:
+                          type: string
+                          format: string
+                          description: '内部号码。'
+                        reference:
+                          type: string
+                          format: string
+                          description: '到达位置的参考信息。'
+                        neighborhood:
+                          type: string
+                          format: string
+                          description: '社区。'
+                        district:
+                          type: string
+                          format: string
+                          description: '区/市。'
+                        estate:
+                          type: string
+                          format: string
+                          description: '州/联邦实体。'
+                        cp:
+                          type: string
+                          format: string
+                          description: '邮政编码。'
+                    contact_name:
+                      type: string
+                      format: string
+                      description: '联系人姓名。'
+                    contact_email:
+                      type: string
+                      format: string
+                      description: '联系人电子邮件。'
+                    contact_tel:
+                      type: string
+                      format: string
+                      description: '联系人电话。'
+                    company_tel:
+                      type: string
+                      format: string
+                      description: '公司电话。'
+                    status:
+                      type: integer
+                      format: integer
+                      description: '客户记录的状态。'
+                      example: "1 已创建, 2 审核中, 3 已批准, 4 已拒绝"
+      '400':
+        description: '请求错误 (Bad Request)'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求的状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的HTTP状态码。'
+                  example: 400
+                message:
+                  type: string
+                  description: '错误信息，表示请求不正确。'
+                  example: 请求错误 (Bad Request)
+      '401':
+        description: '未授权 (Unauthorized)'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求的状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的HTTP状态码。'
+                  example: 401
+                message:
+                  type: string
+                  description: '错误信息，表示用户未授权执行请求的操作。'
+                  example: 未授权 (Unauthorized)
+      '500':
+        description: '服务器内部错误 (Internal Server Error)'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求的状态。'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: '与响应对应的HTTP状态码。'
+                  example: 500
+                message:
+                  type: string
+                  description: '错误信息，表示服务器内部发生故障。'
+                  example: 服务器内部错误 (Internal Server Error)
+                  
+    security: []
   /api/v1/partners/{partnerId}/status/{statusId}:
     put:
       summary: Actualizar el estatus de un cliente contratante
