@@ -5209,228 +5209,535 @@ security: []
               - concept
               - save_beneficiary_account
     responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
+'200':
+  description: '成功'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            example: "ok"
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 200
+'400':
+  description: '错误请求'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 400
+          message:
+            type: string
+            description: '错误消息，指示请求格式不正确。'
+            example: '错误请求'
+'401':
+  description: '未经授权'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 401
+          message:
+            type: string
+            description: '错误消息，指示未授权执行请求操作。'
+            example: '未经授权'
         '422':
-          description: Unprocessable Entity
-            <table>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>CODE-001</td>
-                <td>Cuenta no encontrada</td>
-              </tr>
-              <tr>
-                <td>CODE-002</td>
-                <td>La cuenta no pertenece al ordenante</td>
-              </tr>
-              <tr>
-                <td>CODE-003</td>
-                <td>Fondos insuficientes</td>
-              </tr>
-              <tr>
-                <td>CODE-008</td>
-                <td>No es posible realizar traspasos entre diferentes centro de costo</td>
-              </tr>
-              <tr>
-                <td>CODE-016</td>
-                <td>Error en la configuración de comisión</td>
-              </tr>
-              <tr>
-                <td>CODE-017</td>
-                <td>Configuración de comisión no encontrada</td>
-              </tr>
-              <tr>
-                <td>CODE-018</td>
-                <td>Error en el cálculo de la comisión</td>
-              </tr>
-            </table>
-          content: 
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 422
-                  message:
-                    type: string
-                    description: 'Código del error identificado.'
-                    example: CODE-001
-                    #examples: ['CODE-001', 'CODE-002']
-                    #examples:
-                    #  -
-                    #    - CODE-001 cuenta no encontrada
-                    #  -
-                    #    - CODE-002 La cuenta no pertenece al ordenante
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+          description: 无法处理的实体
+ <table>
+    <tr>
+      <th>代码</th>
+      <th>描述</th>
+    </tr>
+    <tr>
+      <td>CODE-001</td>
+      <td>账户未找到</td>
+    </tr>
+    <tr>
+      <td>CODE-002</td>
+      <td>账户不属于付款人</td>
+    </tr>
+    <tr>
+      <td>CODE-003</td>
+      <td>资金不足</td>
+    </tr>
+    <tr>
+      <td>CODE-008</td>
+      <td>无法在不同成本中心之间进行转账</td>
+    </tr>
+    <tr>
+      <td>CODE-016</td>
+      <td>佣金配置错误</td>
+    </tr>
+    <tr>
+      <td>CODE-017</td>
+      <td>未找到佣金配置</td>
+    </tr>
+    <tr>
+      <td>CODE-018</td>
+      <td>佣金计算错误</td>
+    </tr>
+  </table>
+       content: 
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: string
+          description: '请求状态。'
+          examples: 'fail'
+        code:
+          type: integer
+          description: '与响应对应的 HTTP 状态码。'
+          example: 422
+        message:
+          type: string
+          description: '识别出的错误代码。'
+          example: 'CODE-001'
+          #examples: ['CODE-001', 'CODE-002']
+          #examples:
+          #  -
+          #    - CODE-001 账户未找到
+          #  -
+          #    - CODE-002 账户不属于付款人
+'500':
+  description: '内部服务器错误'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 500
+          message:
+            type: string
+            description: '错误消息，指示服务器内部错误。'
+            example: '内部服务器错误'
+security: []
 
-  /cards/accounts/{accountId}/cards:
-    get:
-      summary: Obtener tarjetas de una cuenta
-      deprecated: false
-      description: |
-        Este endpoint permite obtener las tarjetas asociadas a una cuenta.
-      operationId: get_cards_account
-      tags: 
-        - Cards
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
+/cards/accounts/{accountId}/cards:
+  get:
+    summary: '获取账户的卡片'
+    deprecated: false
+    description: |
+      此端点用于获取与账户关联的卡片。
+    operationId: get_cards_account
+    tags: 
+      - '卡片'
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: 'KU_ZB2bXjQMh...'
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: 'Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...'
+        schema:
+          type: string
+      - name: accountId
+        in: path
+        description: '账户的唯一标识符（账户号码）。'
+        required: true
+        example: 'cards/accounts/12345/cards'
+        schema:
+          type: string
+    responses:
+      '200':
+        description: '成功'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 200
+                data:
+                  type: object
+                  description: '包含结果数据的对象。'
+                  properties:
+                    id:
+                      type: string
+                      format: string
+                      description: '卡片的唯一标识符。'
+                    type:
+                      type: string
+                      format: string
+                      description: '卡片类型。'
+                    active_function:
+                      type: string
+                      format: string
+                      description: '卡片的功能，CREDIT 或 DEBIT。'
+                    masked_pan:
+                      type: string
+                      format: string
+                      description: '卡片的号码。'
+                    cardholder_name:
+                      type: string
+                      format: string
+                      description: '与卡片关联的人员姓名。'
+                    product_type:
+                      type: string
+                      format: string
+                      description: '产品类型。'
+                    account_id:
+                      type: string
+                      format: string
+                      description: '与卡片关联的账户的唯一标识符。'
+                  required:
+                    - id
+                    - type
+                    - active_function
+                    - masked_pan
+                    - cardholder_name
+                    - product_type
+                    - account_id
+'400':
+  description: '错误请求'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
             type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
-          schema:
+            description: '请求状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 400
+          message:
             type: string
-        - name: accountId
-          in: path
-          description: 'Identificador unico de la cuenta (número de cuenta)'
-          required: true
-          example: cards/accounts/12345/cards
-          schema:
-            type: string  
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la tarjeta.'
-                        type:
-                          type: string
-                          format: string
-                          description: 'Tipo de tarjeta.'
-                        active_function:
-                          type: string
-                          format: string
-                          description: 'Función de la tarjeta, CREDIT o DEBIT.'
-                        masked_pan:
-                          type: string
-                          format: string
-                          description: 'Número de la tarjeta.'
-                        cardholder_name:
-                          type: string
-                          format: string
-                          description: 'Nombre de la persona asociada a la tarjeta.'
-                        product_type:
-                          type: string
-                          format: string
-                          description: 'Tipo de producto.'
-                        account_id:
-                          type: string
-                          format: string
-                          description: 'Identificador único de la cuenta asociada a la tarjeta.'
-                    required:
-                      - id
-                      - type
-                      - active_function
-                      - masked_pan
-                      - cardholder_name
-                      - product_type
-                      - account_id
+            description: '错误消息，指示请求格式不正确。'
+            example: '错误请求'
+'401':
+  description: '未经授权'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 401
+          message:
+            type: string
+            description: '错误消息，指示未授权执行请求操作。'
+            example: '未经授权'
+'500':
+  description: '内部服务器错误'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 500
+          message:
+            type: string
+            description: '错误消息，指示服务器内部错误。'
+            example: '内部服务器错误'
+security: []
+
+/cards/{cardId}:
+  get:
+    summary: '通过 ID 获取卡片'
+    deprecated: false
+    description: |
+      此端点用于通过唯一标识符获取卡片。
+    operationId: get_card_cardId
+    tags: 
+      - '卡片'
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: 'KU_ZB2bXjQMh...'
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: 'Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...'
+        schema:
+          type: string
+      - name: cardId
+        in: path
+        description: '卡片的唯一标识符。'
+        required: true
+        example: 'cards/53aa35c8-e659-44b2-882f-f6056e443c99'
+        schema:
+          type: string
+    responses:
+      '200':
+        description: '成功'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 200
+                data:
+                  type: object
+                  description: '包含结果数据的对象。'
+                  properties:
+                    id:
+                      type: string
+                      format: string
+                      description: '卡片的唯一标识符。'
+                    type:
+                      type: string
+                      format: string
+                      description: '卡片类型。'
+                    active_function:
+                      type: string
+                      format: string
+                      description: '卡片的功能，CREDIT 或 DEBIT。'
+                    masked_pan:
+                      type: string
+                      format: string
+                      description: '卡片的号码。'
+                    cardholder_name:
+                      type: string
+                      format: string
+                      description: '与卡片关联的人员姓名。'
+                    product_type:
+                      type: string
+                      format: string
+                      description: '产品类型。'
+                    status:
+                      type: string
+                      format: string
+                      description: '卡片状态。'
+                    status_reason:
+                      type: string
+                      format: string
+                      description: '卡片状态的原因。'
+                    embossing_setup_id:
+                      type: string
+                      format: string
+                      description: '卡片压花设置 ID。'
+                    embossing_status:
+                      type: string
+                      format: string
+                      description: '卡片压花状态。'
+                    profile_id:
+                      type: string
+                      format: string
+                      description: '卡片配置文件 ID。'
+                  required:
+                    - id
+                    - type
+                    - active_function
+                    - masked_pan
+                    - cardholder_name
+                    - product_type
+                    - status
+                    - status_reason
+                    - embossing_setup_id
+                    - embossing_status
+                    - profile_id
+'400':
+  description: '错误请求'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 400
+          message:
+            type: string
+            description: '错误消息，指示请求格式不正确。'
+            example: '错误请求'
+'401':
+  description: '未经授权'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 401
+          message:
+            type: string
+            description: '错误消息，指示未授权执行请求操作。'
+            example: '未经授权'
+'500':
+  description: '内部服务器错误'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 500
+          message:
+            type: string
+            description: '错误消息，指示服务器内部错误。'
+            example: '内部服务器错误'
+security: []
+
+/cards/{cardId}/data:
+  get:
+    summary: '获取卡片的敏感数据'
+    deprecated: false
+    description: |
+      此端点用于获取卡片的敏感数据。
+    operationId: get_card_cardData
+    tags: 
+      - '卡片'
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: 'KU_ZB2bXjQMh...'
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: 'Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...'
+        schema:
+          type: string
+      - name: cardId
+        in: path
+        description: '卡片的唯一标识符。'
+        required: true
+        example: 'cards/53aa35c8-e659-44b2-882f-f6056e443c99'
+        schema:
+          type: string
+    responses:
+      '200':
+        description: '成功'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 200
+                data:
+                  type: object
+                  description: '包含结果数据的对象。'
+                  properties:
+                    id:
+                      type: string
+                      format: string
+                      description: '卡片的唯一标识符。'
+                    pan:
+                      type: string
+                      format: string
+                      description: '卡片的号码。'
+                    masked_pan:
+                      type: string
+                      format: string
+                      description: '卡片的号码（已屏蔽）。'
+                    cardholder_name:
+                      type: string
+                      format: string
+                      description: '与卡片关联的人员姓名。'
+                    expiration_date:
+                      type: string
+                      format: string
+                      description: '卡片的过期日期。'
+                    cvv:
+                      type: string
+                      format: string
+                      description: '卡片的 CVV 码。'
+                  required:
+                    - id
+                    - pan
+                    - masked_pan
+                    - cardholder_name
+                    - expiration_date
+                    - cvv
         '400':
-          description: 'Bad Request'
+          description: '错误请求'
           content:
             application/json:
               schema:
@@ -5438,18 +5745,18 @@ security: []
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: '请求状态。'
                     examples: 'fail'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: '与响应对应的 HTTP 状态码。'
                     example: 400
                   message:
                     type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
+                    description: '错误消息，指示请求格式不正确。'
+                    example: '错误请求'
         '401':
-          description: 'Unauthorized'
+          description: '未授权'
           content:
             application/json:
               schema:
@@ -5457,18 +5764,18 @@ security: []
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: '请求状态。'
                     examples: 'fail'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: '与响应对应的 HTTP 状态码。'
                     example: 401
                   message:
                     type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
+                    description: '错误消息，指示用户无权执行所请求的操作。'
+                    example: '未授权'
         '500':
-          description: 'Internal Server Error'
+          description: '服务器内部错误'
           content:
             application/json:
               schema:
@@ -5476,359 +5783,52 @@ security: []
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: '请求状态。'
                     examples: 'error'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: '与响应对应的 HTTP 状态码。'
                     example: 500
                   message:
                     type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /cards/{cardId}:
-    get:
-      summary: Obtener una tarjeta por id
-      deprecated: false
-      description: |
-        Este endpoint permite obtener una tarjeta por su identificador único.
-      operationId: get_card_cardId
-      tags: 
-        - Cards
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
-          schema:
-            type: string
-        - name: cardId
-          in: path
-          description: 'Identificador único de la tarjeta'
-          required: true
-          example: cards/53aa35c8-e659-44b2-882f-f6056e443c99
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la tarjeta.'
-                        type:
-                          type: string
-                          format: string
-                          description: 'Tipo de tarjeta.'
-                        active_function:
-                          type: string
-                          format: string
-                          description: 'Función de la tarjeta, CREDIT o DEBIT.'
-                        masked_pan:
-                          type: string
-                          format: string
-                          description: 'Número de la tarjeta.'
-                        cardholder_name:
-                          type: string
-                          format: string
-                          description: 'Nombre de la persona asociada a la tarjeta.'
-                        product_type:
-                          type: string
-                          format: string
-                          description: 'Tipo de producto.'
-                        status:
-                          type: string
-                          format: string
-                          description: 'Estatus de la tarjeta.'
-                        status_reason:
-                          type: string
-                          format: string
-                          description: 'Razón del estatus de la tarjeta.'
-                        embossing_setup_id:
-                          type: string
-                          format: string
-                          description: ''
-                        embossing_status:
-                          type: string
-                          format: string
-                          description: ''
-                        profile_id:
-                          type: string
-                          format: string
-                          description: ''
-                    required:
-                      - id
-                      - type
-                      - active_function
-                      - masked_pan
-                      - cardholder_name
-                      - product_type
-                      - status
-                      - status_reason
-                      - embossing_setup_id
-                      - embossing_status
-                      - profile_id
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /cards/{cardId}/data:
-    get:
-      summary: Obtener datos de una tarjeta
-      deprecated: false
-      description: |
-        Este endpoint permite obtener los datos sensibles de una tarjeta.
-      operationId: get_card_cardData
-      tags: 
-        - Cards
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
-          schema:
-            type: string
-        - name: cardId
-          in: path
-          description: 'Identificador único de la tarjeta'
-          required: true
-          example: cards/53aa35c8-e659-44b2-882f-f6056e443c99
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                      id:
-                        type: string
-                        format: string
-                        description: 'Identificador unico de la tarjeta.'
-                      pan:
-                        type: string
-                        format: string
-                        description: 'Número de la tarjeta.'
-                      masked_pan:
-                        type: string
-                        format: string
-                        description: 'Número de la tarjeta enmascarado.'
-                      cardholder_name:
-                        type: string
-                        format: string
-                        description: 'Nombre de la persona asociada a la tarjeta.'
-                      expiration_date:
-                        type: string
-                        format: string
-                        description: 'Fecha de expiración de la tarjeta.'
-                      cvv:
-                        type: string
-                        format: string
-                        description: 'CVV de la tarjeta.'
-                required:
-                  - id
-                  - pan
-                  - masked_pan
-                  - cardholder_name
-                  - expiration_date
-                  - cvv
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
+                    description: '错误消息，指示服务器内部发生错误。'
+                    example: '服务器内部错误'
       security: []
 
   /cards/{cardId}/pin:
     get:
-      summary: Obtener PIN de una tarjeta
+      summary: 获取银行卡 PIN
       deprecated: false
       description: |
-        Este endpoint permite obtener el PIN de una tarjeta.
+        此端点用于获取银行卡的 PIN 码。
       operationId: get_card_PIN
       tags: 
         - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave única para autenticar la solicitud.'
+          description: '用于验证请求的唯一密钥。'
           required: true
           example: KU_ZB2bXjQMh...
           schema:
             type: string
         - name: Bearer Token
           in: header
-          description: 'Token para autenticar la solicitud.'
+          description: '用于验证请求的令牌。'
           required: true
           example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
           schema:
             type: string
         - name: cardId
           in: path
-          description: 'Identificador único de la tarjeta'
+          description: '银行卡的唯一标识符。'
           required: true
           example: cards/53aa35c8-e659-44b2-882f-f6056e443c99
           schema:
             type: string
       responses:
         '200':
-          description: 'OK'
+          description: '成功'
           content:
             application/json:
               schema:
@@ -5836,24 +5836,24 @@ security: []
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: '请求状态。'
                     example: "ok"
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: '与响应对应的 HTTP 状态码。'
                     example: 200
                   data:
                     type: object
-                    description: 'Objeto que contiene los datos resultantes.'
+                    description: '包含返回数据的对象。'
                     properties:
                       pin:
                         type: string
                         format: string
-                        description: 'PIN de la tarjeta.'
+                        description: '银行卡的 PIN 码。'
                 required:
                   - pin
         '400':
-          description: 'Bad Request'
+          description: '错误请求'
           content:
             application/json:
               schema:
@@ -5861,18 +5861,18 @@ security: []
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: '请求状态。'
                     examples: 'fail'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: '与响应对应的 HTTP 状态码。'
                     example: 400
                   message:
                     type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
+                    description: '错误消息，指示请求格式不正确。'
+                    example: '错误请求'
         '401':
-          description: 'Unauthorized'
+          description: '未授权'
           content:
             application/json:
               schema:
@@ -5880,18 +5880,18 @@ security: []
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: '请求状态。'
                     examples: 'fail'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: '与响应对应的 HTTP 状态码。'
                     example: 401
                   message:
                     type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
+                    description: '错误消息，指示用户无权执行所请求的操作。'
+                    example: '未授权'
         '500':
-          description: 'Internal Server Error'
+          description: '服务器内部错误'
           content:
             application/json:
               schema:
@@ -5899,279 +5899,279 @@ security: []
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: '请求状态。'
                     examples: 'error'
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: '与响应对应的 HTTP 状态码。'
                     example: 500
                   message:
                     type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
+                    description: '错误消息，指示服务器内部发生错误。'
+                    example: '服务器内部错误'
       security: []
   
-  /cards/{cardId}/dynamic-cvv:
-    post:
-      summary: Crear un cvv dinámico
-      deprecated: false
-      description: |
-        Este endpoint permite crear un cvv dinámico para una tarjeta.
-      operationId: create_card_dynamic_cvv
-      tags: 
-        - Cards
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
-          schema:
-            type: string
-        - name: cardId
-          in: path
-          description: 'Identificador único de la tarjeta'
-          required: true
-          example: cards/53aa35c8-e659-44b2-882f-f6056e443c99
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                      card_id:
-                        type: string
-                        format: string
-                        description: 'Identificador único de la tarjeta.'
-                      cvv:
-                        type: string
-                        format: string
-                        description: 'CVV dinámico de la tarjeta.'
-                      generation_date:
-                        type: datetime
-                        format: datetime
-                        description: 'fecha de generación del cvv dinámico.'  
-                      expiration_date:
-                        type: datetime
-                        format: datetime
-                        description: 'fecha de expiración del cvv dinámico.'
-                required:
-                  - card_id
-                  - cvv
-                  - generation_date
-                  - expiration_date
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+/cards/{cardId}/dynamic-cvv:
+  post:
+    summary: '创建动态 CVV'
+    deprecated: false
+    description: |
+      此端点用于为卡片创建动态 CVV。
+    operationId: create_card_dynamic_cvv
+    tags: 
+      - '卡片'
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: 'KU_ZB2bXjQMh...'
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: 'Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...'
+        schema:
+          type: string
+      - name: cardId
+        in: path
+        description: '卡片的唯一标识符。'
+        required: true
+        example: 'cards/53aa35c8-e659-44b2-882f-f6056e443c99'
+        schema:
+          type: string
+    responses:
+      '200':
+        description: '成功'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 200
+                data:
+                  type: object
+                  description: '包含结果数据的对象。'
+                  properties:
+                    card_id:
+                      type: string
+                      format: string
+                      description: '卡片的唯一标识符。'
+                    cvv:
+                      type: string
+                      format: string
+                      description: '卡片的动态 CVV。'
+                    generation_date:
+                      type: datetime
+                      format: datetime
+                      description: '动态 CVV 的生成日期。'
+                    expiration_date:
+                      type: datetime
+                      format: datetime
+                      description: '动态 CVV 的过期日期。'
+                  required:
+                    - card_id
+                    - cvv
+                    - generation_date
+                    - expiration_date
+      '400':
+        description: '错误请求'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 400
+                message:
+                  type: string
+                  description: '错误消息，指示请求格式不正确。'
+                  example: '错误请求'
+      '401':
+        description: '未经授权'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 401
+                message:
+                  type: string
+                  description: '错误消息，指示未授权执行请求操作。'
+                  example: '未经授权'
+      '500':
+        description: '内部服务器错误'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 500
+                message:
+                  type: string
+                  description: '错误消息，指示服务器内部错误。'
+                  example: '内部服务器错误'
+    security: []
 
-  /cards/{cardId}/dynamic-cvv:
-    get:
-      summary: Consultar un cvv dinámico
-      deprecated: false
-      description: |
-        Este endpoint permite consultar un cvv dinámico que no haya expirado.
-      operationId: get_card_dynamic_cvv
-      tags: 
-        - Cards
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
-          schema:
-            type: string
-        - name: cardId
-          in: path
-          description: 'Identificador único de la tarjeta'
-          required: true
-          example: cards/53aa35c8-e659-44b2-882f-f6056e443c99
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                      card_id:
-                        type: string
-                        format: string
-                        description: 'Identificador único de la tarjeta.'
-                      cvv:
-                        type: string
-                        format: string
-                        description: 'CVV dinámico de la tarjeta.'
-                      generation_date:
-                        type: datetime
-                        format: datetime
-                        description: 'fecha de generación del cvv dinámico.'  
-                      expiration_date:
-                        type: datetime
-                        format: datetime
-                        description: 'fecha de expiración del cvv dinámico.'
-                required:
-                  - card_id
-                  - cvv
-                  - generation_date
-                  - expiration_date
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+/cards/{cardId}/dynamic-cvv:
+  get:
+    summary: '查询动态 CVV'
+    deprecated: false
+    description: |
+      此端点用于查询未过期的动态 CVV。
+    operationId: get_card_dynamic_cvv
+    tags: 
+      - '卡片'
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: 'KU_ZB2bXjQMh...'
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: 'Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...'
+        schema:
+          type: string
+      - name: cardId
+        in: path
+        description: '卡片的唯一标识符。'
+        required: true
+        example: 'cards/53aa35c8-e659-44b2-882f-f6056e443c99'
+        schema:
+          type: string
+    responses:
+      '200':
+        description: '成功'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 200
+                data:
+                  type: object
+                  description: '包含结果数据的对象。'
+                  properties:
+                    card_id:
+                      type: string
+                      format: string
+                      description: '卡片的唯一标识符。'
+                    cvv:
+                      type: string
+                      format: string
+                      description: '卡片的动态 CVV。'
+                    generation_date:
+                      type: datetime
+                      format: datetime
+                      description: '动态 CVV 的生成日期。'
+                    expiration_date:
+                      type: datetime
+                      format: datetime
+                      description: '动态 CVV 的过期日期。'
+                  required:
+                    - card_id
+                    - cvv
+                    - generation_date
+                    - expiration_date
+      '400':
+        description: '错误请求'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 400
+                message:
+                  type: string
+                  description: '错误消息，指示请求格式不正确。'
+                  example: '错误请求'
+      '401':
+        description: '未经授权'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 401
+                message:
+                  type: string
+                  description: '错误消息，指示未授权执行请求操作。'
+                  example: '未经授权'
+      '500':
+        description: '内部服务器错误'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 500
+                message:
+                  type: string
+                  description: '错误消息，指示服务器内部错误。'
+                  example: '内部服务器错误'
+    security: []
 
 components:
   schemas: {}
