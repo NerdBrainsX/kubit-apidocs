@@ -4596,619 +4596,619 @@ security: []
                 type: string
                 format: binary
     responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+      '200':
+  description: '成功'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            example: "ok"
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 200
+'400':
+  description: '错误请求'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 400
+          message:
+            type: string
+            description: '错误消息，指示请求格式不正确。'
+            example: '错误请求'
+'401':
+  description: '未经授权'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 401
+          message:
+            type: string
+            description: '错误消息，指示未授权执行请求操作。'
+            example: '未经授权'
+'500':
+  description: '内部服务器错误'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 500
+          message:
+            type: string
+            description: '错误消息，指示服务器内部错误。'
+            example: '内部服务器错误'
+security: []
 
-  /spei/orders/saved/process:
-    post:
-      summary: Procesar pagos guardados
-      deprecated: false
-      description: |
-        Este endpoint permite procesar los pagos a otros bancos que han sido guardados.
-      operationId: speiout_process_saved
-      tags: 
-        - Payments
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: Kubit-OTP
-          in: header
-          description: 'Token OTP para asegurar la solicitud.'
-          required: true
-          example: OTP 123456
-          schema:
-            type: string
-      requestBody:
+/spei/orders/saved/process:
+  post:
+    summary: '处理已保存的付款'
+    deprecated: false
+    description: |
+      此端点用于处理已保存的向其他银行的付款。
+    operationId: speiout_process_saved
+    tags: 
+      - '支付'
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
         required: true
+        example: 'KU_ZB2bXjQMh...'
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: 'Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...'
+        schema:
+          type: string
+      - name: Kubit-OTP
+        in: header
+        description: '用于确保请求安全的 OTP 令牌。'
+        required: true
+        example: 'OTP 123456'
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              selected_order_ids:
+                type: array
+                description: '要处理的 ID 集合。'
+                items:
+                  type: string
+                  format: uuid
+responses:
+  '200':
+    description: '成功'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              description: '请求状态。'
+              example: "ok"
+            code:
+              type: integer
+              description: '与响应对应的 HTTP 状态码。'
+              example: 200
+  '400':
+    description: '错误请求'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              description: '请求状态。'
+              examples: 'fail'
+            code:
+              type: integer
+              description: '与响应对应的 HTTP 状态码。'
+              example: 400
+            message:
+              type: string
+              description: '错误消息，指示请求格式不正确。'
+              example: '错误请求'
+  '401':
+    description: '未经授权'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              description: '请求状态。'
+              examples: 'fail'
+            code:
+              type: integer
+              description: '与响应对应的 HTTP 状态码。'
+              example: 401
+            message:
+              type: string
+              description: '错误消息，指示未授权执行请求操作。'
+              example: '未经授权'
+  '500':
+    description: '内部服务器错误'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              description: '请求状态。'
+              examples: 'error'
+            code:
+              type: integer
+              description: '与响应对应的 HTTP 状态码。'
+              example: 500
+            message:
+              type: string
+              description: '错误消息，指示服务器内部错误。'
+              example: '内部服务器错误'
+security: []
+
+/api/v1/spei/banks:
+  get:
+    summary: '获取银行列表'
+    deprecated: false
+    description: |
+      此端点用于获取所有银行信息以便进行付款。
+    operationId: spei_banks
+    tags: 
+      - '支付'
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: 'KU_ZB2bXjQMh...'
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: 'Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...'
+        schema:
+          type: string
+    responses:
+      '200':
+        description: '成功'
         content:
           application/json:
             schema:
               type: object
               properties:
-                selected_order_ids:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 200
+                data:
                   type: array
-                  description: 'Conjunto de ids a procesar.'
+                  description: '包含结果数据的对象。'
                   items:
-                    type: string
-                    format: uuid
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+                    properties:
+                      code:
+                        type: string
+                        format: string
+                        description: '创建付款订单时用于识别银行的代码。'
+                      legalKey:
+                        type: string
+                        format: string
+                        description: '银行法律代码（不含 Banxico 前缀）。'
+                      name:
+                        type: string
+                        format: string
+                        description: '银行名称。'
+                      active:
+                        type: boolean
+                        format: boolean
+                        description: '银行是否处于激活状态。'
+ '400':
+  description: '错误请求'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 400
+          message:
+            type: string
+            description: '错误消息，指示请求格式不正确。'
+            example: '错误请求'
+'401':
+  description: '未经授权'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 401
+          message:
+            type: string
+            description: '错误消息，指示未授权执行请求操作。'
+            example: '未经授权'
+'500':
+  description: '内部服务器错误'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 500
+          message:
+            type: string
+            description: '错误消息，指示服务器内部错误。'
+            example: '内部服务器错误'
+security: []
 
-  /api/v1/spei/banks:
-    get:
-      summary: Obtener bancos
-      deprecated: false
-      description: |
-        Este endpoint permite obtener todos los bancos para realizar un pago.
-      operationId: spei_banks
-      tags: 
-        - Payments
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      properties:
-                          code:
-                            type: string
-                            format: string
-                            description: 'Código para identificar el banco cuando se crea una orden de pago.'
-                          legalKey:
-                            type: string
-                            format: string
-                            description: 'Clave legal bancaria sin prefijo Banxico.'
-                          name:
-                            type: string
-                            format: string
-                            description: 'Nombre del banco.'
-                          active:
-                            type: boolean
-                            format: boolean
-                            description: 'Si el banco se encuentra activo.'
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/spei/account-types:
-    get:
-      summary: Obtener tipos de cuenta
-      deprecated: false
-      description: |
-        Este endpoint permite obtener todos los tipos de cuenta por los que se puede enviar un pago.
-      operationId: spei_account_types
-      tags: 
-        - Payments
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: array
-                    description: 'Objeto que contiene los datos resultantes.'
-                    items:
-                      properties:
-                          key:
-                            type: string
-                            format: string
-                            description: 'Identificador unico para el registro de ordenes.'
-                          description:
-                            type: string
-                            format: string
-                            description: 'Descripción del tipo de cuenta.'
-                          active:
-                            type: boolean
-                            format: boolean
-                            description: 'Si el tipo de cuenta se encuentra activo. Si es falso, el tipo de cuenta no se puede utilizar para crear pedidos.'
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/spei/orders/{orderId}/cep:
-    get:
-      summary: Obtener CEP
-      deprecated: false
-      description: |
-        Permite obtener la url de la transacción donde Banxico expone el comprobante electrónico de pago.
-      operationId: spei_cep
-      tags: 
-        - Payments
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: orderId
-          in: path
-          description: 'Identificador unico de la orden de pago'
-          required: true
-          example: orders/12345
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: string
-                    description: 'Url de la transacción de Banxico'
-                    example: 'https://www.banxico.org.mx/cep/go?i=90684&s=20210220&d=i6dsXP742O6kt6TB...'
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-
-  /api/v1/transfers:
-    post:
-      summary: Realizar un traspaso
-      deprecated: false
-      description: |
-        Este endpoint permite realizar traspasos entre cuentas locales.
-      operationId: transfer
-      tags: 
-        - Transfers
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
-          schema:
-            type: string
-        - name: Kubit-OTP
-          in: header
-          description: 'Token OTP para realizar la solicitud.'
-          required: true
-          example: OTP 123456
-          schema:
-            type: string
-      requestBody:
+/api/v1/spei/account-types:
+  get:
+    summary: '获取账户类型'
+    deprecated: false
+    description: |
+      此端点用于获取所有可以用于发送付款的账户类型。
+    operationId: spei_account_types
+    tags: 
+      - '支付'
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
         required: true
+        example: 'KU_ZB2bXjQMh...'
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: 'Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...'
+        schema:
+          type: string
+    responses:
+      '200':
+        description: '成功'
         content:
           application/json:
             schema:
               type: object
               properties:
-                payer_account:
+                status:
                   type: string
-                  format: string
-                  description: 'Número de cuenta del ordenante'
-                  example: '123456789012'
-                beneficiary_account:
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 200
+                data:
+                  type: array
+                  description: '包含结果数据的对象。'
+                  items:
+                    properties:
+                      key:
+                        type: string
+                        format: string
+                        description: '用于订单记录的唯一标识符。'
+                      description:
+                        type: string
+                        format: string
+                        description: '账户类型的描述。'
+                      active:
+                        type: boolean
+                        format: boolean
+                        description: '账户类型是否处于激活状态。如果为 false，则该账户类型不能用于创建订单。'
+      '400':
+        description: '错误请求'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
                   type: string
-                  format: string
-                  description: 'Número de cuenta del beneficiario'
-                  example: '123456789012'
-                amount:
-                  type: money
-                  format: money
-                  description: 'Monto del traspaso. El monto máximo del traspaso que se manejará será de: 999,999,999,999.99'
-                  example: 10000.00
-                concept:
-                    type: string
-                    description: 'Motivo del traspaso'
-                    example: Pago  
-                save_beneficiary_account:
-                  type: boolean
-                  format: boolean
-                  description: 'Guardar la cuenta del beneficiario'
-                  example: true
-                alias_beneficiary_account:
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 400
+                message:
                   type: string
-                  format: string
-                  description: 'Nombre para guardar la cuenta del beneficiario'
-                  example: 'Nombre del beneficiario'
-              required:
-                - payer_account
-                - beneficiary_account
-                - amount
-                - concept
-                - save_beneficiary_account
-      responses:
+                  description: '错误消息，指示请求格式不正确。'
+                  example: '错误请求'
+      '401':
+        description: '未经授权'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 401
+                message:
+                  type: string
+                  description: '错误消息，指示未授权执行请求操作。'
+                  example: '未经授权'
+      '500':
+        description: '内部服务器错误'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 500
+                message:
+                  type: string
+                  description: '错误消息，指示服务器内部错误。'
+                  example: '内部服务器错误'
+    security: []
+
+/api/v1/spei/orders/{orderId}/cep:
+  get:
+    summary: '获取CEP（电子支付凭证）'
+    deprecated: false
+    description: |
+      此端点用于获取 Banxico 提供的交易 URL，其中包含电子支付凭证。
+    operationId: spei_cep
+    tags: 
+      - '支付'
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: 'KU_ZB2bXjQMh...'
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: 'Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...'
+        schema:
+          type: string
+      - name: orderId
+        in: path
+        description: '付款订单的唯一标识符。'
+        required: true
+        example: 'orders/12345'
+        schema:
+          type: string
+    responses:
+      '200':
+        description: '成功'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 200
+                data:
+                  type: string
+                  description: 'Banxico 交易的 URL。'
+                  example: 'https://www.banxico.org.mx/cep/go?i=90684&s=20210220&d=i6dsXP742O6kt6TB...'
+      '400':
+        description: '错误请求'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 400
+                message:
+                  type: string
+                  description: '错误消息，指示请求格式不正确。'
+                  example: '错误请求'
+      '401':
+        description: '未经授权'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 401
+                message:
+                  type: string
+                  description: '错误消息，指示未授权执行请求操作。'
+                  example: '未经授权'
+      '500':
+        description: '内部服务器错误'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'error'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 500
+                message:
+                  type: string
+                  description: '错误消息，指示服务器内部错误。'
+                  example: '内部服务器错误'
+    security: []
+
+/api/v1/transfers:
+  post:
+    summary: '执行转账'
+    deprecated: false
+    description: |
+      此端点用于在本地账户之间执行转账。
+    operationId: transfer
+    tags: 
+      - '转账'
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: 'KU_ZB2bXjQMh...'
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: 'Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...'
+        schema:
+          type: string
+      - name: Kubit-OTP
+        in: header
+        description: '用于执行请求的 OTP 令牌。'
+        required: true
+        example: 'OTP 123456'
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              payer_account:
+                type: string
+                format: string
+                description: '付款人的账户号码。'
+                example: '123456789012'
+              beneficiary_account:
+                type: string
+                format: string
+                description: '受益人的账户号码。'
+                example: '123456789012'
+              amount:
+                type: money
+                format: money
+                description: '转账金额。最大转账金额为：999,999,999,999.99。'
+                example: 10000.00
+              concept:
+                type: string
+                description: '转账原因。'
+                example: 'Pago'
+              save_beneficiary_account:
+                type: boolean
+                format: boolean
+                description: '保存受益人的账户。'
+                example: true
+              alias_beneficiary_account:
+                type: string
+                format: string
+                description: '保存受益人账户的名称。'
+                example: 'Nombre del beneficiario'
+            required:
+              - payer_account
+              - beneficiary_account
+              - amount
+              - concept
+              - save_beneficiary_account
+    responses:
         '200':
           description: 'OK'
           content:
