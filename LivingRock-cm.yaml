@@ -2667,282 +2667,282 @@ security: []
                   type: string
                   description: '识别出的错误代码。'
                   example: CODE-001
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+'500':
+  description: '服务器内部错误'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 500
+          message:
+            type: string
+            description: '错误消息，指示服务器内部错误。'
+            example: 服务器内部错误
+  security: []
 
-  /api/v1/accounts/{accountId}:
-    get:
-      summary: Obtener una cuenta por id
-      deprecated: false
-      description: |
-        Este endpoint permite obtener los datos de una cuenta por su id.
-      operationId: accounts_id
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
+/api/v1/accounts/{accountId}:
+  get:
+    summary: 通过 ID 获取账户信息
+    deprecated: false
+    description: |
+      该端点允许通过账户 ID 获取账户数据。
+    operationId: accounts_id
+    tags: 
+      - 账户
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: accountId
+        in: path
+        description: '账户的唯一标识符（账户号码）。'
+        required: true
+        example: accounts/12345
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "成功"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 200
+                data:
+                  type: object
+                  description: '包含结果数据的对象。'
+                  properties:
+                    id:
+                      type: string
+                      format: string
+                      description: '账户的唯一标识符（账户号码）。'
+                    type:
+                      type: integer
+                      format: integer
+                      description: '账户类型。'
+                      example: '1 主账户, 2 子账户'
+                    amount:
+                      type: money
+                      format: money
+                      description: '可用余额。'
+                    currency:
+                      type: string
+                      format: string
+                      description: '货币类型。'
+                    linked_cellphone:
+                      type: string
+                      format: string
+                      description: '绑定的手机号码。'
+                    creation_date:
+                      type: string
+                      format: string
+                      description: '账户创建日期。'
+                    clabes:
+                      type: array
+                      items:
+                        type: object
+                        description: '与主账户关联的 CLABE 账户。每个支付服务提供商可能有一个 CLABE 账户。'
+                        properties:
+                          id: 
+                            type: string
+                            format: string
+                            description: 'CLABE 账户的唯一标识符。'
+                          payment_provider_id: 
+                            type: string
+                            format: string
+                            description: '支付服务提供商的唯一标识符。'
+                          account_id: 
+                            type: string
+                            format: string
+                            description: '关联账户的唯一标识符。'
+                          clabe: 
+                            type: string
+                            format: string
+                            description: 'CLABE 账户号码。'
+      '400':
+        description: '请求错误'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  examples: 'fail'
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 400
+                message:
+                  type: string
+                  description: '错误消息，指示请求格式不正确。'
+                  example: 请求错误
+'401':
+  description: '未授权'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
             type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
+            description: '请求状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 401
+          message:
             type: string
-        - name: accountId
-          in: path
-          description: 'Identificador unico de la cuenta (número de cuenta)'
-          required: true
-          example: accounts/12345
-          schema:
+            description: '错误消息，指示用户无权执行请求的操作。'
+            example: 未授权
+'500':
+  description: '服务器内部错误'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
             type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la cuenta (número de cuenta).'
-                        type:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de cuenta.'
-                          example: '1 Cuenta, 2 Subcuenta'
-                        amount:
-                          type: money
-                          format: money
-                          description: 'Saldo disponible.'
-                        currency:
-                          type: string
-                          format: string
-                          description: 'Moneda.'
-                        linked_cellphone:
-                          type: string
-                          format: string
-                          description: 'Número de telefono vinculado.'
-                        creation_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en la que se creo el registro.'
-                        clabes:
-                          type: array
-                          items:
-                            type: object
-                            description: 'Cuentas clabe asociadas a la cuenta principal. Puede haber una cuenta clabe por cada proveedor de pago integrado en la plataforma.'
-                            properties:
-                              id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta clabe.'
-                              payment_provider_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico del proveedor de pago.'
-                              account_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta asociada.'
-                              clabe: 
-                                type: string
-                                format: string
-                                description: 'Número de cuenta clabe.'
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+            description: '请求状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的 HTTP 状态码。'
+            example: 500
+          message:
+            type: string
+            description: '错误消息，指示服务器内部错误。'
+            example: 服务器内部错误
+  security: []
 
-  /api/v1/accounts/clabes/{clabe}:
-    get:
-      summary: Obtener una cuenta por clabe
-      deprecated: false
-      description: |
-        Este endpoint permite obtener una los datos de una cuenta por su número de cuenta clabe.
-      operationId: accounts_clabe
-      tags: 
-        - Accounts
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: clabe
-          in: path
-          description: 'Número de cuenta clabe'
-          required: true
-          example: clabes/1234567890123456
-          schema:
-            type: string
-      responses:
-        '200':
-          description: "Ok"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la cuenta (número de cuenta).'
-                        type:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de cuenta.'
-                          example: '1 Cuenta, 2 Subcuenta'
-                        amount:
-                          type: money
-                          format: money
-                          description: 'Saldo disponible.'
-                        currency:
-                          type: string
-                          format: string
-                          description: 'Moneda.'
-                        linked_cellphone:
-                          type: string
-                          format: string
-                          description: 'Número de telefono vinculado.'
-                        creation_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en la que se creo el registro.'
-                        clabes:
-                          type: array
-                          items:
-                            type: object
-                            description: 'Cuentas clabe asociadas a la cuenta principal. Puede haber una cuenta clabe por cada proveedor de pago integrado en la plataforma.'
-                            properties:
-                              id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta clabe.'
-                              payment_provider_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico del proveedor de pagos.'
-                              account_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta asociada.'
-                              clabe: 
-                                type: string
-                                format: string
-                                description: 'Número de cuenta clabe.'
+/api/v1/accounts/clabes/{clabe}:
+  get:
+    summary: 通过 CLABE 获取账户信息
+    deprecated: false
+    description: |
+      该端点允许通过 CLABE 账户号码获取账户数据。
+    operationId: accounts_clabe
+    tags: 
+      - 账户
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
+        required: true
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: clabe
+        in: path
+        description: 'CLABE 账户号码'
+        required: true
+        example: clabes/1234567890123456
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "成功"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: '请求状态。'
+                  example: "ok"
+                code:
+                  type: integer
+                  description: '与响应对应的 HTTP 状态码。'
+                  example: 200
+                data:
+                  type: object
+                  description: '包含结果数据的对象。'
+                  properties:
+                    id:
+                      type: string
+                      format: string
+                      description: '账户的唯一标识符（账户号码）。'
+                    type:
+                      type: integer
+                      format: integer
+                      description: '账户类型。'
+                      example: '1 主账户, 2 子账户'
+                    amount:
+                      type: money
+                      format: money
+                      description: '可用余额。'
+                    currency:
+                      type: string
+                      format: string
+                      description: '货币类型。'
+                    linked_cellphone:
+                      type: string
+                      format: string
+                      description: '绑定的手机号码。'
+                    creation_date:
+                      type: string
+                      format: string
+                      description: '账户创建日期。'
+                    clabes:
+                      type: array
+                      items:
+                        type: object
+                        description: '与主账户关联的 CLABE 账户。每个支付服务提供商可能有一个 CLABE 账户。'
+                        properties:
+                          id: 
+                            type: string
+                            format: string
+                            description: 'CLABE 账户的唯一标识符。'
+                          payment_provider_id: 
+                            type: string
+                            format: string
+                            description: '支付服务提供商的唯一标识符。'
+                          account_id: 
+                            type: string
+                            format: string
+                            description: '关联账户的唯一标识符。'
+                          clabe: 
+                            type: string
+                            format: string
+                            description: 'CLABE 账户号码。'
         '400':
           description: 'Bad Request'
           content:
