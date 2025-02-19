@@ -4137,33 +4137,33 @@ security: []
                     example: Internal Server Error
       security: []
 
-  /api/v1/spei:
+/api/v1/spei:
     post:
-      summary: Enviar un pago
+      summary: 发送付款
       deprecated: false
       description: |
-        Este endpoint permite enviar un pago a otro banco.
+        此端点用于向其他银行发送付款。
       operationId: speiout
       tags: 
         - Payments
       parameters:
         - name: Kubit-Api-Key
           in: header
-          description: 'Clave única para autenticar la solicitud.'
+          description: '用于验证请求的唯一密钥。'
           required: true
           example: KU_ZB2bXjQMh...
           schema:
             type: string
         - name: Bearer Token
           in: header
-          description: 'Token para autenticar la solicitud.'
+          description: '用于验证请求的令牌。'
           required: true
           example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
           schema:
             type: string
         - name: Kubit-OTP
           in: header
-          description: 'Token OTP para asegurar la solicitud.'
+          description: '用于确保请求安全的OTP令牌。'
           required: true
           example: OTP 123456
           schema:
@@ -4177,62 +4177,62 @@ security: []
               properties:
                 concept:
                   type: string
-                  description: 'Motivo del pago'
+                  description: '付款原因'
                   example: Pago
                 beneficiary_account:
                   type: string
                   format: string
-                  description: 'Número de cuenta CLABE del beneficiario'
+                  description: '受益人的CLABE账户号码'
                   example: '1234567890123456'
                 beneficiary_bank:
                   type: string
                   format: string
-                  description: 'Código de banco del beneficiario (Ver catálogo en /spei/banks)'
+                  description: '受益人的银行代码（请参阅 /spei/banks 中的目录）'
                   example: '40002'
                 beneficiary_name:
                   type: string
                   format: string
-                  description: 'Nombre del beneficiario (Sin caracteres especiales ni acentos)'
+                  description: '受益人的姓名（不含特殊字符或重音符号）'
                   example: Juan Perez Hernandez
                 beneficiary_uid:
                   type: string
                   format: string
-                  description: 'CURP o RFC del beneficiario'
+                  description: '受益人的CURP或RFC'
                   example: XAXX010101000
                 beneficiary_account_type:
                   type: integer
                   format: integer
-                  description: 'Tipo de cuenta del beneficiario'
+                  description: '受益人的账户类型'
                   example: 40
                 beneficiary_email:
                   type: string
                   format: string
-                  description: 'Cuenta de correo del beneficiario'
+                  description: '受益人的电子邮件地址'
                   example: 'cuenta@servidor.com'
                 payer_account:
                   type: string
                   format: string
-                  description: 'Número de cuenta CLABE del ordenante'
+                  description: '付款人的CLABE账户号码'
                   example: '1234567890123456'
                 amount:
                   type: money
                   format: money
-                  description: 'Monto de la transferencia. El monto máximo por orden de transferencia de la orden de pago que se manejará en SPEI será de: 999,999,999,999.99'
+                  description: '转账金额。SPEI支付订单的最大金额为：999,999,999,999.99'
                   example: 10.00
                 numerical_reference:
                   type: integer
                   format: integer
-                  description: 'Referencia numérica asociada al pago'
+                  description: '与付款关联的数字参考'
                   example: 123
                 save_beneficiary_account:
                   type: boolean
                   format: boolean
-                  description: 'Guardar la cuenta del beneficiario'
+                  description: '保存受益人的账户'
                   example: true
                 alias_beneficiary_account:
                   type: string
                   format: string
-                  description: 'Nombre para guardar la cuenta del beneficiario'
+                  description: '保存受益人账户的名称'
                   example: 'Mi beneficiario'
               required:
                 - concept
@@ -4255,347 +4255,347 @@ security: []
                 properties:
                   status:
                     type: string
-                    description: 'Estado de la solicitud.'
+                    description: '请求的状态。'
                     example: "ok"
                   code:
                     type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    description: '与响应对应的HTTP状态码。
                     example: 200
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '422':
-          description: Unprocessable Entity
-            <table>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>CODE-001</td>
-                <td>Cuenta no encontrada</td>
-              </tr>
-              <tr>
-                <td>CODE-002</td>
-                <td>La cuenta no pertenece al ordenante</td>
-              </tr>
-              <tr>
-                <td>CODE-003</td>
-                <td>Fondos insuficientes</td>
-              </tr>
-              <tr>
-                <td>CODE-016</td>
-                <td>Error en la configuración de comisión</td>
-              </tr>
-              <tr>
-                <td>CODE-017</td>
-                <td>Configuración de comisión no encontrada</td>
-              </tr>
-              <tr>
-                <td>CODE-018</td>
-                <td>Error en el cálculo de la comisión</td>
-              </tr>
-            </table>
-          content: 
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 422
-                  message:
-                    type: string
-                    description: 'Código del error identificado.'
-                    example: CODE-001
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+  '400':
+  description: '错误的请求'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 400
+          message:
+            type: string
+            description: '指示请求错误的错误消息。'
+            example: Bad Request
+'401':
+  description: '未授权'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 401
+          message:
+            type: string
+            description: '指示未授权执行请求操作的错误消息。'
+            example: Unauthorized
+'422':
+  description: '无法处理的实体'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 422
+          message:
+            type: string
+            description: '识别出的错误代码。'
+            example: CODE-001
+  <table>
+    <tr>
+      <th>代码</th>
+      <th>描述</th>
+    </tr>
+    <tr>
+      <td>CODE-001</td>
+      <td>账户未找到</td>
+    </tr>
+    <tr>
+      <td>CODE-002</td>
+      <td>账户不属于付款人</td>
+    </tr>
+    <tr>
+      <td>CODE-003</td>
+      <td>资金不足</td>
+    </tr>
+    <tr>
+      <td>CODE-016</td>
+      <td>佣金配置错误</td>
+    </tr>
+    <tr>
+      <td>CODE-017</td>
+      <td>未找到佣金配置</td>
+    </tr>
+    <tr>
+      <td>CODE-018</td>
+      <td>佣金计算错误</td>
+    </tr>
+  </table>
+'500':
+  description: '内部服务器错误'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 500
+          message:
+            type: string
+            description: '指示服务器内部错误的错误消息。'
+            example: Internal Server Error
+security: []
 
-  /api/v1/spei/save:
-    post:
-      summary: Guardar un pago
-      deprecated: false
-      description: |
-        Este endpoint permite guardar un pago a otro banco para realizarlo mas tarde.
-      operationId: speiout_save
-      tags: 
-        - Payments
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: Kubit-OTP
-          in: header
-          description: 'Token OTP para asegurar la solicitud.'
-          required: true
-          example: OTP 123456
-          schema:
-            type: string
-      requestBody:
+/api/v1/spei/save:
+  post:
+    summary: 保存付款
+    deprecated: false
+    description: |
+      此端点用于保存向其他银行的付款，以便稍后执行。
+    operationId: speiout_save
+    tags: 
+      - Payments
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
         required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                concept:
-                  type: string
-                  description: 'Motivo del pago'
-                  example: Pago
-                beneficiary_account:
-                  type: string
-                  format: string
-                  description: 'Número de cuenta CLABE del beneficiario'
-                  example: '1234567890123456'
-                beneficiary_bank:
-                  type: string
-                  format: string
-                  description: 'Código de banco del beneficiario (Ver catálogo en /spei/banks)'
-                  example: '40002'
-                beneficiary_name:
-                  type: string
-                  format: string
-                  description: 'Nombre del beneficiario (Sin caracteres especiales ni acentos)'
-                  example: Juan Perez Hernandez
-                beneficiary_uid:
-                  type: string
-                  format: string
-                  description: 'CURP o RFC del beneficiario'
-                  example: XAXX010101000
-                beneficiary_account_type:
-                  type: integer
-                  format: integer
-                  description: 'Tipo de cuenta del beneficiario'
-                  example: 40
-                beneficiary_email:
-                  type: string
-                  format: string
-                  description: 'Cuenta de correo del beneficiario'
-                  example: 'cuenta@servidor.com'
-                payer_account:
-                  type: string
-                  format: string
-                  description: 'Número de cuenta CLABE del ordenante'
-                  example: '1234567890123456'
-                amount:
-                  type: money
-                  format: money
-                  description: 'Monto de la transferencia. El monto máximo por orden de transferencia de la orden de pago que se manejará en SPEI será de: 999,999,999,999.99'
-                  example: 10.00
-                numerical_reference:
-                  type: integer
-                  format: integer
-                  description: 'Referencia numérica asociada al pago'
-                  example: 123
-                save_beneficiary_account:
-                  type: boolean
-                  format: boolean
-                  description: 'Guardar la cuenta del beneficiario'
-                  example: true
-                alias_beneficiary_account:
-                  type: string
-                  format: string
-                  description: 'Nombre para guardar la cuenta del beneficiario'
-                  example: 'Mi beneficiario'
-              required:
-                - concept
-                - beneficiary_account
-                - beneficiary_bank
-                - beneficiary_name
-                - beneficiary_uid
-                - beneficiary_account_type
-                - payer_account
-                - amount
-                - numerical_reference
-                - save_beneficiary_account
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: Kubit-OTP
+        in: header
+        description: '用于确保请求安全的OTP令牌。'
+        required: true
+        example: OTP 123456
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              concept:
+                type: string
+                description: '付款原因'
+                example: Pago
+              beneficiary_account:
+                type: string
+                format: string
+                description: '受益人的CLABE账户号码'
+                example: '1234567890123456'
+              beneficiary_bank:
+                type: string
+                format: string
+                description: '受益人的银行代码（请参阅 /spei/banks 中的目录）'
+                example: '40002'
+              beneficiary_name:
+                type: string
+                format: string
+                description: '受益人的姓名（不含特殊字符或重音符号）'
+                example: Juan Perez Hernandez
+              beneficiary_uid:
+                type: string
+                format: string
+                description: '受益人的CURP或RFC'
+                example: XAXX010101000
+              beneficiary_account_type:
+                type: integer
+                format: integer
+                description: '受益人的账户类型'
+                example: 40
+              beneficiary_email:
+                type: string
+                format: string
+                description: '受益人的电子邮件地址'
+                example: 'cuenta@servidor.com'
+              payer_account:
+                type: string
+                format: string
+                description: '付款人的CLABE账户号码'
+                example: '1234567890123456'
+              amount:
+                type: money
+                format: money
+                description: '转账金额。SPEI支付订单的最大金额为：999,999,999,999.99'
+                example: 10.00
+              numerical_reference:
+                type: integer
+                format: integer
+                description: '与付款关联的数字参考'
+                example: 123
+              save_beneficiary_account:
+                type: boolean
+                format: boolean
+                description: '保存受益人的账户'
+                example: true
+              alias_beneficiary_account:
+                type: string
+                format: string
+                description: '保存受益人账户的名称'
+                example: 'Mi beneficiario'
+            required:
+              - concept
+              - beneficiary_account
+              - beneficiary_bank
+              - beneficiary_name
+              - beneficiary_uid
+              - beneficiary_account_type
+              - payer_account
+              - amount
+              - numerical_reference
+              - save_beneficiary_account
+    responses:
+'200':
+  description: 'OK'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            example: "ok"
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 200
+'400':
+  description: '错误的请求'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 400
+          message:
+            type: string
+            description: '指示请求错误的错误消息。'
+            example: Bad Request
+'401':
+  description: '未授权'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            examples: 'fail'
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 401
+          message:
+            type: string
+            description: '指示未授权执行请求操作的错误消息。'
+            example: Unauthorized
+'500':
+  description: '内部服务器错误'
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            description: '请求的状态。'
+            examples: 'error'
+          code:
+            type: integer
+            description: '与响应对应的HTTP状态码。'
+            example: 500
+          message:
+            type: string
+            description: '指示服务器内部错误的错误消息。'
+            example: Internal Server Error
+security: []
 
-  /api/v1/spei/save/template:
-    post:
-      summary: Subir un template de pagos
-      deprecated: false
-      description: |
-        Este endpoint permite subir un template de pagos para procesarlos de manera masiva.
-      operationId: speiout_template
-      tags: 
-        - Payments
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
-          schema:
-            type: string
-        - name: Kubit-OTP
-          in: header
-          description: 'Token OTP para asegurar la solicitud.'
-          required: true
-          example: OTP 123456
-          schema:
-            type: string
-      requestBody:
+/api/v1/spei/save/template:
+  post:
+    summary: 上传付款模板
+    deprecated: false
+    description: |
+      此端点用于上传付款模板以批量处理付款。
+    operationId: speiout_template
+    tags: 
+      - Payments
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: '用于验证请求的唯一密钥。'
         required: true
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                payerAccount:
-                  type: string
-                template:
-                  type: string
-                  format: binary
-      responses:
+        example: KU_ZB2bXjQMh...
+        schema:
+          type: string
+      - name: Bearer Token
+        in: header
+        description: '用于验证请求的令牌。'
+        required: true
+        example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+        schema:
+          type: string
+      - name: Kubit-OTP
+        in: header
+        description: '用于确保请求安全的OTP令牌。'
+        required: true
+        example: OTP 123456
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              payerAccount:
+                type: string
+              template:
+                type: string
+                format: binary
+    responses:
         '200':
           description: 'OK'
           content:
