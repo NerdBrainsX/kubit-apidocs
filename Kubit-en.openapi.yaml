@@ -7,7 +7,7 @@ info:
    including user authentication, account management, fund transfers, credit and debit card management,  
    as well as generating detailed reports on transactions and balances.
 
-    ### main features: |
+    ### main features:
     
   - **Authentication and Sessions:** Allows users to securely log in and manage their sessions.
   - **Transfers:** Facilitates money transfers between accounts within the same bank and to other financial institutions.
