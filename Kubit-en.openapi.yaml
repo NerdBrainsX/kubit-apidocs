@@ -162,7 +162,7 @@ paths:
                     example: Internal Server Error
       security: []
 
-  /api/v1/auth/password/recovery:
+ /api/v1/auth/password/recovery:
     post:
       summary: Password Recovery
 deprecated: false
