@@ -162,115 +162,115 @@ paths:
             example: Internal Server Error
 security: []
 
-/api/v1/auth/password/recovery:
-  post:
-    summary: 密码恢复
-    deprecated: false
-    description: |
-      此端点允许生成新密码并将其发送到用户注册的电子邮件账户。
-    operationId: password_recovery
-    tags: 
-      - Authentication
-    parameters:
-      - name: Kubit-Api-Key
-        in: header
-        description: '用于身份验证请求的唯一密钥。'
-        required: true
-        example: KU_{YOUR_KEY}
-        schema:
-          type: string
-      - name: email
-        in: query
-        description: '用户的电子邮件。'
-        required: true
-        example: user@example.com
-        schema:
-          type: string
-    responses:
-      '200':
-        description: "成功"
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  description: '请求状态。'
-                  example: "ok"
-                code:
-                  type: integer
-                  description: '与响应对应的 HTTP 状态代码。'
-                  example: 200
-                data:
-                  type: object
-                  description: '包含返回数据的对象。'
-                  properties:
-                    token:
-                      type: string
-                      description: '用于身份验证请求的令牌。'
-                      example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
-                  required:
-                    - token
-      '400':
-        description: '错误请求'
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  description: '请求状态。'
-                  examples: 'fail'
-                code:
-                  type: integer
-                  description: '与响应对应的 HTTP 状态代码。'
-                  example: 400
-                message:
-                  type: string
-                  description: '错误消息，指示请求格式不正确。'
-                  example: Bad Request
-      '401':
-        description: '未经授权'
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  description: '请求状态。'
-                  examples: 'fail'
-                code:
-                  type: integer
-                  description: '与响应对应的 HTTP 状态代码。'
-                  example: 401
-                message:
-                  type: string
-                  description: '错误消息，指示用户无权执行所请求的操作。'
-                  example: Unauthorized
-      '500':
-        description: '内部服务器错误'
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  description: '请求状态。'
-                  examples: 'error'
-                code:
-                  type: integer
-                  description: '与响应对应的 HTTP 状态代码。'
-                  example: 500
-                message:
-                  type: string
-                  description: '错误消息，指示服务器内部故障。'
-                  example: Internal Server Error
-security: []
-
+  /api/v1/auth/password/recovery:
+    post:
+      summary: 密码恢复
+      deprecated: false
+      description: |
+       此端点允许生成新密码并将其发送到用户注册的电子邮件账户。
+      operationId: password_recovery
+      tags: 
+        - Authentication
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: '用于身份验证请求的唯一密钥。'
+          required: true
+          example: KU_{YOUR_KEY}
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: '用户的电子邮件。'
+          required: true
+          example: user@example.com
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: '请求状态。'
+                    example: "ok"
+                  code:
+                    type: integer
+                    description: '与响应对应的 HTTP 状态代码。'
+                    example: 200
+                  data:
+                    type: object
+                    description: '包含返回数据的对象。'
+                    properties:
+                      token:
+                        type: string
+                        description: '用于身份验证请求的令牌。'
+                        example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+                    required:
+                      - token
+        '400':
+          description: '错误请求'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: '请求状态。'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description:'与响应对应的 HTTP 状态代码。'
+                    example: Bad Request
+        '401':
+          description: '未经授权'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: '请求状态。'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: '与响应对应的 HTTP 状态代码。'
+                    example: 401
+                  message:
+                    type: string
+                    description: '错误消息，指示用户无权执行所请求的操作。'
+                    example: Unauthorized
+        '500':
+          description: '内部服务器错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: '请求状态。'
+                    examples: 'error'
+                  code:
+                    type: integer
+                    description: '与响应对应的 HTTP 状态代码。'
+                    example: 500
+                  message:
+                    type: string
+                    description: '错误消息，指示服务器内部故障。'
+                    example: Internal Server Error
+      security: []
+      
 /api/v1/auth/logout:
   post:
     summary: 退出登录
