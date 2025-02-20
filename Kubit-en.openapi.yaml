@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Kubit Banking API
   description: |
-   The **Kubit Banking API** is a complete solution for integrating with Kubit's online banking system.
+   The **Kubit Banking API** prueba andres is a complete solution for integrating with Kubit's online banking system.
    This API allows developers to create applications that interact with various banking functionalities, 
    including user authentication, account management, fund transfers, credit and debit card management,  
    as well as generating detailed reports on transactions and balances.
