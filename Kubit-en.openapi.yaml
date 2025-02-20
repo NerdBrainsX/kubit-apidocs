@@ -162,114 +162,114 @@ paths:
                     example: Internal Server Error
       security: []
 
- /api/v1/auth/password/recovery:
-    post:
-      summary: Password Recovery
-deprecated: false
-description: |
-  This endpoint allows generating a new password and sending it to the user's registered email account.
-operationId: password_recovery
-tags: 
-  - Authentication
-parameters:
-  - name: Kubit-Api-Key
-    in: header
-    description: 'Unique key to authenticate the request.'
-    required: true
-    example: KU_{YOUR_KEY}
-    schema:
-      type: string
-  - name: email
-    in: query
-    description: 'User email.'
-    required: true
-    example: user@example.com
-    schema:
-      type: string
-responses:
-  '200':
-    description: "Ok"
-    content:
-      application/json:
+/api/v1/auth/password/recovery:
+  post:
+    summary: Password Recovery
+    deprecated: false
+    description: |
+      This endpoint allows generating a new password and sending it to the user's registered email account.
+    operationId: password_recovery
+    tags: 
+      - Authentication
+    parameters:
+      - name: Kubit-Api-Key
+        in: header
+        description: "Unique key to authenticate the request."
+        required: true
+        example: KU_{YOUR_KEY}
         schema:
-          type: object
-          properties:
-            status:
-              type: string
-              description: 'Request status.'
-              example: "ok"
-            code:
-              type: integer
-              description: 'HTTP status code corresponding to the response.'
-              example: 200
-            data:
+          type: string
+      - name: email
+        in: query
+        description: "User email."
+        required: true
+        example: user@example.com
+        schema:
+          type: string
+    responses:
+      '200':
+        description: "Ok"
+        content:
+          application/json:
+            schema:
               type: object
-              description: 'Object containing the resulting data.'
               properties:
-                token:
+                status:
                   type: string
-                  description: 'Token used to authenticate requests.'
-                  example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
-              required:
-                - token
-        '400':
-  description: 'Bad Request'
-  content:
-    application/json:
-      schema:
-        type: object
-        properties:
-          status:
-            type: string
-            description: 'Request status.'
-            examples: 'fail'
-          code:
-            type: integer
-            description: 'HTTP status code corresponding to the response.'
-            example: 400
-          message:
-            type: string
-            description: 'Error message indicating that the request was made incorrectly.'
-            example: Bad Request
-'401':
-  description: 'Unauthorized'
-  content:
-    application/json:
-      schema:
-        type: object
-        properties:
-          status:
-            type: string
-            description: 'Request status.'
-            examples: 'fail'
-          code:
-            type: integer
-            description: 'HTTP status code corresponding to the response.'
-            example: 401
-          message:
-            type: string
-            description: 'Error message indicating that you are not authorized to perform the requested action.'
-            example: Unauthorized
-'500':
-  description: 'Internal Server Error'
-  content:
-    application/json:
-      schema:
-        type: object
-        properties:
-          status:
-            type: string
-            description: 'Request status.'
-            examples: 'error'
-          code:
-            type: integer
-            description: 'HTTP status code corresponding to the response.'
-            example: 500
-          message:
-            type: string
-            description: 'Error message indicating an internal server failure.'
-            example: Internal Server Error
-security: []
+                  description: "Request status."
+                  example: "ok"
+                code:
+                  type: integer
+                  description: "HTTP status code corresponding to the response."
+                  example: 200
+                data:
+                  type: object
+                  description: "Object containing the resulting data."
+                  properties:
+                    token:
+                      type: string
+                      description: "Token used to authenticate requests."
+                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  required:
+                    - token
+      '400':
+        description: "Bad Request"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: "Request status."
+                  example: "fail"
+                code:
+                  type: integer
+                  description: "HTTP status code corresponding to the response."
+                  example: 400
+                message:
+                  type: string
+                  description: "Error message indicating that the request was made incorrectly."
+                  example: "Bad Request"
+      '401':
+        description: "Unauthorized"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: "Request status."
+                  example: "fail"
+                code:
+                  type: integer
+                  description: "HTTP status code corresponding to the response."
+                  example: 401
+                message:
+                  type: string
+                  description: "Error message indicating that you are not authorized to perform the requested action."
+                  example: "Unauthorized"
+      '500':
+        description: "Internal Server Error"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: "Request status."
+                  example: "error"
+                code:
+                  type: integer
+                  description: "HTTP status code corresponding to the response."
+                  example: 500
+                message:
+                  type: string
+                  description: "Error message indicating an internal server failure."
+                  example: "Internal Server Error"
+    security: []
 
   /api/v1/auth/logout:
     post:
