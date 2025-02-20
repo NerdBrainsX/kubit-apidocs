@@ -9,11 +9,11 @@ info:
 
     ### main features:
     
-  - **Authentication and Sessions:** Allows users to securely log in and manage their sessions.
-  - **Transfers:** Facilitates money transfers between accounts within the same bank and to other financial institutions.
-  - **Card Management:** Allows managing credit and debit cards, including activation, deactivation, and detail inquiries.
-  - **Balance and Transaction Inquiries:** Provides access to detailed account balance and transaction information, allowing for the generation of customized reports.
-  - **Payments and Services:** Integrates functionalities for making service payments and other financial transactions.
+    - **Authentication and Sessions:** Allows users to securely log in and manage their sessions.
+    - **Transfers:** Facilitates money transfers between accounts within the same bank and to other financial institutions.
+    - **Card Management:** Allows managing credit and debit cards, including activation, deactivation, and detail inquiries.
+    - **Balance and Transaction Inquiries:** Provides access to detailed account balance and transaction information, allowing for the generation of customized reports.
+    - **Payments and Services:** Integrates functionalities for making service payments and other financial transactions.
 
     ### Security:
     
