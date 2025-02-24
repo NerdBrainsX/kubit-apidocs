@@ -760,7 +760,7 @@ paths:
 
   /api/v1/auth/2fa/enroll:
     post:
-      summary: 注册OTP (Enroll OTP)
+      summary: 注册OTP
       deprecated: false
       description: |
         此端点用于注册OTP令牌以进行支付。
@@ -862,7 +862,7 @@ paths:
 
   /api/v1/auth/2fa/validate:
     post:
-      summary: 验证OTP (Validate OTP)
+      summary: 验证OTP
       deprecated: false
       description: |
         此端点用于验证OTP令牌以进行支付。
@@ -968,7 +968,7 @@ paths:
 
   /api/v1/auth/keys/exchange:
     post:
-      summary: 解密数据 (Decrypt Data)
+      summary: 解密数据
       deprecated: false
       description: |
         此端点用于交换公钥以解密敏感数据。
@@ -1088,7 +1088,7 @@ paths:
         此端点用于创建一个客户。
       operationId: partners
       tags: 
-        - 客户 (Customers)
+        - Customers
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -1317,7 +1317,7 @@ paths:
         此端点用于获取所有客户。
       operationId: partners_paged
       tags: 
-        - 客户 (Customers)
+        - Customers
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -1527,7 +1527,7 @@ paths:
         此端点用于通过唯一标识符获取客户。
       operationId: partners_id
       tags: 
-        - 客户 (Customers)
+        - Customers
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -1717,7 +1717,7 @@ paths:
       description: 此端点用于更新客户的状态。
       operationId: partner_status_update
       tags: 
-        - 客户 (Customers)
+        - Customers
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -1871,7 +1871,7 @@ paths:
         此端点用于创建一个合作客户。
       operationId: customers
       tags: 
-        - 客户 (Customers)
+        - Customers
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -2113,7 +2113,7 @@ paths:
         此端点用于获取所有合作客户。
       operationId: customers_paged
       tags: 
-        - 客户 (Customers)
+        - Customers
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -2339,7 +2339,7 @@ paths:
         此端点用于通过ID获取合作客户。
       operationId: customers_id
       tags: 
-        - 客户 (Customers)
+        - Customers
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -2538,7 +2538,7 @@ paths:
         此端点用于创建一个账户。
       operationId: accounts
       tags: 
-        - 账户 (Accounts)
+        - Accounts
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -2695,7 +2695,7 @@ paths:
         该端点允许通过账户 ID 获取账户数据。
       operationId: accounts_id
       tags: 
-        - 账户 (Accounts)
+        - Accounts
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -2852,7 +2852,7 @@ paths:
         该端点允许通过 CLABE 账户号码获取账户数据。
       operationId: accounts_clabe
       tags: 
-        - 账户 (Accounts)
+        - Accounts
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -3009,7 +3009,7 @@ paths:
         该端点允许通过客户 ID 获取客户的账户数据。
       operationId: accounts_customerId
       tags: 
-        - 账户 (Accounts)
+        - Accounts
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -3167,7 +3167,7 @@ paths:
         该端点允许通过唯一标识符获取账户的交易记录。
       operationId: accounts_movements_movementId
       tags: 
-        - 账户 (Accounts)
+        - Accounts
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -3350,7 +3350,7 @@ paths:
         该端点允许获取账户的所有交易记录，并支持分页。
       operationId: accounts_movements_paged
       tags: 
-        - 账户 (Accounts)
+        - Accounts
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -3580,7 +3580,7 @@ paths:
         该端点允许获取账户的最近 5 条交易记录。
       operationId: accounts_movements_latest
       tags: 
-        - 账户 (Accounts)
+        - Accounts
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -3768,7 +3768,7 @@ paths:
         此端点用于获取移动可能具有的状态。
       operationId: movements_status
       tags: 
-        - 账户 (Accounts)
+        - Accounts
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -3888,7 +3888,7 @@ paths:
           此端点用于获取移动可能具有的类型。
         operationId: movements_types
         tags: 
-          - 账户 (Accounts)
+          - Accounts
         parameters:
           - name: Kubit-Api-Key
             in: header
@@ -4008,7 +4008,7 @@ paths:
           此端点用于获取客户保存为常用的账户。
         operationId: accounts_customerId_favorites
         tags: 
-          - 账户 (Accounts)
+          - Accounts
         parameters:
           - name: Kubit-Api-Key
             in: header
@@ -5143,7 +5143,7 @@ paths:
         此端点用于在本地账户之间执行转账。
       operationId: transfer
       tags: 
-        - '转账'
+        - transfers
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -5350,7 +5350,7 @@ paths:
         此端点用于获取与账户关联的卡片。
       operationId: get_cards_account
       tags: 
-        - '卡片'
+        - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -5496,7 +5496,7 @@ paths:
         此端点用于通过唯一标识符获取卡片。
       operationId: get_card_cardId
       tags: 
-        - '卡片'
+        - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -5662,7 +5662,7 @@ paths:
         此端点用于获取卡片的敏感数据。
       operationId: get_card_cardData
       tags: 
-        - '卡片'
+        - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -5795,121 +5795,121 @@ paths:
                       example: '服务器内部错误'
         security: []
 
-    /cards/{cardId}/pin:
-      get:
-        summary: 获取银行卡 PIN
-        deprecated: false
-        description: |
-          此端点用于获取银行卡的 PIN 码。
-        operationId: get_card_PIN
-        tags: 
-          - Cards
-        parameters:
-          - name: Kubit-Api-Key
-            in: header
-            description: '用于验证请求的唯一密钥。'
-            required: true
-            example: KU_ZB2bXjQMh...
-            schema:
-              type: string
-          - name: Bearer Token
-            in: header
-            description: '用于验证请求的令牌。'
-            required: true
-            example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
-            schema:
-              type: string
-          - name: cardId
-            in: path
-            description: '银行卡的唯一标识符。'
-            required: true
-            example: cards/53aa35c8-e659-44b2-882f-f6056e443c99
-            schema:
-              type: string
-        responses:
-          '200':
-            description: '成功'
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    status:
-                      type: string
-                      description: '请求状态。'
-                      example: "ok"
-                    code:
-                      type: integer
-                      description: '与响应对应的 HTTP 状态码。'
-                      example: 200
-                    data:
-                      type: object
-                      description: '包含返回数据的对象。'
-                      properties:
-                        pin:
-                          type: string
-                          format: string
-                          description: '银行卡的 PIN 码。'
-                  required:
-                    - pin
-          '400':
-            description: '错误请求'
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    status:
-                      type: string
-                      description: '请求状态。'
-                      examples: 'fail'
-                    code:
-                      type: integer
-                      description: '与响应对应的 HTTP 状态码。'
-                      example: 400
-                    message:
-                      type: string
-                      description: '错误消息，指示请求格式不正确。'
-                      example: '错误请求'
-          '401':
-            description: '未授权'
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    status:
-                      type: string
-                      description: '请求状态。'
-                      examples: 'fail'
-                    code:
-                      type: integer
-                      description: '与响应对应的 HTTP 状态码。'
-                      example: 401
-                    message:
-                      type: string
-                      description: '错误消息，指示用户无权执行所请求的操作。'
-                      example: '未授权'
-          '500':
-            description: '服务器内部错误'
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    status:
-                      type: string
-                      description: '请求状态。'
-                      examples: 'error'
-                    code:
-                      type: integer
-                      description: '与响应对应的 HTTP 状态码。'
-                      example: 500
-                    message:
-                      type: string
-                      description: '错误消息，指示服务器内部发生错误。'
-                      example: '服务器内部错误'
-        security: []
+  /cards/{cardId}/pin:
+    get:
+      summary: 获取银行卡 PIN
+      deprecated: false
+      description: |
+        此端点用于获取银行卡的 PIN 码。
+      operationId: get_card_PIN
+      tags: 
+        - Cards
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: '用于验证请求的唯一密钥。'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: '用于验证请求的令牌。'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
+          schema:
+            type: string
+        - name: cardId
+          in: path
+          description: '银行卡的唯一标识符。'
+          required: true
+          example: cards/53aa35c8-e659-44b2-882f-f6056e443c99
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '成功'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: '请求状态。'
+                    example: "ok"
+                  code:
+                    type: integer
+                    description: '与响应对应的 HTTP 状态码。'
+                    example: 200
+                  data:
+                    type: object
+                    description: '包含返回数据的对象。'
+                    properties:
+                      pin:
+                        type: string
+                        format: string
+                        description: '银行卡的 PIN 码。'
+                required:
+                  - pin
+        '400':
+          description: '错误请求'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: '请求状态。'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: '与响应对应的 HTTP 状态码。'
+                    example: 400
+                  message:
+                    type: string
+                    description: '错误消息，指示请求格式不正确。'
+                    example: '错误请求'
+        '401':
+          description: '未授权'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: '请求状态。'
+                    examples: 'fail'
+                  code:
+                    type: integer
+                    description: '与响应对应的 HTTP 状态码。'
+                    example: 401
+                  message:
+                    type: string
+                    description: '错误消息，指示用户无权执行所请求的操作。'
+                    example: '未授权'
+        '500':
+          description: '服务器内部错误'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: '请求状态。'
+                    examples: 'error'
+                  code:
+                    type: integer
+                    description: '与响应对应的 HTTP 状态码。'
+                    example: 500
+                  message:
+                    type: string
+                    description: '错误消息，指示服务器内部发生错误。'
+                    example: '服务器内部错误'
+      security: []
     
   /cards/{cardId}/dynamic-cvv:
     post:
@@ -5919,7 +5919,7 @@ paths:
         此端点用于为卡片创建动态 CVV。
       operationId: create_card_dynamic_cvv
       tags: 
-        - '卡片'
+        - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
@@ -6050,7 +6050,7 @@ paths:
         此端点用于查询未过期的动态 CVV。
       operationId: get_card_dynamic_cvv
       tags: 
-        - '卡片'
+        - Cards
       parameters:
         - name: Kubit-Api-Key
           in: header
