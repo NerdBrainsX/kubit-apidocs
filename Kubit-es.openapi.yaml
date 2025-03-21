@@ -8,7 +8,7 @@ info:
     así como la generación de reportes detallados de movimientos y saldos.
 
     ### Principales Funcionalidades:
-    
+
     - **Autenticación y Sesiones:** Permite a los usuarios iniciar sesión de manera segura y gestionar sus sesiones. 
     - **Transferencias:** Facilita la transferencia de dinero entre cuentas dentro del mismo banco y hacia otras instituciones financieras.
     - **Gestión de Tarjetas:** Permite la gestión de tarjetas de crédito y débito, incluyendo la activación, desactivación, y consulta de detalles.
@@ -16,16 +16,16 @@ info:
     - **Pagos y Servicios:** Integra funcionalidades para la realización de pagos de servicios y otras transacciones monetarias.
 
     ### Seguridad:
-    
+
     Todas las interacciones con la API requieren autenticación a través de tokens JWT. 
     Además, se recomienda el uso de HTTPS para todas las comunicaciones con la API para garantizar la seguridad y privacidad de los datos.
 
     ### Público Objetivo:
-    
+
     Esta API está diseñada para desarrolladores que buscan integrar capacidades bancarias en sus aplicaciones, 
     desde aplicaciones móviles hasta soluciones web para la gestión financiera.
   version: 0.0.1
-tags: 
+tags:
   - name: Authentication
     description: 'Operaciones relacionadas con la autenticación de usuarios, manejo de sesiones y OTPs.'
   - name: Customers
@@ -48,7 +48,7 @@ paths:
       description: |
         Este endpoint permite a los usuarios autenticarse.
       operationId: login
-      tags: 
+      tags:
         - Authentication
       parameters:
         - name: Kubit-Api-Key
@@ -79,7 +79,7 @@ paths:
                 - username
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -88,7 +88,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -113,7 +113,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -132,7 +132,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -151,7 +151,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -169,7 +169,7 @@ paths:
       description: |
         Este endpoint permite generar una contraseña nueva y enviarla al usuario a la cuenta de correo que registró.
       operationId: password_recovery
-      tags: 
+      tags:
         - Authentication
       parameters:
         - name: Kubit-Api-Key
@@ -188,7 +188,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -197,7 +197,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -222,7 +222,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -241,7 +241,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -260,7 +260,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -273,12 +273,12 @@ paths:
 
   /api/v1/auth/password/update:
     post:
-      summary: Autenticación
+      summary: Actualizar constraseña
       deprecated: false
       description: |
         Este endpoint permite actualizar una contraseña y enviarla al usuario a la cuenta de correo que registró.
       operationId: password_update
-      tags: 
+      tags:
         - Authentication
       parameters:
         - name: Kubit-Api-Key
@@ -318,7 +318,7 @@ paths:
                 - new_password
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -327,7 +327,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -352,7 +352,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -371,7 +371,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -390,7 +390,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -408,7 +408,7 @@ paths:
       description: |
         Este endpoint permite cerrar una sesión activa
       operationId: logout
-      tags: 
+      tags:
         - Authentication
       parameters:
         - name: Kubit-Api-Key
@@ -427,7 +427,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -436,7 +436,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -451,7 +451,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -470,7 +470,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -489,7 +489,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -507,7 +507,7 @@ paths:
       description: |
         Este endpoint permite obtener los datos de un usuario autenticado.
       operationId: auth_user
-      tags: 
+      tags:
         - Authentication
       parameters:
         - name: Kubit-Api-Key
@@ -526,7 +526,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -535,7 +535,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -594,7 +594,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -613,7 +613,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -632,7 +632,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -650,7 +650,7 @@ paths:
       description: |
         Este endpoint permite obtener los roles de usuario.
       operationId: auth_roles
-      tags: 
+      tags:
         - Authentication
       parameters:
         - name: Kubit-Api-Key
@@ -669,7 +669,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -678,7 +678,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -688,26 +688,26 @@ paths:
                     description: 'Objeto que contiene los datos resultantes.'
                     items:
                       properties:
-                          id:
-                            type: string
-                            format: string
-                            description: 'Identificador unico del rol.'
-                          id_profile:
-                            type: string
-                            format: string
-                            description: 'Identificador unico del perfil asociado al rol.'
-                          name:
-                            type: string
-                            format: string
-                            description: 'Nombre del rol.'
-                          description:
-                            type: boolean
-                            format: boolean
-                            description: 'Descripción del rol.'
-                          level:
-                            type: integer
-                            format: integer
-                            description: 'Nivel de acceso del rol.'
+                        id:
+                          type: string
+                          format: string
+                          description: 'Identificador unico del rol.'
+                        id_profile:
+                          type: string
+                          format: string
+                          description: 'Identificador unico del perfil asociado al rol.'
+                        name:
+                          type: string
+                          format: string
+                          description: 'Nombre del rol.'
+                        description:
+                          type: boolean
+                          format: boolean
+                          description: 'Descripción del rol.'
+                        level:
+                          type: integer
+                          format: integer
+                          description: 'Nivel de acceso del rol.'
                       required:
                         - id
                         - id_profile
@@ -724,7 +724,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -743,7 +743,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -762,7 +762,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -780,7 +780,7 @@ paths:
       description: |
         Este endpoint permite obtener los perfiles asociados a un rol de usuario.
       operationId: auth_profiles
-      tags: 
+      tags:
         - Authentication
       parameters:
         - name: Kubit-Api-Key
@@ -799,7 +799,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -808,7 +808,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -818,14 +818,14 @@ paths:
                     description: 'Objeto que contiene los datos resultantes.'
                     items:
                       properties:
-                          id:
-                            type: string
-                            format: string
-                            description: 'Identificador unico del perfil.'
-                          name:
-                            type: string
-                            format: string
-                            description: 'Nombre del perfil.'
+                        id:
+                          type: string
+                          format: string
+                          description: 'Identificador unico del perfil.'
+                        name:
+                          type: string
+                          format: string
+                          description: 'Nombre del perfil.'
                       required:
                         - id
                         - name
@@ -839,7 +839,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -858,7 +858,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -877,7 +877,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -895,7 +895,7 @@ paths:
       description: |
         Este endpoint permite realizar el proceso de enrolamiento de un token OTP para realizar pagos.
       operationId: auth_otp_enroll
-      tags: 
+      tags:
         - Authentication
       parameters:
         - name: Kubit-Api-Key
@@ -914,7 +914,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -923,7 +923,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -941,7 +941,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -960,7 +960,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -979,7 +979,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -997,7 +997,7 @@ paths:
       description: |
         Este endpoint permite realizar el proceso de validación de un token OTP para realizar pagos.
       operationId: auth_otp_validate
-      tags: 
+      tags:
         - Authentication
       parameters:
         - name: Kubit-Api-Key
@@ -1023,7 +1023,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -1032,7 +1032,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1047,7 +1047,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1066,7 +1066,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1085,7 +1085,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1103,7 +1103,7 @@ paths:
       description: |
         Este endpoint permite intercambiar una llave pública para desencriptar datos sensibles.
       operationId: exchange_key
-      tags: 
+      tags:
         - Authentication
       parameters:
         - name: Kubit-Api-Key
@@ -1143,7 +1143,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1161,7 +1161,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1180,7 +1180,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1199,7 +1199,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1217,7 +1217,7 @@ paths:
       description: |
         Este endpoint permite crear un cliente contratante.
       operationId: partners
-      tags: 
+      tags:
         - Customers
       parameters:
         - name: Kubit-Api-Key
@@ -1346,7 +1346,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1361,7 +1361,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1380,7 +1380,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1392,16 +1392,16 @@ paths:
         '422':
           description: Unprocessable Entity
             <table>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>CODE-014</td>
-                <td>Cuenta de correo registrada</td>
-              </tr>
+            <tr>
+            <th>Código</th>
+            <th>Descripción</th>
+            </tr>
+            <tr>
+            <td>CODE-014</td>
+            <td>Cuenta de correo registrada</td>
+            </tr>
             </table>
-          content: 
+          content:
             application/json:
               schema:
                 type: object
@@ -1409,7 +1409,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1428,7 +1428,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1446,7 +1446,7 @@ paths:
       description: |
         Este endpoint permite obtener todos los clientes contratantes.
       operationId: partners_paged
-      tags: 
+      tags:
         - Customers
       parameters:
         - name: Kubit-Api-Key
@@ -1483,9 +1483,9 @@ paths:
           required: true
           schema:
             type: string
-      responses:                  
+      responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -1494,15 +1494,15 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
                     example: 200
                   total:
-                      type: integer
-                      description: 'Total de registros encontrados.'
-                      example: 2
+                    type: integer
+                    description: 'Total de registros encontrados.'
+                    example: 2
                   data:
                     type: array
                     description: 'Objeto que contiene los datos resultantes.'
@@ -1589,7 +1589,7 @@ paths:
                           type: integer
                           format: integer
                           description: 'Estado del registro del cliente.'
-                          example: "1 Creado, 2 En Revisión, 3 Aprobado, 4 Rechazado"
+                          example: '1 Creado, 2 En Revisión, 3 Aprobado, 4 Rechazado'
         '400':
           description: 'Bad Request'
           content:
@@ -1600,7 +1600,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1619,7 +1619,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1638,7 +1638,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1656,7 +1656,7 @@ paths:
       description: |
         Este endpoint permite obtener un cliente contratante por su identificador.
       operationId: partners_id
-      tags: 
+      tags:
         - Customers
       parameters:
         - name: Kubit-Api-Key
@@ -1682,7 +1682,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -1691,7 +1691,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1780,7 +1780,7 @@ paths:
                         type: integer
                         format: integer
                         description: 'Estado del registro del cliente.'
-                        example: "1 Creado, 2 En Revisión, 3 Aprobado, 4 Rechazado"
+                        example: '1 Creado, 2 En Revisión, 3 Aprobado, 4 Rechazado'
         '400':
           description: 'Bad Request'
           content:
@@ -1791,7 +1791,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1810,7 +1810,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1829,7 +1829,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1838,7 +1838,7 @@ paths:
                     type: string
                     description: 'Mensaje de error indicando un fallo interno en el servidor.'
                     example: Internal Server Error
-        
+
       security: []
 
   /api/v1/partners/{partnerId}/status/{statusId}:
@@ -1847,7 +1847,7 @@ paths:
       deprecated: false
       description: Este endpoint permite actualizar el estado de un cliente contratante.
       operationId: partner_status_update
-      tags: 
+      tags:
         - Customers
       parameters:
         - name: Kubit-Api-Key
@@ -1888,11 +1888,11 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: "Estado de la solicitud."
-                    example: "ok"
+                    description: 'Estado de la solicitud.'
+                    example: 'ok'
                   code:
                     type: integer
-                    description: "Código de estado HTTP correspondiente a la respuesta."
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
                     example: 200
         '400':
           description: 'Bad Request'
@@ -1904,7 +1904,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1923,7 +1923,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: "fail"
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1935,28 +1935,28 @@ paths:
         '422':
           description: Unprocessable Entity
             <table>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>CODE-011</td>
-                <td>Cliente no encontrado</td>
-              </tr>
-              <tr>
-                <td>CODE-012</td>
-                <td>Cambio de estado no válido. No es posible pasar de un estado A a C sin pasar por B.</td>
-              </tr>
-              <tr>
-                <td>CODE-013</td>
-                <td>Cambio de estado procesado correctamente pero, no fue posible crear la cuenta de usuario del cliente.</td>
-              </tr>
-              <tr>
-                <td>CODE-015</td>
-                <td>Cambio de estado procesado correctamente pero, no fue posible crear el api key del cliente.</td>
-              </tr>
+            <tr>
+            <th>Código</th>
+            <th>Descripción</th>
+            </tr>
+            <tr>
+            <td>CODE-011</td>
+            <td>Cliente no encontrado</td>
+            </tr>
+            <tr>
+            <td>CODE-012</td>
+            <td>Cambio de estado no válido. No es posible pasar de un estado A a C sin pasar por B.</td>
+            </tr>
+            <tr>
+            <td>CODE-013</td>
+            <td>Cambio de estado procesado correctamente pero, no fue posible crear la cuenta de usuario del cliente.</td>
+            </tr>
+            <tr>
+            <td>CODE-015</td>
+            <td>Cambio de estado procesado correctamente pero, no fue posible crear el api key del cliente.</td>
+            </tr>
             </table>
-          content: 
+          content:
             application/json:
               schema:
                 type: object
@@ -1964,7 +1964,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: "fail"
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -1974,7 +1974,7 @@ paths:
                     description: 'Código del error identificado.'
                     example: CODE-005
         '500':
-          description: "Internal Server Error"
+          description: 'Internal Server Error'
           content:
             application/json:
               schema:
@@ -1982,15 +1982,15 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: "Estado de la solicitud."
-                    examples: "error"
+                    description: 'Estado de la solicitud.'
+                    examples: ['error']
                   code:
                     type: integer
-                    description: "Código de estado HTTP correspondiente a la respuesta."
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
                     example: 500
                   message:
                     type: string
-                    description: "Mensaje de error indicando un fallo interno en el servidor."
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
                     example: Internal Server Error
       security: []
 
@@ -2001,7 +2001,7 @@ paths:
       description: |
         Este endpoint permite crear un cliente colaborador.
       operationId: customers
-      tags: 
+      tags:
         - Customers
       parameters:
         - name: Kubit-Api-Key
@@ -2129,7 +2129,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2154,7 +2154,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2173,7 +2173,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2185,20 +2185,20 @@ paths:
         '422':
           description: Unprocessable Entity
             <table>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>CODE-013</td>
-                <td>No fue posible crear la cuenta de usuario del cliente</td>
-              </tr>
-              <tr>
-                <td>CODE-014</td>
-                <td>Cuenta de correo registrada</td>
-              </tr>
+            <tr>
+            <th>Código</th>
+            <th>Descripción</th>
+            </tr>
+            <tr>
+            <td>CODE-013</td>
+            <td>No fue posible crear la cuenta de usuario del cliente</td>
+            </tr>
+            <tr>
+            <td>CODE-014</td>
+            <td>Cuenta de correo registrada</td>
+            </tr>
             </table>
-          content: 
+          content:
             application/json:
               schema:
                 type: object
@@ -2206,7 +2206,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2225,7 +2225,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2243,7 +2243,7 @@ paths:
       description: |
         Este endpoint permite obtener todos los clientes colaboradores.
       operationId: customers_paged
-      tags: 
+      tags:
         - Customers
       parameters:
         - name: Kubit-Api-Key
@@ -2290,7 +2290,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -2299,7 +2299,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2413,7 +2413,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2432,7 +2432,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2451,7 +2451,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2469,7 +2469,7 @@ paths:
       description: |
         Este endpoint permite obtener un cliente colaborador por su id.
       operationId: customers_id
-      tags: 
+      tags:
         - Customers
       parameters:
         - name: Kubit-Api-Key
@@ -2495,7 +2495,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -2504,7 +2504,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2513,95 +2513,95 @@ paths:
                     type: object
                     description: 'Objeto que contiene los datos resultantes.'
                     properties:
-                        rfc:
-                          type: string
-                          format: string
-                          description: 'RFC.'
-                        parent_id:
-                          type: string
-                          format: string
-                          description: 'Identificador del registro padre.'
-                        account_customer_id:
-                          type: string
-                          format: string
-                          description: 'Identificador del cliente contratante al que pertenece.'
-                        level:
-                          type: integer
-                          format: integer
-                          description: 'Nivel que ocupa el cliente en la jerarquia, esto quiere decir si pertenece a otro cliente colaborador'
-                        company_name:
-                          type: string
-                          format: string
-                          description: 'Razón social.'
-                        name:
-                          type: string
-                          format: string
-                          description: 'Nombre. Solo persona fisica.'
-                        ap_paterno:
-                          type: string
-                          format: string
-                          description: 'Apellido paterno. Solo persona fisica.'
-                        ap_materno:
-                          type: string
-                          format: string
-                          description: 'Apellido materno. Solo persona fisica.'
-                        taxpayer_type_id:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de persona fiscal'
-                          example: '1 persona fisica, 2 persona moral'
-                        address:
-                          description: 'Dirección fiscal.'
-                          type: object
-                          properties:
-                            street:
-                              type: string
-                              format: string
-                              description: 'Calle.'
-                            num_ext:
-                              type: string
-                              format: string
-                              description: 'Número exterior.'
-                            num_int:
-                              type: string
-                              format: string
-                              description: 'Número interior.'
-                            reference:
-                              type: string
-                              format: string
-                              description: 'Datos de referencia para llegar a la ubicación.'
-                            neighborhood:
-                              type: string
-                              format: string
-                              description: 'Colonia.'
-                            district:
-                              type: string
-                              format: string
-                              description: 'Delegación / Municipio.'
-                            estate:
-                              type: string
-                              format: string
-                              description: 'Estado / Entidad federativa.'
-                            cp:
-                              type: string
-                              format: string
-                              description: 'Código Postal.'
-                        contact_name:
-                          type: string
-                          format: string
-                          description: 'Nombre completo del contacto.'
-                        contact_email:
-                          type: string
-                          format: string
-                          description: 'Correo electrónico de contacto.'
-                        contact_tel:
-                          type: string
-                          format: string
-                          description: 'Número de telefono de contacto.'
-                        creation_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en la que se creo el registro.'
+                      rfc:
+                        type: string
+                        format: string
+                        description: 'RFC.'
+                      parent_id:
+                        type: string
+                        format: string
+                        description: 'Identificador del registro padre.'
+                      account_customer_id:
+                        type: string
+                        format: string
+                        description: 'Identificador del cliente contratante al que pertenece.'
+                      level:
+                        type: integer
+                        format: integer
+                        description: 'Nivel que ocupa el cliente en la jerarquia, esto quiere decir si pertenece a otro cliente colaborador'
+                      company_name:
+                        type: string
+                        format: string
+                        description: 'Razón social.'
+                      name:
+                        type: string
+                        format: string
+                        description: 'Nombre. Solo persona fisica.'
+                      ap_paterno:
+                        type: string
+                        format: string
+                        description: 'Apellido paterno. Solo persona fisica.'
+                      ap_materno:
+                        type: string
+                        format: string
+                        description: 'Apellido materno. Solo persona fisica.'
+                      taxpayer_type_id:
+                        type: integer
+                        format: integer
+                        description: 'Tipo de persona fiscal'
+                        example: '1 persona fisica, 2 persona moral'
+                      address:
+                        description: 'Dirección fiscal.'
+                        type: object
+                        properties:
+                          street:
+                            type: string
+                            format: string
+                            description: 'Calle.'
+                          num_ext:
+                            type: string
+                            format: string
+                            description: 'Número exterior.'
+                          num_int:
+                            type: string
+                            format: string
+                            description: 'Número interior.'
+                          reference:
+                            type: string
+                            format: string
+                            description: 'Datos de referencia para llegar a la ubicación.'
+                          neighborhood:
+                            type: string
+                            format: string
+                            description: 'Colonia.'
+                          district:
+                            type: string
+                            format: string
+                            description: 'Delegación / Municipio.'
+                          estate:
+                            type: string
+                            format: string
+                            description: 'Estado / Entidad federativa.'
+                          cp:
+                            type: string
+                            format: string
+                            description: 'Código Postal.'
+                      contact_name:
+                        type: string
+                        format: string
+                        description: 'Nombre completo del contacto.'
+                      contact_email:
+                        type: string
+                        format: string
+                        description: 'Correo electrónico de contacto.'
+                      contact_tel:
+                        type: string
+                        format: string
+                        description: 'Número de telefono de contacto.'
+                      creation_date:
+                        type: string
+                        format: string
+                        description: 'Fecha en la que se creo el registro.'
         '400':
           description: 'Bad Request'
           content:
@@ -2612,7 +2612,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2631,7 +2631,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2650,7 +2650,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2668,7 +2668,7 @@ paths:
       description: |
         Este endpoint permite crear una cuenta.
       operationId: accounts
-      tags: 
+      tags:
         - Accounts
       parameters:
         - name: Kubit-Api-Key
@@ -2709,7 +2709,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2724,7 +2724,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2743,7 +2743,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2755,32 +2755,32 @@ paths:
         '422':
           description: Unprocessable Entity
             <table>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>CODE-004</td>
-                <td>Cliente con estado no aprobado</td>
-              </tr>
-              <tr>
-                <td>CODE-005</td>
-                <td>Propietario no encontrado</td>
-              </tr>
-              <tr>
-                <td>CODE-006</td>
-                <td>Centro de costo no asigando o no disponible</td>
-              </tr>
-              <tr>
-                <td>CODE-007</td>
-                <td>No se encontro un proveedor de pago</td>
-              </tr>
-              <tr>
-                <td>CODE-009</td>
-                <td>Nivel de cuenta inválido</td>
-              </tr>
+            <tr>
+            <th>Código</th>
+            <th>Descripción</th>
+            </tr>
+            <tr>
+            <td>CODE-004</td>
+            <td>Cliente con estado no aprobado</td>
+            </tr>
+            <tr>
+            <td>CODE-005</td>
+            <td>Propietario no encontrado</td>
+            </tr>
+            <tr>
+            <td>CODE-006</td>
+            <td>Centro de costo no asigando o no disponible</td>
+            </tr>
+            <tr>
+            <td>CODE-007</td>
+            <td>No se encontro un proveedor de pago</td>
+            </tr>
+            <tr>
+            <td>CODE-009</td>
+            <td>Nivel de cuenta inválido</td>
+            </tr>
             </table>
-          content: 
+          content:
             application/json:
               schema:
                 type: object
@@ -2788,7 +2788,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2807,7 +2807,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2825,7 +2825,7 @@ paths:
       description: |
         Este endpoint permite obtener los datos de una cuenta por su id.
       operationId: accounts_id
-      tags: 
+      tags:
         - Accounts
       parameters:
         - name: Kubit-Api-Key
@@ -2851,7 +2851,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -2860,7 +2860,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2869,53 +2869,53 @@ paths:
                     type: object
                     description: 'Objeto que contiene los datos resultantes.'
                     properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la cuenta (número de cuenta).'
-                        type:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de cuenta.'
-                          example: '1 Cuenta, 2 Subcuenta'
-                        amount:
-                          type: money
-                          format: money
-                          description: 'Saldo disponible.'
-                        currency:
-                          type: string
-                          format: string
-                          description: 'Moneda.'
-                        linked_cellphone:
-                          type: string
-                          format: string
-                          description: 'Número de telefono vinculado.'
-                        creation_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en la que se creo el registro.'
-                        clabes:
-                          type: array
-                          items:
-                            type: object
-                            description: 'Cuentas clabe asociadas a la cuenta principal. Puede haber una cuenta clabe por cada proveedor de pago integrado en la plataforma.'
-                            properties:
-                              id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta clabe.'
-                              payment_provider_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico del proveedor de pago.'
-                              account_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta asociada.'
-                              clabe: 
-                                type: string
-                                format: string
-                                description: 'Número de cuenta clabe.'
+                      id:
+                        type: string
+                        format: string
+                        description: 'Identificador unico de la cuenta (número de cuenta).'
+                      type:
+                        type: integer
+                        format: integer
+                        description: 'Tipo de cuenta.'
+                        example: '1 Cuenta, 2 Subcuenta'
+                      amount:
+                        type: number
+                        format: money
+                        description: 'Saldo disponible.'
+                      currency:
+                        type: string
+                        format: string
+                        description: 'Moneda.'
+                      linked_cellphone:
+                        type: string
+                        format: string
+                        description: 'Número de telefono vinculado.'
+                      creation_date:
+                        type: string
+                        format: string
+                        description: 'Fecha en la que se creo el registro.'
+                      clabes:
+                        type: array
+                        items:
+                          type: object
+                          description: 'Cuentas clabe asociadas a la cuenta principal. Puede haber una cuenta clabe por cada proveedor de pago integrado en la plataforma.'
+                          properties:
+                            id:
+                              type: string
+                              format: string
+                              description: 'Idenficador unico de la cuenta clabe.'
+                            payment_provider_id:
+                              type: string
+                              format: string
+                              description: 'Idenficador unico del proveedor de pago.'
+                            account_id:
+                              type: string
+                              format: string
+                              description: 'Idenficador unico de la cuenta asociada.'
+                            clabe:
+                              type: string
+                              format: string
+                              description: 'Número de cuenta clabe.'
         '400':
           description: 'Bad Request'
           content:
@@ -2926,7 +2926,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2945,7 +2945,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2964,7 +2964,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -2982,7 +2982,7 @@ paths:
       description: |
         Este endpoint permite obtener una los datos de una cuenta por su número de cuenta clabe.
       operationId: accounts_clabe
-      tags: 
+      tags:
         - Accounts
       parameters:
         - name: Kubit-Api-Key
@@ -3008,7 +3008,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -3017,7 +3017,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3026,53 +3026,53 @@ paths:
                     type: object
                     description: 'Objeto que contiene los datos resultantes.'
                     properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la cuenta (número de cuenta).'
-                        type:
-                          type: integer
-                          format: integer
-                          description: 'Tipo de cuenta.'
-                          example: '1 Cuenta, 2 Subcuenta'
-                        amount:
-                          type: money
-                          format: money
-                          description: 'Saldo disponible.'
-                        currency:
-                          type: string
-                          format: string
-                          description: 'Moneda.'
-                        linked_cellphone:
-                          type: string
-                          format: string
-                          description: 'Número de telefono vinculado.'
-                        creation_date:
-                          type: string
-                          format: string
-                          description: 'Fecha en la que se creo el registro.'
-                        clabes:
-                          type: array
-                          items:
-                            type: object
-                            description: 'Cuentas clabe asociadas a la cuenta principal. Puede haber una cuenta clabe por cada proveedor de pago integrado en la plataforma.'
-                            properties:
-                              id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta clabe.'
-                              payment_provider_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico del proveedor de pagos.'
-                              account_id: 
-                                type: string
-                                format: string
-                                description: 'Idenficador unico de la cuenta asociada.'
-                              clabe: 
-                                type: string
-                                format: string
-                                description: 'Número de cuenta clabe.'
+                      id:
+                        type: string
+                        format: string
+                        description: 'Identificador unico de la cuenta (número de cuenta).'
+                      type:
+                        type: integer
+                        format: integer
+                        description: 'Tipo de cuenta.'
+                        example: '1 Cuenta, 2 Subcuenta'
+                      amount:
+                        type: number
+                        format: money
+                        description: 'Saldo disponible.'
+                      currency:
+                        type: string
+                        format: string
+                        description: 'Moneda.'
+                      linked_cellphone:
+                        type: string
+                        format: string
+                        description: 'Número de telefono vinculado.'
+                      creation_date:
+                        type: string
+                        format: string
+                        description: 'Fecha en la que se creo el registro.'
+                      clabes:
+                        type: array
+                        items:
+                          type: object
+                          description: 'Cuentas clabe asociadas a la cuenta principal. Puede haber una cuenta clabe por cada proveedor de pago integrado en la plataforma.'
+                          properties:
+                            id:
+                              type: string
+                              format: string
+                              description: 'Idenficador unico de la cuenta clabe.'
+                            payment_provider_id:
+                              type: string
+                              format: string
+                              description: 'Idenficador unico del proveedor de pagos.'
+                            account_id:
+                              type: string
+                              format: string
+                              description: 'Idenficador unico de la cuenta asociada.'
+                            clabe:
+                              type: string
+                              format: string
+                              description: 'Número de cuenta clabe.'
         '400':
           description: 'Bad Request'
           content:
@@ -3083,7 +3083,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3102,7 +3102,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3121,7 +3121,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3139,7 +3139,7 @@ paths:
       description: |
         Este endpoint permite obtener las cuentas de un cliente por su id.
       operationId: accounts_customerId
-      tags: 
+      tags:
         - Accounts
       parameters:
         - name: Kubit-Api-Key
@@ -3165,7 +3165,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -3174,7 +3174,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3194,7 +3194,7 @@ paths:
                           description: 'Tipo de cuenta.'
                           example: '1 Cuenta, 2 Subcuenta'
                         amount:
-                          type: money
+                          type: number
                           format: money
                           description: 'Saldo disponible.'
                         currency:
@@ -3215,19 +3215,19 @@ paths:
                             type: object
                             description: 'Cuentas clabe asociadas a la cuenta principal. Puede haber una cuenta clabe por cada proveedor de pago integrado en la plataforma.'
                             properties:
-                              id: 
+                              id:
                                 type: string
                                 format: string
                                 description: 'Idenficador unico de la cuenta clabe.'
-                              payment_provider_id: 
+                              payment_provider_id:
                                 type: string
                                 format: string
                                 description: 'Idenficador unico del proveedor de pagos.'
-                              account_id: 
+                              account_id:
                                 type: string
                                 format: string
                                 description: 'Idenficador unico de la cuenta asociada.'
-                              clabe: 
+                              clabe:
                                 type: string
                                 format: string
                                 description: 'Número de cuenta clabe.'
@@ -3241,7 +3241,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3260,7 +3260,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3279,7 +3279,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3297,7 +3297,7 @@ paths:
       description: |
         Este endpoint permite obtener un movimiento de una cuenta por su identificador único.
       operationId: accounts_movements_movementId
-      tags: 
+      tags:
         - Accounts
       parameters:
         - name: Kubit-Api-Key
@@ -3323,7 +3323,7 @@ paths:
             type: string
       responses:
         '200':
-          description: "Ok"
+          description: 'Ok'
           content:
             application/json:
               schema:
@@ -3332,7 +3332,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3359,7 +3359,7 @@ paths:
                         format: string
                         description: 'Descripción.'
                       amount:
-                        type: money
+                        type: number
                         format: money
                         description: 'Monto.'
                       folio:
@@ -3424,7 +3424,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3443,7 +3443,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3462,7 +3462,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3480,7 +3480,7 @@ paths:
       description: |
         Este endpoint permite obtener todos los movimientos de una cuenta.
       operationId: accounts_movements_paged
-      tags: 
+      tags:
         - Accounts
       parameters:
         - name: Kubit-Api-Key
@@ -3557,7 +3557,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3589,7 +3589,7 @@ paths:
                           format: string
                           description: 'Descripción del movimiento.'
                         amount:
-                          type: money
+                          type: number
                           format: money
                           description: 'Monto del movimiento.'
                         folio:
@@ -3654,7 +3654,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3673,7 +3673,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3692,7 +3692,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3710,7 +3710,7 @@ paths:
       description: |
         Este endpoint permite obtener los últimos 5 movimientos de una cuenta.
       operationId: accounts_movements_latest
-      tags: 
+      tags:
         - Accounts
       parameters:
         - name: Kubit-Api-Key
@@ -3745,7 +3745,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3777,7 +3777,7 @@ paths:
                           format: string
                           description: 'Descripción del movimiento.'
                         amount:
-                          type: money
+                          type: number
                           format: money
                           description: 'Monto del movimiento.'
                         folio:
@@ -3842,7 +3842,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3861,7 +3861,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3880,7 +3880,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3898,7 +3898,7 @@ paths:
       description: |
         Este endpoint permite obtener los estados que puede tener un movimiento.
       operationId: movements_status
-      tags: 
+      tags:
         - Accounts
       parameters:
         - name: Kubit-Api-Key
@@ -3926,7 +3926,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3936,18 +3936,18 @@ paths:
                     description: 'Objeto que contiene los datos resultantes.'
                     items:
                       properties:
-                          id:
-                            type: string
-                            format: string
-                            description: 'Identificador único del estado del movimiento.'
-                          name:
-                            type: string
-                            format: string
-                            description: 'Nombre del estado del movimiento.'
-                          type:
-                            type: integer
-                            format: integer
-                            description: 'Tipo del estado del movimiento (1 pago, 2 tarjeta).'
+                        id:
+                          type: string
+                          format: string
+                          description: 'Identificador único del estado del movimiento.'
+                        name:
+                          type: string
+                          format: string
+                          description: 'Nombre del estado del movimiento.'
+                        type:
+                          type: integer
+                          format: integer
+                          description: 'Tipo del estado del movimiento (1 pago, 2 tarjeta).'
                       required:
                         - id
                         - name
@@ -3962,7 +3962,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -3981,7 +3981,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4000,7 +4000,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4018,7 +4018,7 @@ paths:
       description: |
         Este endpoint permite obtener los tipos que puede tener un movimiento.
       operationId: movements_types
-      tags: 
+      tags:
         - Accounts
       parameters:
         - name: Kubit-Api-Key
@@ -4046,7 +4046,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4082,7 +4082,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4101,7 +4101,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4120,7 +4120,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4138,7 +4138,7 @@ paths:
       description: |
         Este endpoint permite obtener las cuentas guardadas como favoritas de un cliente.
       operationId: accounts_customerId_favorites
-      tags: 
+      tags:
         - Accounts
       parameters:
         - name: Kubit-Api-Key
@@ -4173,7 +4173,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4183,31 +4183,31 @@ paths:
                     description: 'Objeto que contiene los datos resultantes.'
                     items:
                       properties:
-                          customer_id:
-                            type: string
-                            format: string
-                            description: 'Identificador unico del cliente.'
-                          account_id:
-                            type: string
-                            format: string
-                            description: 'Número de cuenta.'
-                          account_type:
-                            type: integer
-                            format: integer
-                            description: 'Tipo de cuenta.'
-                            example: '1 Clabe, 2 Cuenta'
-                          account_alias:
-                            type: string
-                            format: string
-                            description: 'Alias de la cuenta.'
-                          beneficiary_name:
-                              type: string
-                              format: string
-                              description: 'Nombre del beneficiario.'
-                          beneficiary_email:
-                            type: string
-                            format: string
-                            description: 'Correo del beneficiario.'
+                        customer_id:
+                          type: string
+                          format: string
+                          description: 'Identificador unico del cliente.'
+                        account_id:
+                          type: string
+                          format: string
+                          description: 'Número de cuenta.'
+                        account_type:
+                          type: integer
+                          format: integer
+                          description: 'Tipo de cuenta.'
+                          example: '1 Clabe, 2 Cuenta'
+                        account_alias:
+                          type: string
+                          format: string
+                          description: 'Alias de la cuenta.'
+                        beneficiary_name:
+                          type: string
+                          format: string
+                          description: 'Nombre del beneficiario.'
+                        beneficiary_email:
+                          type: string
+                          format: string
+                          description: 'Correo del beneficiario.'
         '400':
           description: 'Bad Request'
           content:
@@ -4218,7 +4218,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4237,7 +4237,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4256,7 +4256,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4274,7 +4274,7 @@ paths:
       description: |
         Este endpoint permite enviar un pago a otro banco.
       operationId: speiout
-      tags: 
+      tags:
         - Payments
       parameters:
         - name: Kubit-Api-Key
@@ -4345,7 +4345,7 @@ paths:
                   description: 'Número de cuenta CLABE del ordenante'
                   example: '1234567890123456'
                 amount:
-                  type: money
+                  type: number
                   format: money
                   description: 'Monto de la transferencia. El monto máximo por orden de transferencia de la orden de pago que se manejará en SPEI será de: 999,999,999,999.99'
                   example: 10.00
@@ -4386,7 +4386,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4401,7 +4401,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4420,7 +4420,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4432,36 +4432,36 @@ paths:
         '422':
           description: Unprocessable Entity
             <table>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>CODE-001</td>
-                <td>Cuenta no encontrada</td>
-              </tr>
-              <tr>
-                <td>CODE-002</td>
-                <td>La cuenta no pertenece al ordenante</td>
-              </tr>
-              <tr>
-                <td>CODE-003</td>
-                <td>Fondos insuficientes</td>
-              </tr>
-              <tr>
-                <td>CODE-016</td>
-                <td>Error en la configuración de comisión</td>
-              </tr>
-              <tr>
-                <td>CODE-017</td>
-                <td>Configuración de comisión no encontrada</td>
-              </tr>
-              <tr>
-                <td>CODE-018</td>
-                <td>Error en el cálculo de la comisión</td>
-              </tr>
+            <tr>
+            <th>Código</th>
+            <th>Descripción</th>
+            </tr>
+            <tr>
+            <td>CODE-001</td>
+            <td>Cuenta no encontrada</td>
+            </tr>
+            <tr>
+            <td>CODE-002</td>
+            <td>La cuenta no pertenece al ordenante</td>
+            </tr>
+            <tr>
+            <td>CODE-003</td>
+            <td>Fondos insuficientes</td>
+            </tr>
+            <tr>
+            <td>CODE-016</td>
+            <td>Error en la configuración de comisión</td>
+            </tr>
+            <tr>
+            <td>CODE-017</td>
+            <td>Configuración de comisión no encontrada</td>
+            </tr>
+            <tr>
+            <td>CODE-018</td>
+            <td>Error en el cálculo de la comisión</td>
+            </tr>
             </table>
-          content: 
+          content:
             application/json:
               schema:
                 type: object
@@ -4469,7 +4469,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4488,7 +4488,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4506,7 +4506,7 @@ paths:
       description: |
         Este endpoint permite guardar un pago a otro banco para realizarlo mas tarde.
       operationId: speiout_save
-      tags: 
+      tags:
         - Payments
       parameters:
         - name: Kubit-Api-Key
@@ -4577,7 +4577,7 @@ paths:
                   description: 'Número de cuenta CLABE del ordenante'
                   example: '1234567890123456'
                 amount:
-                  type: money
+                  type: number
                   format: money
                   description: 'Monto de la transferencia. El monto máximo por orden de transferencia de la orden de pago que se manejará en SPEI será de: 999,999,999,999.99'
                   example: 10.00
@@ -4618,7 +4618,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4633,7 +4633,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4652,7 +4652,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4671,7 +4671,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4689,7 +4689,7 @@ paths:
       description: |
         Este endpoint permite subir un template de pagos para procesarlos de manera masiva.
       operationId: speiout_template
-      tags: 
+      tags:
         - Payments
       parameters:
         - name: Kubit-Api-Key
@@ -4736,7 +4736,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4751,7 +4751,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4770,7 +4770,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4789,7 +4789,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4807,7 +4807,7 @@ paths:
       description: |
         Este endpoint permite procesar los pagos a otros bancos que han sido guardados.
       operationId: speiout_process_saved
-      tags: 
+      tags:
         - Payments
       parameters:
         - name: Kubit-Api-Key
@@ -4855,7 +4855,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4870,7 +4870,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4889,7 +4889,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4908,7 +4908,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4926,7 +4926,7 @@ paths:
       description: |
         Este endpoint permite obtener todos los bancos para realizar un pago.
       operationId: spei_banks
-      tags: 
+      tags:
         - Payments
       parameters:
         - name: Kubit-Api-Key
@@ -4954,7 +4954,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -4964,22 +4964,22 @@ paths:
                     description: 'Objeto que contiene los datos resultantes.'
                     items:
                       properties:
-                          code:
-                            type: string
-                            format: string
-                            description: 'Código para identificar el banco cuando se crea una orden de pago.'
-                          legalKey:
-                            type: string
-                            format: string
-                            description: 'Clave legal bancaria sin prefijo Banxico.'
-                          name:
-                            type: string
-                            format: string
-                            description: 'Nombre del banco.'
-                          active:
-                            type: boolean
-                            format: boolean
-                            description: 'Si el banco se encuentra activo.'
+                        code:
+                          type: string
+                          format: string
+                          description: 'Código para identificar el banco cuando se crea una orden de pago.'
+                        legalKey:
+                          type: string
+                          format: string
+                          description: 'Clave legal bancaria sin prefijo Banxico.'
+                        name:
+                          type: string
+                          format: string
+                          description: 'Nombre del banco.'
+                        active:
+                          type: boolean
+                          format: boolean
+                          description: 'Si el banco se encuentra activo.'
         '400':
           description: 'Bad Request'
           content:
@@ -4990,7 +4990,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5009,7 +5009,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5028,7 +5028,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5046,7 +5046,7 @@ paths:
       description: |
         Este endpoint permite obtener todos los tipos de cuenta por los que se puede enviar un pago.
       operationId: spei_account_types
-      tags: 
+      tags:
         - Payments
       parameters:
         - name: Kubit-Api-Key
@@ -5074,7 +5074,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5084,18 +5084,18 @@ paths:
                     description: 'Objeto que contiene los datos resultantes.'
                     items:
                       properties:
-                          key:
-                            type: string
-                            format: string
-                            description: 'Identificador unico para el registro de ordenes.'
-                          description:
-                            type: string
-                            format: string
-                            description: 'Descripción del tipo de cuenta.'
-                          active:
-                            type: boolean
-                            format: boolean
-                            description: 'Si el tipo de cuenta se encuentra activo. Si es falso, el tipo de cuenta no se puede utilizar para crear pedidos.'
+                        key:
+                          type: string
+                          format: string
+                          description: 'Identificador unico para el registro de ordenes.'
+                        description:
+                          type: string
+                          format: string
+                          description: 'Descripción del tipo de cuenta.'
+                        active:
+                          type: boolean
+                          format: boolean
+                          description: 'Si el tipo de cuenta se encuentra activo. Si es falso, el tipo de cuenta no se puede utilizar para crear pedidos.'
         '400':
           description: 'Bad Request'
           content:
@@ -5106,7 +5106,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5125,7 +5125,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5144,7 +5144,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5162,7 +5162,7 @@ paths:
       description: |
         Permite obtener la url de la transacción donde Banxico expone el comprobante electrónico de pago.
       operationId: spei_cep
-      tags: 
+      tags:
         - Payments
       parameters:
         - name: Kubit-Api-Key
@@ -5197,7 +5197,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5216,7 +5216,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5235,7 +5235,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5254,7 +5254,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5272,7 +5272,7 @@ paths:
       description: |
         Este endpoint permite realizar traspasos entre cuentas locales.
       operationId: transfer
-      tags: 
+      tags:
         - Transfers
       parameters:
         - name: Kubit-Api-Key
@@ -5314,14 +5314,14 @@ paths:
                   description: 'Número de cuenta del beneficiario'
                   example: '123456789012'
                 amount:
-                  type: money
+                  type: number
                   format: money
                   description: 'Monto del traspaso. El monto máximo del traspaso que se manejará será de: 999,999,999,999.99'
                   example: 10000.00
                 concept:
-                    type: string
-                    description: 'Motivo del traspaso'
-                    example: Pago  
+                  type: string
+                  description: 'Motivo del traspaso'
+                  example: Pago
                 save_beneficiary_account:
                   type: boolean
                   format: boolean
@@ -5349,7 +5349,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5364,7 +5364,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5383,7 +5383,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5395,40 +5395,40 @@ paths:
         '422':
           description: Unprocessable Entity
             <table>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-              </tr>
-              <tr>
-                <td>CODE-001</td>
-                <td>Cuenta no encontrada</td>
-              </tr>
-              <tr>
-                <td>CODE-002</td>
-                <td>La cuenta no pertenece al ordenante</td>
-              </tr>
-              <tr>
-                <td>CODE-003</td>
-                <td>Fondos insuficientes</td>
-              </tr>
-              <tr>
-                <td>CODE-008</td>
-                <td>No es posible realizar traspasos entre diferentes centro de costo</td>
-              </tr>
-              <tr>
-                <td>CODE-016</td>
-                <td>Error en la configuración de comisión</td>
-              </tr>
-              <tr>
-                <td>CODE-017</td>
-                <td>Configuración de comisión no encontrada</td>
-              </tr>
-              <tr>
-                <td>CODE-018</td>
-                <td>Error en el cálculo de la comisión</td>
-              </tr>
+            <tr>
+            <th>Código</th>
+            <th>Descripción</th>
+            </tr>
+            <tr>
+            <td>CODE-001</td>
+            <td>Cuenta no encontrada</td>
+            </tr>
+            <tr>
+            <td>CODE-002</td>
+            <td>La cuenta no pertenece al ordenante</td>
+            </tr>
+            <tr>
+            <td>CODE-003</td>
+            <td>Fondos insuficientes</td>
+            </tr>
+            <tr>
+            <td>CODE-008</td>
+            <td>No es posible realizar traspasos entre diferentes centro de costo</td>
+            </tr>
+            <tr>
+            <td>CODE-016</td>
+            <td>Error en la configuración de comisión</td>
+            </tr>
+            <tr>
+            <td>CODE-017</td>
+            <td>Configuración de comisión no encontrada</td>
+            </tr>
+            <tr>
+            <td>CODE-018</td>
+            <td>Error en el cálculo de la comisión</td>
+            </tr>
             </table>
-          content: 
+          content:
             application/json:
               schema:
                 type: object
@@ -5436,7 +5436,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5461,7 +5461,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5479,7 +5479,7 @@ paths:
       description: |
         Este endpoint permite obtener las tarjetas asociadas a una cuenta.
       operationId: get_cards_account
-      tags: 
+      tags:
         - Cards
       parameters:
         - name: Kubit-Api-Key
@@ -5502,7 +5502,7 @@ paths:
           required: true
           example: cards/accounts/12345/cards
           schema:
-            type: string  
+            type: string
       responses:
         '200':
           description: 'OK'
@@ -5514,7 +5514,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5523,34 +5523,34 @@ paths:
                     type: object
                     description: 'Objeto que contiene los datos resultantes.'
                     properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la tarjeta.'
-                        type:
-                          type: string
-                          format: string
-                          description: 'Tipo de tarjeta.'
-                        active_function:
-                          type: string
-                          format: string
-                          description: 'Función de la tarjeta, CREDIT o DEBIT.'
-                        masked_pan:
-                          type: string
-                          format: string
-                          description: 'Número de la tarjeta.'
-                        cardholder_name:
-                          type: string
-                          format: string
-                          description: 'Nombre de la persona asociada a la tarjeta.'
-                        product_type:
-                          type: string
-                          format: string
-                          description: 'Tipo de producto.'
-                        account_id:
-                          type: string
-                          format: string
-                          description: 'Identificador único de la cuenta asociada a la tarjeta.'
+                      id:
+                        type: string
+                        format: string
+                        description: 'Identificador unico de la tarjeta.'
+                      type:
+                        type: string
+                        format: string
+                        description: 'Tipo de tarjeta.'
+                      active_function:
+                        type: string
+                        format: string
+                        description: 'Función de la tarjeta, CREDIT o DEBIT.'
+                      masked_pan:
+                        type: string
+                        format: string
+                        description: 'Número de la tarjeta.'
+                      cardholder_name:
+                        type: string
+                        format: string
+                        description: 'Nombre de la persona asociada a la tarjeta.'
+                      product_type:
+                        type: string
+                        format: string
+                        description: 'Tipo de producto.'
+                      account_id:
+                        type: string
+                        format: string
+                        description: 'Identificador único de la cuenta asociada a la tarjeta.'
                     required:
                       - id
                       - type
@@ -5569,7 +5569,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5588,7 +5588,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5607,7 +5607,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5625,7 +5625,7 @@ paths:
       description: |
         Este endpoint permite obtener una tarjeta por su identificador único.
       operationId: get_card_cardId
-      tags: 
+      tags:
         - Cards
       parameters:
         - name: Kubit-Api-Key
@@ -5660,7 +5660,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5669,50 +5669,50 @@ paths:
                     type: object
                     description: 'Objeto que contiene los datos resultantes.'
                     properties:
-                        id:
-                          type: string
-                          format: string
-                          description: 'Identificador unico de la tarjeta.'
-                        type:
-                          type: string
-                          format: string
-                          description: 'Tipo de tarjeta.'
-                        active_function:
-                          type: string
-                          format: string
-                          description: 'Función de la tarjeta, CREDIT o DEBIT.'
-                        masked_pan:
-                          type: string
-                          format: string
-                          description: 'Número de la tarjeta.'
-                        cardholder_name:
-                          type: string
-                          format: string
-                          description: 'Nombre de la persona asociada a la tarjeta.'
-                        product_type:
-                          type: string
-                          format: string
-                          description: 'Tipo de producto.'
-                        status:
-                          type: string
-                          format: string
-                          description: 'Estatus de la tarjeta.'
-                        status_reason:
-                          type: string
-                          format: string
-                          description: 'Razón del estatus de la tarjeta.'
-                        embossing_setup_id:
-                          type: string
-                          format: string
-                          description: ''
-                        embossing_status:
-                          type: string
-                          format: string
-                          description: ''
-                        profile_id:
-                          type: string
-                          format: string
-                          description: ''
+                      id:
+                        type: string
+                        format: string
+                        description: 'Identificador unico de la tarjeta.'
+                      type:
+                        type: string
+                        format: string
+                        description: 'Tipo de tarjeta.'
+                      active_function:
+                        type: string
+                        format: string
+                        description: 'Función de la tarjeta, CREDIT o DEBIT.'
+                      masked_pan:
+                        type: string
+                        format: string
+                        description: 'Número de la tarjeta.'
+                      cardholder_name:
+                        type: string
+                        format: string
+                        description: 'Nombre de la persona asociada a la tarjeta.'
+                      product_type:
+                        type: string
+                        format: string
+                        description: 'Tipo de producto.'
+                      status:
+                        type: string
+                        format: string
+                        description: 'Estatus de la tarjeta.'
+                      status_reason:
+                        type: string
+                        format: string
+                        description: 'Razón del estatus de la tarjeta.'
+                      embossing_setup_id:
+                        type: string
+                        format: string
+                        description: ''
+                      embossing_status:
+                        type: string
+                        format: string
+                        description: ''
+                      profile_id:
+                        type: string
+                        format: string
+                        description: ''
                     required:
                       - id
                       - type
@@ -5735,7 +5735,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5754,7 +5754,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5773,7 +5773,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5791,7 +5791,7 @@ paths:
       description: |
         Este endpoint permite obtener los datos sensibles de una tarjeta.
       operationId: get_card_cardData
-      tags: 
+      tags:
         - Cards
       parameters:
         - name: Kubit-Api-Key
@@ -5826,7 +5826,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5876,7 +5876,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5895,7 +5895,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5914,7 +5914,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5932,7 +5932,7 @@ paths:
       description: |
         Este endpoint permite obtener el PIN de una tarjeta.
       operationId: get_card_PIN
-      tags: 
+      tags:
         - Cards
       parameters:
         - name: Kubit-Api-Key
@@ -5967,7 +5967,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -5992,7 +5992,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -6011,7 +6011,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -6030,138 +6030,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 500
-                  message:
-                    type: string
-                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
-                    example: Internal Server Error
-      security: []
-  
-  /cards/{cardId}/dynamic-cvv:
-    post:
-      summary: Crear un cvv dinámico
-      deprecated: false
-      description: |
-        Este endpoint permite crear un cvv dinámico para una tarjeta.
-      operationId: create_card_dynamic_cvv
-      tags: 
-        - Cards
-      parameters:
-        - name: Kubit-Api-Key
-          in: header
-          description: 'Clave única para autenticar la solicitud.'
-          required: true
-          example: KU_ZB2bXjQMh...
-          schema:
-            type: string
-        - name: Bearer Token
-          in: header
-          description: 'Token para autenticar la solicitud.'
-          required: true
-          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
-          schema:
-            type: string
-        - name: cardId
-          in: path
-          description: 'Identificador único de la tarjeta'
-          required: true
-          example: cards/53aa35c8-e659-44b2-882f-f6056e443c99
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    example: "ok"
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                      card_id:
-                        type: string
-                        format: string
-                        description: 'Identificador único de la tarjeta.'
-                      cvv:
-                        type: string
-                        format: string
-                        description: 'CVV dinámico de la tarjeta.'
-                      generation_date:
-                        type: datetime
-                        format: datetime
-                        description: 'fecha de generación del cvv dinámico.'  
-                      expiration_date:
-                        type: datetime
-                        format: datetime
-                        description: 'fecha de expiración del cvv dinámico.'
-                required:
-                  - card_id
-                  - cvv
-                  - generation_date
-                  - expiration_date
-        '400':
-          description: 'Bad Request'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 400
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
-                    example: Bad Request
-        '401':
-          description: 'Unauthorized'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'fail'
-                  code:
-                    type: integer
-                    description: 'Código de estado HTTP correspondiente a la respuesta.'
-                    example: 401
-                  message:
-                    type: string
-                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
-                    example: Unauthorized
-        '500':
-          description: 'Internal Server Error'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -6173,13 +6042,13 @@ paths:
       security: []
 
   /cards/{cardId}/dynamic-cvv:
-    get:
-      summary: Consultar un cvv dinámico
+    post:
+      summary: Crear un cvv dinámico
       deprecated: false
       description: |
-        Este endpoint permite consultar un cvv dinámico que no haya expirado.
-      operationId: get_card_dynamic_cvv
-      tags: 
+        Este endpoint permite crear un cvv dinámico para una tarjeta.
+      operationId: create_card_dynamic_cvv
+      tags:
         - Cards
       parameters:
         - name: Kubit-Api-Key
@@ -6214,7 +6083,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    example: "ok"
+                    example: 'ok'
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -6232,11 +6101,11 @@ paths:
                         format: string
                         description: 'CVV dinámico de la tarjeta.'
                       generation_date:
-                        type: datetime
+                        type: string
                         format: datetime
-                        description: 'fecha de generación del cvv dinámico.'  
+                        description: 'fecha de generación del cvv dinámico.'
                       expiration_date:
-                        type: datetime
+                        type: string
                         format: datetime
                         description: 'fecha de expiración del cvv dinámico.'
                 required:
@@ -6254,7 +6123,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -6273,7 +6142,7 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'fail'
+                    examples: ['fail']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
@@ -6292,7 +6161,136 @@ paths:
                   status:
                     type: string
                     description: 'Estado de la solicitud.'
-                    examples: 'error'
+                    examples: ['error']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: Internal Server Error
+      security: []
+    get:
+      summary: Consultar un cvv dinámico
+      deprecated: false
+      description: |
+        Este endpoint permite consultar un cvv dinámico que no haya expirado.
+      operationId: get_card_dynamic_cvv
+      tags:
+        - Cards
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave única para autenticar la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xya...
+          schema:
+            type: string
+        - name: cardId
+          in: path
+          description: 'Identificador único de la tarjeta'
+          required: true
+          example: cards/53aa35c8-e659-44b2-882f-f6056e443c99
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    example: 'ok'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 200
+                  data:
+                    type: object
+                    description: 'Objeto que contiene los datos resultantes.'
+                    properties:
+                      card_id:
+                        type: string
+                        format: string
+                        description: 'Identificador único de la tarjeta.'
+                      cvv:
+                        type: string
+                        format: string
+                        description: 'CVV dinámico de la tarjeta.'
+                      generation_date:
+                        type: string
+                        format: datetime
+                        description: 'fecha de generación del cvv dinámico.'
+                      expiration_date:
+                        type: string
+                        format: datetime
+                        description: 'fecha de expiración del cvv dinámico.'
+                required:
+                  - card_id
+                  - cvv
+                  - generation_date
+                  - expiration_date
+        '400':
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['fail']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['fail']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['error']
                   code:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
