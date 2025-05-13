@@ -3316,9 +3316,9 @@ paths:
             type: string
         - name: movementId
           in: path
-          description: 'Identificador unico del movimiento'
+          description: 'Identificador único del movimiento.'
           required: true
-          example: movements/12345
+          example: movements/a5cfcb03-9426...
           schema:
             type: string
       responses:
@@ -3414,6 +3414,136 @@ paths:
                         type: string
                         format: string
                         description: 'Clave de rastreo. (Spei)'
+        '400':
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['fail']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['fail']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['error']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: Internal Server Error
+      security: []
+
+  /api/v1/accounts/movements/{movementId}/detail:
+    get:
+      summary: Obtener detalle de un movimiento
+      deprecated: false
+      description: |
+        Este endpoint permite obtener el detalle de estados por los que ha pasado un movimiento de una cuenta por su identificador único.
+      operationId: accounts_movements_movementId_detail
+      tags:
+        - Accounts
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave única para autenticar la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+        - name: movementId
+          in: path
+          description: 'Identificador unico del movimiento.'
+          required: true
+          example: movements/a5cfcb03-9426...
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Ok'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    example: 'ok'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 200
+                  data:
+                    type: object
+                    description: 'Objeto que contiene los datos resultantes.'
+                    properties:
+                      id:
+                        type: integer
+                        format: integer
+                        description: 'Consecutivo del movimiento.'
+                      movement_id:
+                        type: string
+                        format: string
+                        description: 'Identificador único del movimiento.'
+                      ts:
+                        type: string
+                        format: string
+                        description: 'Fecha.'
+                      status:
+                        type: string
+                        format: string
+                        description: 'Estatus.'
+                      message:
+                        type: string
+                        format: string
+                        description: 'Mensaje.'
         '400':
           description: 'Bad Request'
           content:
