@@ -332,16 +332,6 @@ paths:
                     type: integer
                     description: 'Código de estado HTTP correspondiente a la respuesta.'
                     example: 200
-                  data:
-                    type: object
-                    description: 'Objeto que contiene los datos resultantes.'
-                    properties:
-                      token:
-                        type: string
-                        description: 'Token utilizado para autenticar las solicitudes.'
-                        example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
-                    required:
-                      - token
         '400':
           description: 'Bad Request'
           content:
