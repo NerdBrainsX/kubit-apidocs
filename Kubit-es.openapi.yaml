@@ -633,7 +633,7 @@ paths:
                     example: Internal Server Error
       security: []
 
-  /api/v1/auth/roles:
+  /api/v1/auth/users/roles:
     get:
       summary: Obtener roles
       deprecated: false
@@ -657,6 +657,13 @@ paths:
           example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
           schema:
             type: string
+        - name: profileId
+          in: query
+          description: 'Identificador del perfil al cual estan asociados los roles.'
+          required: true
+          example: roles?profileId=1
+          schema:
+            type: integer
       responses:
         '200':
           description: 'Ok'
@@ -691,8 +698,8 @@ paths:
                           format: string
                           description: 'Nombre del rol.'
                         description:
-                          type: boolean
-                          format: boolean
+                          type: string
+                          format: string
                           description: 'Descripción del rol.'
                         level:
                           type: integer
@@ -763,7 +770,7 @@ paths:
                     example: Internal Server Error
       security: []
 
-  /api/v1/auth/profiles:
+  /api/v1/auth/users/profiles:
     get:
       summary: Obtener perfiles
       deprecated: false
@@ -819,6 +826,138 @@ paths:
                       required:
                         - id
                         - name
+        '400':
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['fail']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['fail']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['error']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: Internal Server Error
+      security: []
+
+  /api/v1/auth/users/roles/{rolId}/permissions:
+    get:
+      summary: Obtener permisos
+      deprecated: false
+      description: |
+        Este endpoint permite obtener los permisos asociados al rol del usuario.
+      operationId: auth_permissions
+      tags:
+        - Authentication
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave única para autenticar la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+        - name: rolId
+          in: path
+          description: 'Identificador del rol al cual estan asociados los permisos.'
+          required: true
+          example: /roles/1/permissions
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Ok'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    example: 'ok'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 200
+                  data:
+                    type: array
+                    description: 'Objeto que contiene los datos resultantes.'
+                    items:
+                      properties:
+                        id:
+                          type: string
+                          format: string
+                          description: 'Identificador unico del permiso.'
+                        name:
+                          type: string
+                          format: string
+                          description: 'Nombre del permiso.'
+                        description:
+                          type: string
+                          format: string
+                          description: 'Descripción del permiso.'
+                        type:
+                          type: string
+                          format: string
+                          description: 'tipo que clasifica al permiso.'
+                      required:
+                        - id
+                        - name
+                        - description
+                        - type
         '400':
           description: 'Bad Request'
           content:
@@ -1141,6 +1280,311 @@ paths:
                   data:
                     type: string
                     description: 'llave AES 256'
+        '400':
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['fail']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['fail']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['error']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: Internal Server Error
+      security: []
+
+  /api/v1/auth/users:
+    get:
+      summary: Obtener usuarios
+      deprecated: false
+      description: |
+        Este endpoint permite obtener los usuarios de un cliente.
+      operationId: get_users
+      tags:
+        - Authentication
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave única para autenticar la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+        - name: clientId
+          in: query
+          description: 'Identificador del cliente al cual estan asociados los usuarios.'
+          required: true
+          example: users?clientId=123456789
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Ok'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    example: 'ok'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 200
+                  data:
+                    type: array
+                    description: 'Objeto que contiene los datos resultantes.'
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          format: integer
+                          description: 'Identificador único del usuario.'
+                        username:
+                          type: string
+                          format: string
+                          description: 'Nombre de usuario.'
+                          example: 'miusuario'
+                        role_id:
+                          type: integer
+                          format: integer
+                          description: 'Identificador del rol de usuario.'
+                          example: 1
+                        role:
+                          description: 'Rol del usuario.'
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              format: integer
+                              description: 'Identificador único del rol.'
+                            id_profile:
+                              type: integer
+                              format: integer
+                              description: 'Identificador del perfil asociado al rol.'
+                            name:
+                              type: string
+                              format: string
+                              description: 'Nombre del rol.'
+                            description:
+                              type: string
+                              format: string
+                              description: 'Descripcion del rol.'
+                        customer_id:
+                          type: string
+                          format: string
+                          description: 'Identificador del cliente.'
+                          example: '853025758'
+                        customer_type:
+                          type: integer
+                          format: integer
+                          description: 'Identificador del tipo de cliente. 1 - Partner 2 - Customer'
+                          example: 2
+                        email:
+                          type: string
+                          format: string
+                          description: 'Cuenta de correo asociada al usuario.'
+                          example: 'micorreo@server.com'
+                        blocked:
+                          type: boolean
+                          format: boolean
+                          description: 'Indica si la cuenta del usuario esta bloqueada.'
+                          example: false
+                      required:
+                        - username
+                        - role_id
+                        - customer_id
+                        - customer_type
+                        - email
+                        - blocked
+        '400':
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['fail']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 400
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que la petición se realizo de manera incorrecta.'
+                    example: Bad Request
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['fail']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 401
+                  message:
+                    type: string
+                    description: Mensaje de error indicando que no esta autorizado para realizar la acción solicitada.'
+                    example: Unauthorized
+        '500':
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    examples: ['error']
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 500
+                  message:
+                    type: string
+                    description: 'Mensaje de error indicando un fallo interno en el servidor.'
+                    example: Internal Server Error
+      security: []
+    post:
+      summary: Crear un usuario
+      deprecated: false
+      description: |
+        Este endpoint permite crear un usuario.
+      operationId: create_users
+      tags:
+        - Authentication
+      parameters:
+        - name: Kubit-Api-Key
+          in: header
+          description: 'Clave única para autenticar la solicitud.'
+          required: true
+          example: KU_ZB2bXjQMh...
+          schema:
+            type: string
+        - name: Bearer Token
+          in: header
+          description: 'Token para autenticar la solicitud.'
+          required: true
+          example: Bearer a0Z3JLaE43cDY4eVlaQjJiWGpRTWhzQXMxS0xyayIsImN...
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  format: string
+                  description: 'Nombre de usuario.'
+                  example: 'miusuario'
+                role_id:
+                  type: integer
+                  format: integer
+                  description: 'Identificador del rol de usuario.'
+                  example: 1
+                customer_id:
+                  type: string
+                  format: string
+                  description: 'Identificador del cliente.'
+                  example: '853025758'
+                customer_type:
+                  type: integer
+                  format: integer
+                  description: 'Identificador del tipo de cliente. 1 - Partner 2 - Customer'
+                  example: 2
+                email:
+                  type: string
+                  format: string
+                  description: 'Cuenta de correo asociada al usuario.'
+                  example: 'micorreo@server.com'
+              required:
+                - username
+                - role_id
+                - email
+      responses:
+        '201':
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: 'Estado de la solicitud.'
+                    example: 'ok'
+                  code:
+                    type: integer
+                    description: 'Código de estado HTTP correspondiente a la respuesta.'
+                    example: 201
         '400':
           description: 'Bad Request'
           content:
