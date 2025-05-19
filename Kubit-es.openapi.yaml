@@ -1136,7 +1136,7 @@ paths:
         Este endpoint permite crear un usuario.
       operationId: create_users
       tags:
-        - Authentication
+        - Users
       parameters:
         - name: Kubit-Api-Key
           in: header
