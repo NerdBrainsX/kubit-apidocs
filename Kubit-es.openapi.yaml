@@ -182,13 +182,13 @@ paths:
           example: KU_{YOUR_KEY}
           schema:
             type: string
-        - name: email
+        - name: customerId
           in: query
-          description: 'Correo electrónico del usuario.'
+          description: 'Identificador único del cliente.'
           required: true
-          example: user@example.com
+          example: recovery?customerId=123456789
           schema:
-            type: string
+            type: integer
       responses:
         '200':
           description: 'Ok'
